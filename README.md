@@ -34,3 +34,5 @@ git commit
 ### alternatives
 * https://github.com/ysde/grafana-backup-tool
 * Manually export and commit the json for dashboards
+* https://github.com/esnet/gdg
+  - recommended by wizzy authors
