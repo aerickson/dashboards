@@ -1,0 +1,1479 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations \u0026 Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 460,
+  "iteration": 1633620693645,
+  "links": [],
+  "panels": [
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 0,
+        "y": 0
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["sum"],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "hide": true,
+          "query": "SELECT \"SpeedIndex\" FROM \"perftest\" WHERE \"instance_type\" != 'moonshot' AND $timeFilter GROUP BY \"instance_type\", \"suite\"",
+          "rawQuery": true,
+          "refId": "A"
+        },
+        {
+          "alias": "$tag_suite",
+          "hide": true,
+          "query": "SELECT  stddev(\"SpeedIndex\") FROM \"perftest\" WHERE \"instance_type\" != 'moonshot' AND $timeFilter GROUP BY  \"suite\"",
+          "rawQuery": true,
+          "refId": "B"
+        },
+        {
+          "alias": "$tag_suite",
+          "hide": false,
+          "query": "SELECT mean(\"stddev\") FROM (SELECT stddev(\"$measure\") /mean(\"$measure\") as \"stddev\" FROM \"perftest\" WHERE \"instance_type\" = 'moonshot' AND $timeFilter GROUP BY \"suite\", \"instance_type\" fill(null))",
+          "rawQuery": true,
+          "refId": "C"
+        }
+      ],
+      "title": "mean stddev Moonshot hardware",
+      "type": "stat"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 4,
+        "y": 0
+      },
+      "id": 10,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["sum"],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "hide": true,
+          "query": "SELECT \"SpeedIndex\" FROM \"perftest\" WHERE \"instance_type\" != 'moonshot' AND $timeFilter GROUP BY \"instance_type\", \"suite\"",
+          "rawQuery": true,
+          "refId": "A"
+        },
+        {
+          "alias": "$tag_suite",
+          "hide": true,
+          "query": "SELECT  stddev(\"SpeedIndex\") FROM \"perftest\" WHERE \"instance_type\" != 'moonshot' AND $timeFilter GROUP BY  \"suite\"",
+          "rawQuery": true,
+          "refId": "B"
+        },
+        {
+          "alias": "$tag_suite",
+          "hide": false,
+          "query": "SELECT \"stddev\" FROM (SELECT stddev(\"$measure\") /mean(\"$measure\") as \"stddev\" FROM \"perftest\" WHERE \"instance_type\" = 'moonshot' AND $timeFilter GROUP BY \"suite\", \"instance_type\" fill(null))",
+          "rawQuery": true,
+          "refId": "C"
+        }
+      ],
+      "title": "sum stddev Moonshot hardware",
+      "type": "stat"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 8,
+        "y": 0
+      },
+      "id": 9,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["sum"],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "alias": "$tag_suite",
+          "hide": false,
+          "query": "SELECT mean(\"stddev\") FROM (SELECT stddev(\"$measure\") /mean(\"$measure\") as \"stddev\" FROM \"perftest\" WHERE ((\"instance_type\" != 'moonshot' AND \"instance_type\" != 'g4dn.xlarge' ) OR \"instance_type\" = 'g4dn.2xlarge') AND $timeFilter GROUP BY \"suite\" fill(null))",
+          "rawQuery": true,
+          "refId": "C"
+        }
+      ],
+      "title": "mean stddev g4dn.2xlarge",
+      "type": "stat"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 12,
+        "y": 0
+      },
+      "id": 11,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["sum"],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "hide": true,
+          "query": "SELECT \"SpeedIndex\" FROM \"perftest\" WHERE \"instance_type\" != 'moonshot' AND $timeFilter GROUP BY \"instance_type\", \"suite\"",
+          "rawQuery": true,
+          "refId": "A"
+        },
+        {
+          "alias": "$tag_suite",
+          "hide": true,
+          "query": "SELECT  stddev(\"SpeedIndex\") FROM \"perftest\" WHERE \"instance_type\" != 'moonshot' AND $timeFilter GROUP BY  \"suite\"",
+          "rawQuery": true,
+          "refId": "B"
+        },
+        {
+          "alias": "$tag_suite",
+          "hide": false,
+          "query": "SELECT \"stddev\" FROM (SELECT stddev(\"$measure\") /mean(\"$measure\") as \"stddev\" FROM \"perftest\" WHERE ((\"instance_type\" != 'moonshot' AND \"instance_type\" != 'g4dn.xlarge' ) OR \"instance_type\" = 'g4dn.2xlarge') AND $timeFilter GROUP BY \"suite\" fill(null))",
+          "rawQuery": true,
+          "refId": "C"
+        }
+      ],
+      "title": "sum stddev g4dn.2xlarge",
+      "type": "stat"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 16,
+        "y": 0
+      },
+      "id": 13,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["sum"],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "alias": "$tag_suite",
+          "hide": false,
+          "query": "SELECT mean(\"stddev\") FROM (SELECT stddev(\"$measure\") /mean(\"$measure\") as \"stddev\" FROM \"perftest\" WHERE \"instance_type\" != 'moonshot' AND \"instance_type\" = 'g4dn.xlarge'  AND $timeFilter GROUP BY \"suite\" fill(null))",
+          "rawQuery": true,
+          "refId": "C"
+        }
+      ],
+      "title": "mean stddev g4dn.xlarge",
+      "type": "stat"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 0
+      },
+      "id": 14,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["sum"],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "hide": true,
+          "query": "SELECT \"SpeedIndex\" FROM \"perftest\" WHERE \"instance_type\" != 'moonshot' AND $timeFilter GROUP BY \"instance_type\", \"suite\"",
+          "rawQuery": true,
+          "refId": "A"
+        },
+        {
+          "alias": "$tag_suite",
+          "hide": true,
+          "query": "SELECT  stddev(\"SpeedIndex\") FROM \"perftest\" WHERE \"instance_type\" != 'moonshot' AND $timeFilter GROUP BY  \"suite\"",
+          "rawQuery": true,
+          "refId": "B"
+        },
+        {
+          "alias": "$tag_suite",
+          "hide": false,
+          "query": "SELECT \"stddev\" FROM (SELECT stddev(\"$measure\") /mean(\"$measure\") as \"stddev\" FROM \"perftest\" WHERE \"instance_type\" != 'moonshot' AND \"instance_type\" = 'g4dn.xlarge'  AND $timeFilter GROUP BY \"suite\" fill(null))",
+          "rawQuery": true,
+          "refId": "C"
+        }
+      ],
+      "title": "sum stddev g4dn.xlarge",
+      "type": "stat"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 8
+      },
+      "id": 7,
+      "options": {
+        "displayMode": "basic",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": false,
+        "text": {}
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "hide": true,
+          "query": "SELECT \"SpeedIndex\" FROM \"perftest\" WHERE \"instance_type\" != 'moonshot' AND $timeFilter GROUP BY \"instance_type\", \"suite\"",
+          "rawQuery": true,
+          "refId": "A"
+        },
+        {
+          "alias": "$tag_suite",
+          "hide": true,
+          "query": "SELECT  stddev(\"SpeedIndex\") FROM \"perftest\" WHERE \"instance_type\" != 'moonshot' AND $timeFilter GROUP BY  \"suite\"",
+          "rawQuery": true,
+          "refId": "B"
+        },
+        {
+          "alias": "$tag_suite",
+          "hide": false,
+          "query": "SELECT mean(\"stddev\") FROM (SELECT stddev(\"$measure\") /mean(\"$measure\") as \"stddev\" FROM \"perftest\" WHERE \"instance_type\" = 'moonshot' AND $timeFilter GROUP BY \"suite\", \"instance_type\" fill(null)) GROUP BY \"suite\"",
+          "rawQuery": true,
+          "refId": "C"
+        }
+      ],
+      "title": "mean stddev Moonshot hardware",
+      "type": "bargauge"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 8
+      },
+      "id": 4,
+      "options": {
+        "displayMode": "basic",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": false,
+        "text": {}
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "alias": "$tag_suite",
+          "hide": false,
+          "query": "SELECT mean(\"stddev\") FROM (SELECT stddev(\"$measure\") /mean(\"$measure\") as \"stddev\" FROM \"perftest\" WHERE ((\"instance_type\" != 'moonshot' AND \"instance_type\" != 'g4dn.xlarge' ) OR \"instance_type\" = 'g4dn.2xlarge') AND $timeFilter GROUP BY \"suite\" fill(null)) GROUP BY \"suite\"",
+          "rawQuery": true,
+          "refId": "C"
+        }
+      ],
+      "title": "mean stddev AWS vm",
+      "type": "bargauge"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 8
+      },
+      "id": 12,
+      "options": {
+        "displayMode": "basic",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": false,
+        "text": {}
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "alias": "$tag_suite",
+          "hide": false,
+          "query": "SELECT mean(\"stddev\") FROM (SELECT stddev(\"$measure\") /mean(\"$measure\") as \"stddev\" FROM \"perftest\" WHERE \"instance_type\" != 'moonshot' AND \"instance_type\" = 'g4dn.xlarge'  AND $timeFilter GROUP BY \"suite\" fill(null)) GROUP BY \"suite\"",
+          "rawQuery": true,
+          "refId": "C"
+        }
+      ],
+      "title": "mean stddev g4dn.xlarge",
+      "type": "bargauge"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 4,
+        "x": 0,
+        "y": 16
+      },
+      "id": 2,
+      "options": {
+        "displayMode": "basic",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": false,
+        "text": {}
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "alias": "$tag_suite",
+          "hide": false,
+          "query": "SELECT  count($measure) FROM \"perftest\" WHERE \"instance_type\" = 'moonshot' AND $timeFilter GROUP BY  \"suite\"",
+          "rawQuery": true,
+          "refId": "B"
+        }
+      ],
+      "title": "test count",
+      "type": "bargauge"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 4,
+        "x": 4,
+        "y": 16
+      },
+      "id": 17,
+      "options": {
+        "displayMode": "basic",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": false,
+        "text": {}
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "hide": true,
+          "query": "SELECT \"$measure\" FROM \"perftest\" WHERE \"instance_type\" = 'moonshot' AND $timeFilter GROUP BY \"instance_type\", \"suite\"",
+          "rawQuery": true,
+          "refId": "A"
+        },
+        {
+          "alias": "$tag_suite",
+          "hide": false,
+          "query": "SELECT  stddev($measure) FROM \"perftest\" WHERE \"instance_type\" = 'moonshot' AND $timeFilter GROUP BY  \"suite\"",
+          "rawQuery": true,
+          "refId": "B"
+        }
+      ],
+      "title": "stddev Moonshot hardware",
+      "type": "bargauge"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 4,
+        "x": 8,
+        "y": 16
+      },
+      "id": 18,
+      "options": {
+        "displayMode": "basic",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": false,
+        "text": {}
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "alias": "$tag_suite",
+          "hide": false,
+          "query": "SELECT  count($measure) FROM \"perftest\" WHERE ((\"instance_type\" != 'moonshot' AND \"instance_type\" != 'g4dn.xlarge' ) OR \"instance_type\" = 'g4dn.2xlarge') AND $timeFilter GROUP BY  \"suite\"",
+          "rawQuery": true,
+          "refId": "B"
+        }
+      ],
+      "title": "test count",
+      "type": "bargauge"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 4,
+        "x": 12,
+        "y": 16
+      },
+      "id": 6,
+      "options": {
+        "displayMode": "basic",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": false,
+        "text": {}
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "alias": "$tag_suite",
+          "hide": false,
+          "query": "SELECT  stddev(\"$measure\") FROM \"perftest\" WHERE ((\"instance_type\" != 'moonshot' AND \"instance_type\" != 'g4dn.xlarge' ) OR \"instance_type\" = 'g4dn.2xlarge') AND $timeFilter GROUP BY  \"suite\"",
+          "rawQuery": true,
+          "refId": "B"
+        }
+      ],
+      "title": "stddev g4dn.2xlarge",
+      "type": "bargauge"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 4,
+        "x": 16,
+        "y": 16
+      },
+      "id": 19,
+      "options": {
+        "displayMode": "basic",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": false,
+        "text": {}
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "alias": "$tag_suite",
+          "hide": false,
+          "query": "SELECT  count($measure) FROM \"perftest\" WHERE \"instance_type\" != 'moonshot' AND \"instance_type\" = 'g4dn.xlarge' AND $timeFilter GROUP BY  \"suite\"",
+          "rawQuery": true,
+          "refId": "B"
+        }
+      ],
+      "title": "test count",
+      "type": "bargauge"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 4,
+        "x": 20,
+        "y": 16
+      },
+      "id": 15,
+      "options": {
+        "displayMode": "basic",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": false,
+        "text": {}
+      },
+      "pluginVersion": "8.0.6",
+      "targets": [
+        {
+          "alias": "$tag_suite",
+          "hide": false,
+          "query": "SELECT  stddev(\"$measure\") FROM \"perftest\" WHERE \"instance_type\" != 'moonshot' AND \"instance_type\" = 'g4dn.xlarge'  AND $timeFilter GROUP BY  \"suite\"",
+          "rawQuery": true,
+          "refId": "B"
+        }
+      ],
+      "title": "stddev g4dn.xlarge",
+      "type": "bargauge"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 10,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 26
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "hide": false,
+          "query": "SELECT $measure FROM \"perftest\" WHERE \"instance_type\" = 'moonshot' AND $timeFilter GROUP BY \"instance_type\", \"suite\"",
+          "rawQuery": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Moonshot",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 26
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "hide": false,
+          "query": "SELECT \"$measure\" FROM \"perftest\" WHERE ((\"instance_type\" != 'moonshot' AND \"instance_type\" != 'g4dn.xlarge' ) OR \"instance_type\" = 'g4dn.2xlarge') AND $timeFilter GROUP BY \"suite\"",
+          "rawQuery": true,
+          "refId": "B"
+        }
+      ],
+      "title": "g4dn.2xlarge",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 26
+      },
+      "id": 16,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "hide": false,
+          "query": "SELECT \"$measure\" FROM \"perftest\" WHERE \"instance_type\" != 'moonshot' AND \"instance_type\" = 'g4dn.xlarge' AND $timeFilter GROUP BY \"suite\"",
+          "rawQuery": true,
+          "refId": "B"
+        }
+      ],
+      "title": "g4dn.xlarge",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "relops_workers",
+      "description": "$suite",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "custom": {
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 0
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 8,
+        "x": 0,
+        "y": 34
+      },
+      "id": 20,
+      "options": {
+        "bucketOffset": 0,
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        }
+      },
+      "repeat": "suite",
+      "repeatDirection": "v",
+      "targets": [
+        {
+          "hide": false,
+          "query": "SELECT $measure FROM \"perftest\" WHERE \"instance_type\" = 'moonshot' AND \"suite\" = '$suite' AND $timeFilter GROUP BY \"suite\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "table"
+        }
+      ],
+      "transparent": true,
+      "type": "histogram"
+    },
+    {
+      "datasource": "relops_workers",
+      "description": "$suite",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "custom": {
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 0
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 8,
+        "x": 8,
+        "y": 34
+      },
+      "id": 28,
+      "options": {
+        "bucketOffset": 0,
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        }
+      },
+      "repeat": "suite",
+      "repeatDirection": "v",
+      "targets": [
+        {
+          "hide": false,
+          "query": "SELECT $measure FROM \"perftest\" WHERE ((\"instance_type\" != 'moonshot' AND \"instance_type\" != 'g4dn.xlarge' ) OR \"instance_type\" = 'g4dn.2xlarge')  AND \"suite\" = '$suite' AND $timeFilter GROUP BY \"suite\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "table"
+        }
+      ],
+      "transparent": true,
+      "type": "histogram"
+    },
+    {
+      "datasource": "relops_workers",
+      "description": "$suite",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "custom": {
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 0
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 8,
+        "x": 16,
+        "y": 34
+      },
+      "id": 31,
+      "options": {
+        "bucketOffset": 0,
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        }
+      },
+      "repeat": "suite",
+      "repeatDirection": "v",
+      "targets": [
+        {
+          "hide": false,
+          "query": "SELECT $measure FROM \"perftest\" WHERE \"instance_type\" = 'g4dn.xlarge'  AND \"suite\" = '$suite' AND $timeFilter GROUP BY \"suite\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "table"
+        }
+      ],
+      "transparent": true,
+      "type": "histogram"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 30,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "datasource": "relops_workers",
+        "description": null,
+        "error": null,
+        "filters": [],
+        "hide": 0,
+        "label": null,
+        "name": "adhoc",
+        "skipUrlSync": false,
+        "type": "adhoc"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "PerceptualSpeedIndex",
+          "value": "PerceptualSpeedIndex"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "measure",
+        "options": [
+          {
+            "selected": false,
+            "text": "SpeedIndex",
+            "value": "SpeedIndex"
+          },
+          {
+            "selected": false,
+            "text": "FirstVisualChange",
+            "value": "FirstVisualChange"
+          },
+          {
+            "selected": true,
+            "text": "PerceptualSpeedIndex",
+            "value": "PerceptualSpeedIndex"
+          },
+          {
+            "selected": false,
+            "text": "LastVisualChange",
+            "value": "LastVisualChange"
+          },
+          {
+            "selected": false,
+            "text": "ContentfulSpeedIndex",
+            "value": "ContentfulSpeedIndex"
+          }
+        ],
+        "query": "SpeedIndex,FirstVisualChange,PerceptualSpeedIndex,LastVisualChange,ContentfulSpeedIndex",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": ["All"],
+          "value": ["$__all"]
+        },
+        "datasource": "relops_workers",
+        "definition": "SHOW TAG VALUES FROM perftest WITH KEY = \"suite\"",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "suite",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM perftest WITH KEY = \"suite\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 5,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "2021-09-28T11:17:48.207Z",
+    "to": "2021-10-03T10:45:15.399Z"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "moonshot vs aws vismet",
+  "uid": "lIJ35qHnz",
+  "version": 21
+}

@@ -1,0 +1,2802 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "limit": 100,
+        "name": "Annotations \u0026 Alerts",
+        "showIn": 0,
+        "type": "dashboard"
+      },
+      {
+        "datasource": "relops_workers dev",
+        "enable": false,
+        "hide": false,
+        "iconColor": "#B877D9",
+        "limit": 100,
+        "name": "tree closed",
+        "query": "SELECT status_value,reason,who,status,repo FROM \"autogen\".\"treestatus_stack_exec\" WHERE \"repo\" =~ /mozilla-[cri]|^try$/ AND \"status\" = 'closed' AND $timeFilter",
+        "showIn": 0,
+        "tags": [],
+        "tagsColumn": "who,status,repo",
+        "textColumn": "reason",
+        "type": "tags"
+      },
+      {
+        "datasource": "relops_workers dev",
+        "enable": false,
+        "hide": false,
+        "iconColor": "#73BF69",
+        "limit": 100,
+        "name": "tree open",
+        "query": "SELECT status_value,reason,who,status,repo FROM \"autogen\".\"treestatus_stack_exec\" WHERE \"repo\" =~ /mozilla-[cri]|^try$/ AND \"status\" = 'open' AND $timeFilter",
+        "showIn": 0,
+        "tags": [],
+        "tagsColumn": "who,status,repo",
+        "textColumn": "reason",
+        "type": "tags"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 1,
+  "id": 212,
+  "iteration": 1586354792200,
+  "links": [],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers dev",
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 14,
+        "x": 0,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 9,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*/",
+          "yaxis": 2
+        },
+        {
+          "alias": "/.*error$/",
+          "color": "#F2495C",
+          "zindex": 3
+        },
+        {
+          "alias": "/.*idle/",
+          "bars": false,
+          "color": "rgba(130, 130, 130, 0.21)",
+          "fill": 2,
+          "lines": true,
+          "linewidth": 0,
+          "steppedLine": true,
+          "zindex": -3
+        },
+        {
+          "alias": "/.*end$/",
+          "color": "rgba(0, 149, 255, 0.43)",
+          "fill": 2,
+          "zindex": -3
+        },
+        {
+          "alias": "/.*start$/",
+          "color": "rgba(251, 255, 0, 0.25)",
+          "stack": false
+        },
+        {
+          "alias": "/.*queue$/",
+          "bars": false,
+          "color": "#8F3BB8",
+          "fill": 4,
+          "lines": true,
+          "steppedLine": true
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "task start",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "papertrail",
+          "orderByTime": "ASC",
+          "policy": "autogen",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["count"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "event",
+              "operator": "=",
+              "value": "task start"
+            }
+          ]
+        },
+        {
+          "alias": "task end",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "papertrail",
+          "orderByTime": "ASC",
+          "policy": "autogen",
+          "query": "SELECT sum(\"count\") FROM \"papertrail\" WHERE (\"event\" = 'task end' AND \"host\" =~ /^$host_regex/) AND $timeFilter GROUP BY time($__interval * 10) fill(null)",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["count"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "event",
+              "operator": "=",
+              "value": "task end"
+            }
+          ]
+        },
+        {
+          "alias": "task error",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "papertrail",
+          "orderByTime": "ASC",
+          "policy": "autogen",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["count"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "event",
+              "operator": "=",
+              "value": "task error"
+            }
+          ]
+        },
+        {
+          "alias": "idle",
+          "groupBy": [
+            {
+              "params": ["90s"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "papertrail",
+          "orderByTime": "ASC",
+          "policy": "autogen",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["count"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "event",
+              "operator": "=",
+              "value": "no task claimed"
+            }
+          ]
+        },
+        {
+          "alias": "change in queue",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["previous"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT DERIVATIVE(max(\"pendingTasks\"), 1m) FROM \"tc_queue_exec\" WHERE (\"provisionerId\" =~ /$provisioner/ AND \"workerType\" =~ /$workerType/) AND $timeFilter GROUP BY time($__interval * 2) fill(previous)",
+          "rawQuery": true,
+          "refId": "F",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "releng-hardware"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=",
+              "value": "gecko-t-linux-talos"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(72, 72, 72, 0.12)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "Task Start/End",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": false
+        },
+        {
+          "format": "short",
+          "label": "tasks",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "cacheTimeout": null,
+      "columns": [],
+      "datasource": "relops_workers",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 8,
+        "w": 10,
+        "x": 14,
+        "y": 0
+      },
+      "hideTimeOverride": true,
+      "id": 30,
+      "links": [],
+      "options": {},
+      "pageSize": null,
+      "pluginVersion": "6.4.3",
+      "showHeader": true,
+      "sort": {
+        "col": 2,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "last",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": "value",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 0,
+          "link": false,
+          "pattern": "percent",
+          "thresholds": ["0.5", "0.8"],
+          "type": "number",
+          "unit": "percentunit"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "firefox-ci-tc workertype view",
+          "linkUrl": "https://firefox-ci-tc.services.mozilla.com/provisioners/releng-hardware/worker-types/${__cell}",
+          "mappingType": 1,
+          "pattern": "workerType",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "alias": "$tag_workerType",
+          "groupBy": [
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "query": "SELECT last(\"workers\"), max(\"workers\"), last(\"workers\") / max(\"workers\") AS \"percent\" FROM \"six_month\".\"tc_queue2_exec\" WHERE (\"provisionerId\" = 'releng-hardware' AND \"workerType\" =~ /^$workerType$/) AND $timeFilter GROUP BY \"workerType\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": ["workers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "releng-hardware"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/gecko-t-(linux-talos|win.*-hw)/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": "90d",
+      "timeShift": null,
+      "title": "Workers Found",
+      "transform": "table",
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers dev",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 14,
+        "x": 0,
+        "y": 5
+      },
+      "hiddenSeries": false,
+      "id": 10,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sideWidth": null,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*running$/",
+          "color": "#5794F2",
+          "dashLength": 2,
+          "dashes": true,
+          "stack": "A"
+        },
+        {
+          "alias": "/.*pending$/",
+          "bars": true,
+          "color": "#FADE2A",
+          "fill": 5,
+          "linewidth": 0,
+          "stack": "B",
+          "zindex": 2
+        },
+        {
+          "alias": "/.*requested$/",
+          "color": "#FF9830",
+          "fill": 3,
+          "linewidth": 0,
+          "stack": "C",
+          "zindex": 1
+        },
+        {
+          "alias": "/.*active$/",
+          "color": "#73BF69",
+          "zindex": 2
+        },
+        {
+          "alias": "/.*queue$/",
+          "color": "#FA6400",
+          "fill": 2,
+          "linewidth": 0,
+          "nullPointMode": "connected",
+          "yaxis": 2
+        },
+        {
+          "alias": "/.*max$/",
+          "color": "rgb(0, 24, 255)",
+          "dashLength": 1,
+          "dashes": true,
+          "fill": 0,
+          "hideTooltip": true,
+          "legend": false,
+          "spaceLength": 4,
+          "zindex": -3
+        },
+        {
+          "alias": "/.*active2$/",
+          "color": "rgba(115, 191, 105, 0.41)",
+          "hideTooltip": true,
+          "stack": true,
+          "zindex": -2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerType $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["previous"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "aws-provisionerhttp",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["runningCapacity"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              },
+              {
+                "params": ["running"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["requestedCapacity"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              },
+              {
+                "params": ["requested"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["pendingCapacity"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              },
+              {
+                "params": ["pending"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["maxCapacity"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              },
+              {
+                "params": ["max"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "autogen",
+          "query": "SELECT mean(\"running\") AS \"active2\", mean(\"pendingTasks\") AS \"queue\" FROM \"autogen\".\"tc_queue2_exec\" WHERE (\"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/) AND $timeFilter GROUP BY time($__interval), \"workerType\" fill(null)",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["workers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["running"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["previous"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_web_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["runningWorkers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["active"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $col",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": "90d",
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": false,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "description": "",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 3,
+        "w": 10,
+        "x": 14,
+        "y": 8
+      },
+      "hiddenSeries": false,
+      "id": 13,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Ronin Puppet",
+          "url": "/d/3H2CASDWz/ronin-puppet?$__url_time_range"
+        }
+      ],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pluginVersion": "6.2.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*failure.*/",
+          "color": "#F2495C",
+          "yaxis": 2
+        },
+        {
+          "alias": "/.*success/",
+          "bars": false,
+          "color": "#73BF69",
+          "fill": 1,
+          "lines": true,
+          "steppedLine": true,
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerType failure",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "puppet_ronin_apply_failure",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "$tag_workerType success",
+          "groupBy": [
+            {
+              "params": ["$__interval * 2"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "puppet_ronin_apply_success",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Ronin Puppet",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": false
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0.1",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 2,
+        "w": 14,
+        "x": 0,
+        "y": 9
+      },
+      "hiddenSeries": false,
+      "id": 20,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "sort": "current",
+        "sortDesc": true,
+        "total": true,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerType cpu $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpu",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["usage_user"],
+                "type": "field"
+              },
+              {
+                "params": [3],
+                "type": "top"
+              },
+              {
+                "params": ["user"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType cpu $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpu",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["usage_system"],
+                "type": "field"
+              },
+              {
+                "params": [3],
+                "type": "top"
+              },
+              {
+                "params": ["system"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": false,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "percent",
+          "label": "",
+          "logBase": 1,
+          "max": "100",
+          "min": "0",
+          "show": true
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": "100",
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "decimals": 0,
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 14,
+        "x": 0,
+        "y": 11
+      },
+      "hiddenSeries": false,
+      "id": 25,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": false,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "sideWidth": null,
+        "sort": "avg",
+        "sortDesc": false,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerId $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["workerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "thermal",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["CPU_Speed_Limit"],
+                "type": "field"
+              },
+              {
+                "params": ["5"],
+                "type": "bottom"
+              },
+              {
+                "params": ["speed"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerId $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["workerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "thermal",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["CPU_Scheduler_Limit"],
+                "type": "field"
+              },
+              {
+                "params": ["5"],
+                "type": "bottom"
+              },
+              {
+                "params": ["schd"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.06)",
+          "from": "16:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "",
+      "tooltip": {
+        "shared": false,
+        "sort": 1,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": false,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "percent",
+          "label": "",
+          "logBase": 1,
+          "max": "99",
+          "min": "0",
+          "show": true
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers chronograf",
+      "decimals": 0,
+      "description": "",
+      "fill": 7,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 10,
+        "x": 14,
+        "y": 11
+      },
+      "hiddenSeries": false,
+      "id": 24,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": true,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeatDirection": "v",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": true,
+      "targets": [
+        {
+          "alias": "$tag_host",
+          "groupBy": [
+            {
+              "params": ["1h"],
+              "type": "time"
+            },
+            {
+              "params": ["host"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "alerts",
+          "orderByTime": "DESC",
+          "policy": "default",
+          "query": "SELECT * FROM \"_internal\"..\"database\" LIMIT 10",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "alertName",
+              "operator": "=",
+              "value": "RelOps Hardware Deadman"
+            },
+            {
+              "condition": "AND",
+              "key": "level",
+              "operator": "=",
+              "value": "CRITICAL"
+            },
+            {
+              "condition": "AND",
+              "key": "host",
+              "operator": "=~",
+              "value": "/mojave|yosemite/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": "30d",
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Deadman",
+      "tooltip": {
+        "shared": false,
+        "sort": 1,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "description": "Max and 95% CPU Temperature",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 2,
+        "w": 14,
+        "x": 0,
+        "y": 15
+      },
+      "hiddenSeries": false,
+      "id": 26,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*temp$/",
+          "dashes": true
+        },
+        {
+          "alias": "/.*/",
+          "color": "#FF9830"
+        },
+        {
+          "alias": "/.*io temp.*/",
+          "color": "#FADE2A"
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerType $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "thermal",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["machdep.xcpm.cpu_thermal_level"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              },
+              {
+                "params": ["temp max"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["machdep.xcpm.io_thermal_level"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              },
+              {
+                "params": ["io temp max"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["machdep.xcpm.cpu_thermal_level"],
+                "type": "field"
+              },
+              {
+                "params": [95],
+                "type": "percentile"
+              },
+              {
+                "params": ["temp"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["machdep.xcpm.io_thermal_level"],
+                "type": "field"
+              },
+              {
+                "params": [95],
+                "type": "percentile"
+              },
+              {
+                "params": ["io temp"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": false,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "description": "Top(10) CPU Temperature C",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 14,
+        "x": 0,
+        "y": 17
+      },
+      "hiddenSeries": false,
+      "id": 27,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "alias": "$tag_workerId",
+          "groupBy": [
+            {
+              "params": ["$__interval * 100"],
+              "type": "time"
+            },
+            {
+              "params": ["workerId"],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "thermal",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["machdep.xcpm.cpu_thermal_level"],
+                "type": "field"
+              },
+              {
+                "params": ["10"],
+                "type": "top"
+              },
+              {
+                "params": ["temp max"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": false,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    },
+    {
+      "cacheTimeout": null,
+      "columns": [],
+      "datasource": "relops_workers chronograf",
+      "description": "",
+      "fontSize": "80%",
+      "gridPos": {
+        "h": 16,
+        "w": 10,
+        "x": 14,
+        "y": 17
+      },
+      "id": 15,
+      "links": [],
+      "options": {},
+      "pageSize": null,
+      "repeatDirection": "v",
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "M/D HH",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Time",
+          "thresholds": [],
+          "type": "date",
+          "unit": "short"
+        },
+        {
+          "alias": "#",
+          "colorMode": "row",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "log#",
+          "thresholds": ["1", "2"],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": null,
+          "mappingType": 1,
+          "pattern": "duration",
+          "thresholds": [],
+          "type": "number",
+          "unit": "s"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "${__cell_2} ${__cell_3}s",
+          "linkUrl": "https://earthangel-b40313e5.influxcloud.net/d/vucorXaZk/hw-machine?orgId=1\u0026var-hostname=${__cell}",
+          "mappingType": 1,
+          "pattern": "host",
+          "preserveFormat": false,
+          "sanitize": false,
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": ["host"],
+              "type": "tag"
+            }
+          ],
+          "measurement": "alerts",
+          "orderByTime": "DESC",
+          "policy": "default",
+          "query": "SELECT * FROM \"_internal\"..\"database\" LIMIT 10",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": ["log#"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["duration"],
+                "type": "field"
+              },
+              {
+                "params": ["/(1000*1000*1000)"],
+                "type": "math"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "alertName",
+              "operator": "=",
+              "value": "RelOps Hardware Deadman"
+            },
+            {
+              "condition": "AND",
+              "key": "host",
+              "operator": "=~",
+              "value": "/mojave|yosemite/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": "30d",
+      "timeShift": null,
+      "title": "Deadman",
+      "transform": "table",
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 14,
+        "x": 0,
+        "y": 21
+      },
+      "hiddenSeries": false,
+      "id": 22,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerType worker cpu",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "procstat",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["cpu_usage"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType worker cpu%",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            }
+          ],
+          "measurement": "procstat",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["cpu_usage"],
+                "type": "field"
+              },
+              {
+                "params": [95],
+                "type": "percentile"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": false,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "percentunit",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "decimals": 0,
+          "format": "percentunit",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 14,
+        "x": 0,
+        "y": 25
+      },
+      "hiddenSeries": false,
+      "id": 28,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "alias": "$tag_workerType worker mem",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "procstat",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["memory_usage"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType worker mem%",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            }
+          ],
+          "measurement": "procstat",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["memory_usage"],
+                "type": "field"
+              },
+              {
+                "params": [95],
+                "type": "percentile"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 80,
+          "yaxis": "left"
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": false,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "percent",
+          "label": "",
+          "logBase": 1,
+          "max": "100",
+          "min": "0",
+          "show": true
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": "100",
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 14,
+        "x": 0,
+        "y": 29
+      },
+      "hiddenSeries": false,
+      "id": 21,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerId disk",
+          "groupBy": [
+            {
+              "params": ["$__interval * 20"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["workerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "disk",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["used_percent"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            },
+            {
+              "condition": "AND",
+              "key": "device",
+              "operator": "=~",
+              "value": "/^disk[01]/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 80,
+          "yaxis": "left"
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": false,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "percent",
+          "label": "",
+          "logBase": 1,
+          "max": "100",
+          "min": "0",
+          "show": true
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": "100",
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 21,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "releng-hardware",
+          "value": "releng-hardware"
+        },
+        "hide": 2,
+        "label": null,
+        "name": "provisioner",
+        "options": [
+          {
+            "selected": true,
+            "text": "releng-hardware",
+            "value": "releng-hardware"
+          }
+        ],
+        "query": "releng-hardware",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "allValue": ".*",
+        "current": {
+          "tags": [],
+          "text": "gecko-t-osx-1010 + gecko-t-osx-1010-beta + gecko-t-osx-1014 + gecko-t-osx-1014-beta + gecko-t-osx-1014-iris + gecko-t-osx-1014-macstadium + gecko-t-osx-1014-power + gecko-t-osx-1014-staging",
+          "value": [
+            "gecko-t-osx-1010",
+            "gecko-t-osx-1010-beta",
+            "gecko-t-osx-1014",
+            "gecko-t-osx-1014-beta",
+            "gecko-t-osx-1014-iris",
+            "gecko-t-osx-1014-macstadium",
+            "gecko-t-osx-1014-power",
+            "gecko-t-osx-1014-staging"
+          ]
+        },
+        "datasource": "relops_workers dev",
+        "definition": "SHOW TAG VALUES FROM /tc_queue/ WITH KEY = \"workerType\" WHERE provisionerId =~ /$provisioner/",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "workerType",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM /tc_queue/ WITH KEY = \"workerType\" WHERE provisionerId =~ /$provisioner/",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 5,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "SHOW TAG VALUES FROM tc_queue_exec WITH KEY = \"provisionerId\"",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "datasource": "relops_workers",
+        "filters": [],
+        "hide": 0,
+        "label": null,
+        "name": "Adhoc",
+        "skipUrlSync": false,
+        "type": "adhoc"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-12h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": ["5m", "15m", "1h", "6h", "12h", "24h", "2d", "7d", "30d"]
+  },
+  "timezone": "",
+  "title": "Hardware Workers MacOS",
+  "uid": "BXfVzDaZz",
+  "version": 10
+}

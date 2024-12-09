@@ -1,0 +1,1179 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "$$hashKey": "object:621",
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations \u0026 Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 346,
+  "iteration": 1593182793763,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 13,
+      "panels": [],
+      "title": "Max",
+      "type": "row"
+    },
+    {
+      "columns": [
+        {
+          "$$hashKey": "object:3139",
+          "text": "Current",
+          "value": "current"
+        }
+      ],
+      "datasource": "relops_workers",
+      "description": "Sum of max for each instance type:\nsum( maxCapacity / capacityPerInstance FROM worker_manager GROUP BY workerPool, instance_type ) GROUP BY instance_type",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 13,
+        "w": 6,
+        "x": 0,
+        "y": 1
+      },
+      "id": 2,
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": 1,
+        "desc": true
+      },
+      "styles": [
+        {
+          "$$hashKey": "object:2420",
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "$$hashKey": "object:2421",
+          "alias": "",
+          "align": "right",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 0,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "none"
+        }
+      ],
+      "targets": [
+        {
+          "alias": ". $tag_workerPool $tag_instance_type",
+          "groupBy": [
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            }
+          ],
+          "hide": true,
+          "measurement": "worker_manager",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "query": "SELECT \"capacityPerInstance\", \"maxCapacity\" FROM \"six_month\".\"worker_manager\" WHERE (\"instance_type\" != '') AND $timeFilter GROUP BY \"workerPool\", \"instance_type\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["capacityPerInstance"],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": ["maxCapacity"],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "instance_type",
+              "operator": "!=",
+              "value": "''"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_instance_type",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "worker_manager",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"max\") FROM (SELECT last(\"maxCapacity\") / last(\"capacityPerInstance\") AS \"max\" FROM \"worker_manager\" WHERE $timeFilter GROUP BY time(1d), \"workerPool\", \"instance_type\" fill(previous)) GROUP BY time(1d), \"instance_type\" fill(previous)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["capacityPerInstance"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": ["maxCapacity"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Instance Type Max",
+      "transform": "timeseries_aggregations",
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "columns": [
+        {
+          "$$hashKey": "object:3139",
+          "text": "Current",
+          "value": "current"
+        }
+      ],
+      "datasource": "relops_workers",
+      "description": "Sum of max for each instance type:\nsum( maxCapacity / capacityPerInstance FROM worker_manager GROUP BY workerPool, instance_type ) GROUP BY instance_type",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 13,
+        "w": 7,
+        "x": 6,
+        "y": 1
+      },
+      "id": 5,
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": 1,
+        "desc": true
+      },
+      "styles": [
+        {
+          "$$hashKey": "object:2420",
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "$$hashKey": "object:2421",
+          "alias": "",
+          "align": "right",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 0,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "none"
+        }
+      ],
+      "targets": [
+        {
+          "alias": ". $tag_workerPool $tag_instance_type",
+          "groupBy": [
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            }
+          ],
+          "hide": true,
+          "measurement": "worker_manager",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "query": "SELECT \"capacityPerInstance\", \"maxCapacity\" FROM \"six_month\".\"worker_manager\" WHERE (\"instance_type\" != '') AND $timeFilter GROUP BY \"workerPool\", \"instance_type\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["capacityPerInstance"],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": ["maxCapacity"],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "instance_type",
+              "operator": "!=",
+              "value": "''"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerPool $tag_instance_type",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "worker_manager",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"maxCapacity\") / last(\"capacityPerInstance\") AS \"max\" FROM \"worker_manager\" WHERE $timeFilter AND \"instance_type\" != '' GROUP BY time(1d), \"workerPool\", \"instance_type\" fill(previous)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["capacityPerInstance"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": ["maxCapacity"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "WorkerType Instance Types",
+      "transform": "timeseries_aggregations",
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 13,
+        "w": 11,
+        "x": 13,
+        "y": 1
+      },
+      "hiddenSeries": false,
+      "id": 4,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "max",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"maxCapacity\") FROM \"six_month\".\"worker_manager\" WHERE $timeFilter GROUP BY time($__interval), \"workerPoolId\", \"workerType\" fill(linear)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "$tag_workerPool",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerPool"],
+              "type": "tag"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "worker_manager",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["maxCapacity"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "WorkerType Max",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:739",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:740",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 11,
+      "title": "Running",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "decimals": 0,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 15,
+        "x": 0,
+        "y": 15
+      },
+      "hiddenSeries": false,
+      "id": 3,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "max",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_provider $tag_workerPool",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerPool"],
+              "type": "tag"
+            },
+            {
+              "params": ["provider"],
+              "type": "tag"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "worker_manager",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "WorkerType Running",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:739",
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:740",
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops-cloudwatch",
+      "decimals": 0,
+      "description": "",
+      "fill": 3,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 9,
+        "x": 15,
+        "y": 15
+      },
+      "hiddenSeries": false,
+      "id": 9,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:1112",
+          "alias": "/Errors$/",
+          "bars": true,
+          "lines": false
+        },
+        {
+          "$$hashKey": "object:1113",
+          "alias": "RunInstances ClientErrors",
+          "color": "#C4162A",
+          "stack": true
+        },
+        {
+          "$$hashKey": "object:1114",
+          "alias": "RunInstances ServerErrors",
+          "color": "#FA6400",
+          "stack": true
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "{{Action}}",
+          "dimensions": {
+            "Action": "RunInstances"
+          },
+          "expression": "",
+          "id": "",
+          "matchExact": false,
+          "metricName": "SuccessfulCalls",
+          "namespace": "AWS/EC2/API",
+          "period": "1d",
+          "refId": "A",
+          "region": "us-east-1",
+          "statistics": ["Sum"]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": "1d",
+      "title": "AWS EC2 Daily runInstance calls",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1145",
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1146",
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers_alt",
+      "description": "",
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 15,
+        "x": 0,
+        "y": 20
+      },
+      "hiddenSeries": false,
+      "id": 7,
+      "interval": "6h",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:914",
+          "alias": "/-gcp$/",
+          "color": "#37872D",
+          "dashLength": 1,
+          "dashes": true,
+          "fill": 1,
+          "pointradius": 1,
+          "spaceLength": 1,
+          "steppedLine": true
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_provisionerId/$tag_workerType",
+          "dimensions": {},
+          "expression": "",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "id": "",
+          "matchExact": true,
+          "measurement": "tc_queue2_exec",
+          "metricName": "",
+          "namespace": "",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "query": "SELECT mean(\"running\") FROM \"six_month\".\"tc_queue2_exec\" WHERE (\"provisionerId\" =~ /^gecko-[0-9]/ AND \"workerType\" =~ /^b-linux/) AND $timeFilter GROUP BY time($__interval), \"provisionerId\", \"workerType\" fill(null) ",
+          "rawQuery": false,
+          "refId": "A",
+          "region": "default",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "statistics": ["Average"],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^gecko-[0-9]/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^b-linux/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "queue api - running workers",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:939",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:940",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "fxci-production-logging",
+      "description": "https://console.cloud.google.com/monitoring/metrics-explorer?organizationId=442341870013\u0026project=fxci-production-logging\u0026supportedpurview=project\u0026pageState=%7B%22xyChart%22:%7B%22dataSets%22:%5B%7B%22timeSeriesFilter%22:%7B%22filter%22:%22metric.type%3D%5C%22compute.googleapis.com%2Finstance%2Fcpu%2Freserved_cores%5C%22%20resource.type%3D%5C%22gce_instance%5C%22%22,%22minAlignmentPeriod%22:%2260s%22,%22unitOverride%22:%221%22,%22aggregations%22:%5B%7B%22perSeriesAligner%22:%22ALIGN_MEAN%22,%22crossSeriesReducer%22:%22REDUCE_SUM%22,%22groupByFields%22:%5B%22resource.label.%5C%22project_id%5C%22%22%5D%7D,%7B%22crossSeriesReducer%22:%22REDUCE_NONE%22%7D%5D%7D,%22targetAxis%22:%22Y1%22,%22plotType%22:%22LINE%22%7D%5D,%22options%22:%7B%22mode%22:%22COLOR%22%7D,%22constantLines%22:%5B%5D,%22timeshiftDuration%22:%220s%22,%22y1Axis%22:%7B%22label%22:%22y1Axis%22,%22scale%22:%22LINEAR%22%7D%7D,%22isAutoRefresh%22:true,%22timeSelection%22:%7B%22timeRange%22:%221w%22%7D%7D",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 9,
+        "x": 15,
+        "y": 21
+      },
+      "hiddenSeries": false,
+      "id": 15,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "count uptime"
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "aliasBy": "{{resource.label.project_id}}",
+          "alignOptions": [
+            {
+              "expanded": true,
+              "label": "Alignment options",
+              "options": [
+                {
+                  "label": "interpolate",
+                  "metricKinds": ["GAUGE"],
+                  "text": "interpolate",
+                  "value": "ALIGN_INTERPOLATE",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                },
+                {
+                  "label": "next older",
+                  "metricKinds": ["GAUGE"],
+                  "text": "next older",
+                  "value": "ALIGN_NEXT_OLDER",
+                  "valueTypes": [
+                    "INT64",
+                    "DOUBLE",
+                    "MONEY",
+                    "DISTRIBUTION",
+                    "STRING",
+                    "VALUE_TYPE_UNSPECIFIED",
+                    "BOOL"
+                  ]
+                },
+                {
+                  "label": "min",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "min",
+                  "value": "ALIGN_MIN",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                },
+                {
+                  "label": "max",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "max",
+                  "value": "ALIGN_MAX",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                },
+                {
+                  "label": "mean",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "mean",
+                  "value": "ALIGN_MEAN",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                },
+                {
+                  "label": "count",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "count",
+                  "value": "ALIGN_COUNT",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY", "BOOL"]
+                },
+                {
+                  "label": "sum",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "sum",
+                  "value": "ALIGN_SUM",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY", "DISTRIBUTION"]
+                },
+                {
+                  "label": "stddev",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "stddev",
+                  "value": "ALIGN_STDDEV",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                },
+                {
+                  "label": "percent change",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "percent change",
+                  "value": "ALIGN_PERCENT_CHANGE",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                }
+              ]
+            }
+          ],
+          "alignmentPeriod": "stackdriver-auto",
+          "crossSeriesReducer": "REDUCE_COUNT",
+          "defaultProject": "loading project...",
+          "filters": [],
+          "groupBys": ["resource.label.project_id"],
+          "lastQuery": "aggregation.alignmentPeriod=+3600s\u0026aggregation.crossSeriesReducer=REDUCE_STDDEV\u0026aggregation.groupByFields=resource.label.project_id\u0026aggregation.perSeriesAligner=ALIGN_INTERPOLATE\u0026filter=metric.type=\"compute.googleapis.com/instance/cpu/utilization\"\u0026interval.endTime=2020-04-01T17:29:54Z\u0026interval.startTime=2020-03-25T17:29:54Z\u0026view=FULL",
+          "lastQueryError": "",
+          "metricKind": "GAUGE",
+          "metricType": "compute.googleapis.com/instance/cpu/utilization",
+          "perSeriesAligner": "ALIGN_INTERPOLATE",
+          "projectName": "fxci-production-logging",
+          "refId": "A",
+          "service": "",
+          "unit": "10^2.%",
+          "usedAlignmentPeriod": 3600,
+          "valueType": "DOUBLE"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "custom",
+          "fill": false,
+          "fillColor": "rgba(50, 116, 217, 0.2)",
+          "line": true,
+          "lineColor": "rgba(31, 96, 196, 0.6)",
+          "op": "gt",
+          "value": 3600,
+          "yaxis": "left"
+        },
+        {
+          "colorMode": "custom",
+          "fill": false,
+          "fillColor": "rgba(50, 116, 217, 0.2)",
+          "line": true,
+          "lineColor": "rgba(31, 96, 196, 0.6)",
+          "op": "gt",
+          "value": 7200,
+          "yaxis": "left"
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "GCP count (1month retention)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": false,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 22,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "datasource": "relops_workers",
+        "filters": [
+          {
+            "key": "workerPool",
+            "operator": "=~",
+            "value": "/^gecko-[123]\\/b/"
+          }
+        ],
+        "hide": 0,
+        "label": null,
+        "name": "filter",
+        "skipUrlSync": false,
+        "type": "adhoc"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6M",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "worker-manager",
+  "uid": "ynmr4BWMk",
+  "variables": {
+    "list": []
+  },
+  "version": 14
+}

@@ -1,0 +1,1517 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations \u0026 Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 1,
+  "id": 403,
+  "iteration": 1613666819933,
+  "links": [],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 4,
+      "gridPos": {
+        "h": 9,
+        "w": 14,
+        "x": 0,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 9,
+      "interval": "30m",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 0.5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:1211",
+          "alias": "/^uptime/",
+          "fill": 1,
+          "fillGradient": 1,
+          "legend": false,
+          "linewidth": 0,
+          "points": false,
+          "steppedLine": false,
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:2202",
+          "alias": "/^count/",
+          "yaxis": 1
+        },
+        {
+          "$$hashKey": "object:5239",
+          "alias": "/^user.*/",
+          "dashLength": 1,
+          "dashes": true,
+          "nullPointMode": "connected",
+          "pointradius": 1,
+          "points": true,
+          "spaceLength": 2,
+          "zindex": 3
+        },
+        {
+          "$$hashKey": "object:14875",
+          "alias": "/^test count/",
+          "fill": 1,
+          "fillGradient": 2,
+          "legend": false,
+          "nullPointMode": "connected",
+          "points": true
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "uptime $tag_instance_type $tag_instance_id",
+          "groupBy": [
+            {
+              "params": ["$interval"],
+              "type": "time"
+            },
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["instance_id"],
+              "type": "tag"
+            }
+          ],
+          "hide": true,
+          "measurement": "perftest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"uptime\") FROM \"perftest\" WHERE (\"instance_type\" =~ /^$instanceType$/ AND \"instance_id\" =~ /^$instanceId$/ AND \"instance_type\" = 'ProLiant_m710x_Server_Cartridge') AND $timeFilter GROUP BY time($interval), \"instance_type\", \"instance_id\" fill(previous)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["*"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "instance_type",
+              "operator": "=~",
+              "value": "/^$instanceType$/"
+            },
+            {
+              "condition": "AND",
+              "key": "instance_id",
+              "operator": "=~",
+              "value": "/^$instanceId$/"
+            }
+          ]
+        },
+        {
+          "alias": "$col $tag_instance_type",
+          "groupBy": [
+            {
+              "params": ["$interval"],
+              "type": "time"
+            },
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["instance_id"],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "perftest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT count(\"Load\") as \"test count\", count(\"uptime\") as \"count\" FROM (SELECT last(\"Load\") as \"Load\", last(\"uptime\") as \"uptime\" FROM \"perftest\" WHERE (\"instance_type\" =~ /^$instanceType$/ AND \"instance_id\" =~ /^$instanceId$/) AND $timeFilter GROUP BY time($interval), \"instance_type\", \"instance_id\" fill(null)) WHERE $timeFilter GROUP BY time($interval), \"instance_type\" fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["*"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "instance_type",
+              "operator": "=~",
+              "value": "/^$instanceType$/"
+            },
+            {
+              "condition": "AND",
+              "key": "instance_id",
+              "operator": "=~",
+              "value": "/^$instanceId$/"
+            }
+          ]
+        },
+        {
+          "alias": "user cpu $tag_instance_id",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["instance_id"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "perftest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"cpu_us\") FROM \"perftest\" WHERE $timeFilter GROUP BY time($__interval), \"instance_type\", \"instance_id\" fill(null)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["cpu_us"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(255, 255, 255, 0.04)",
+          "from": "13:00",
+          "fromDayOfWeek": 1,
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00",
+          "toDayOfWeek": 5
+        }
+      ],
+      "timeShift": null,
+      "title": "running",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": false,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:354",
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:355",
+          "format": "short",
+          "label": null,
+          "logBase": 2,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "displayMode": "auto"
+          },
+          "decimals": 3,
+          "mappings": [],
+          "noValue": "null",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byType",
+              "options": "time"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 38
+              },
+              {
+                "id": "displayName",
+                "value": "."
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "from": "0",
+                    "id": 0,
+                    "text": " ",
+                    "to": "9999999999999999999",
+                    "type": 2
+                  }
+                ]
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "instance_type"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              },
+              {
+                "id": "custom.width"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "os_version"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "json-view"
+              },
+              {
+                "id": "custom.width",
+                "value": 80
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 10,
+        "x": 14,
+        "y": 0
+      },
+      "id": 188,
+      "interval": "10m",
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "mean"
+          }
+        ]
+      },
+      "pluginVersion": "7.1.5",
+      "repeatDirection": "v",
+      "targets": [
+        {
+          "alias": "$tag_instance_type $tag_os_version",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["test"],
+              "type": "tag"
+            },
+            {
+              "params": ["instance_id"],
+              "type": "tag"
+            },
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "perftest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"stddev\") FROM (SELECT stddev(\"Load\") /mean(\"Load\") as \"stddev\" FROM \"perftest\" WHERE (\"instance_id\" =~ /^$instanceId$/ AND \"test\" =~ /^$test$/ AND \"instance_type\" =~ /^$instanceType$/ AND \"seq\" \u003c\u003e '0') AND $timeFilter GROUP BY \"test\", \"instance_type\", \"os_version\" fill(null)) GROUP BY \"instance_type\", \"os_version\"",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": ["Load"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "stddev"
+              },
+              {
+                "params": ["/mean(\"Load\")"],
+                "type": "math"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "instance_id",
+              "operator": "=~",
+              "value": "/^$instanceId$/"
+            },
+            {
+              "condition": "AND",
+              "key": "test",
+              "operator": "=~",
+              "value": "/^$test$/"
+            },
+            {
+              "condition": "AND",
+              "key": "instance_type",
+              "operator": "=~",
+              "value": "/^$instanceType$/"
+            },
+            {
+              "condition": "AND",
+              "key": "seq",
+              "operator": "\u003c\u003e",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "alias": "val $tag_instance_type",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["test"],
+              "type": "tag"
+            },
+            {
+              "params": ["instance_id"],
+              "type": "tag"
+            },
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "perftest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT stddev(\"Load\") /mean(\"Load\") as \"stddev\" FROM \"perftest\" WHERE (\"instance_id\" =~ /^$instanceId$/ AND \"test\" =~ /^$test$/ AND \"instance_type\" =~ /^$instanceType$/ AND \"seq\" \u003c\u003e '0') AND $timeFilter GROUP BY time(6h), \"test\", \"instance_type\" fill(linear)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["Load"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "stddev"
+              },
+              {
+                "params": ["/mean(\"Load\")"],
+                "type": "math"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "instance_id",
+              "operator": "=~",
+              "value": "/^$instanceId$/"
+            },
+            {
+              "condition": "AND",
+              "key": "test",
+              "operator": "=~",
+              "value": "/^$test$/"
+            },
+            {
+              "condition": "AND",
+              "key": "instance_type",
+              "operator": "=~",
+              "value": "/^$instanceType$/"
+            },
+            {
+              "condition": "AND",
+              "key": "seq",
+              "operator": "\u003c\u003e",
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "mean stddev",
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 4,
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "hiddenSeries": false,
+      "id": 48,
+      "interval": "1m",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": true,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "sort": "max",
+        "sortDesc": true,
+        "total": true,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:1211",
+          "alias": "/^cpu_.*end$/",
+          "bars": true,
+          "fill": 1,
+          "fillGradient": 1,
+          "linewidth": 0,
+          "steppedLine": false,
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:4527",
+          "alias": "/.*start$/",
+          "legend": false
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_instance_type $tag_test_suite",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"max\") FROM (SELECT max(\"stolen_cpu_ticks\") FROM \"perftest\" WHERE (\"test_suite\" != 'start') AND $timeFilter GROUP BY time($__interval), \"instance_type\", \"instance_id\" fill(null)) GROUP BY \"instance_type\", \"test_suite\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "cpu_st % $tag_instance_type",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["test_suite"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "perftest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"softirq_cpu_ticks\"), max(\"stolen_cpu_ticks\") FROM \"perftest\" WHERE (\"test_suite\" = 'end' AND \"instance_type\" =~ /^$instanceType$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": false,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["cpu_st"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "instance_type",
+              "operator": "=~",
+              "value": "/^$instanceType$/"
+            },
+            {
+              "condition": "AND",
+              "key": "instance_id",
+              "operator": "=~",
+              "value": "/^$instanceId$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(255, 255, 255, 0.04)",
+          "from": "13:00",
+          "fromDayOfWeek": 1,
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00",
+          "toDayOfWeek": 5
+        }
+      ],
+      "timeShift": null,
+      "title": "cpu steal (after full test suite)",
+      "tooltip": {
+        "shared": true,
+        "sort": 1,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": false,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:354",
+          "decimals": null,
+          "format": "short",
+          "label": null,
+          "logBase": 2,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:355",
+          "decimals": 0,
+          "format": "percent",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "displayMode": "auto"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "from": "0",
+                    "id": 0,
+                    "text": "",
+                    "to": "9999999999999999999",
+                    "type": 2
+                  }
+                ]
+              },
+              {
+                "id": "displayName",
+                "value": "."
+              },
+              {
+                "id": "custom.width",
+                "value": 40
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "os_version"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 80
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "json-view"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "VGA"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 80
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "id": 335,
+      "interval": "15m",
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "mean"
+          }
+        ]
+      },
+      "pluginVersion": "7.1.5",
+      "repeatDirection": "v",
+      "targets": [
+        {
+          "alias": "$col $tag_instance_type $tag_opengl_dev",
+          "groupBy": [
+            {
+              "params": ["$__interval * 5"],
+              "type": "time"
+            },
+            {
+              "params": ["VGA"],
+              "type": "tag"
+            },
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["test_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["opengl_dev"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "perftest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["Load"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "avg $tag_instance_type $tag_VGA",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["VGA"],
+              "type": "tag"
+            },
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["test_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "perftest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"stddev\") FROM (SELECT stddev(\"Load\")/mean(\"Load\") as \"stddev\" FROM \"perftest\" WHERE ((\"instance_type\" = 'g2.2xlarge' AND \"time\" \u003e '2021-02-13 06:00:00') OR \"instance_type\" != 'g2.2xlarge') AND $timeFilter AND \"seq\" \u003c\u003e '0' GROUP BY \"VGA\", \"instance_type\", \"test_type\" fill(null)) WHERE $timeFilter GROUP BY \"VGA\", \"instance_type\", \"test_type\" fill(null)",
+          "rawQuery": true,
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["Load"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "stddev"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "trial",
+              "operator": "=",
+              "value": "mcdawsdirectubuntu"
+            },
+            {
+              "condition": "OR",
+              "key": "instance_type",
+              "operator": "=",
+              "value": "ProLiant_m710x_Server_Cartridge"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_os_version $tag_instance_type $tag_opengl_dev",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["VGA"],
+              "type": "tag"
+            },
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["test_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "perftest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"stddev\") FROM (SELECT stddev(\"Load\")/mean(\"Load\") as \"stddev\" FROM \"perftest\" WHERE ((\"instance_type\" = 'g2.2xlarge' AND \"time\" \u003e '2021-02-13 06:00:00') OR \"instance_type\" != 'g2.2xlarge') AND $timeFilter AND \"seq\" \u003c\u003e '0' GROUP BY \"VGA\", \"instance_type\", \"test\", \"os_version\", \"opengl_dev\" fill(null)) WHERE $timeFilter GROUP BY \"VGA\", \"instance_type\", \"os_version\", \"opengl_dev\" fill(linear)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": ["Load"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "stddev"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "trial",
+              "operator": "=",
+              "value": "mcdawsdirectubuntu"
+            },
+            {
+              "condition": "OR",
+              "key": "instance_type",
+              "operator": "=",
+              "value": "ProLiant_m710x_Server_Cartridge"
+            }
+          ]
+        },
+        {
+          "alias": "top $tag_instance_type $tag_opengl_dev",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["VGA"],
+              "type": "tag"
+            },
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["test_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["opengl_dev"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "perftest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["Load"],
+                "type": "field"
+              },
+              {
+                "params": [3],
+                "type": "top"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "trial",
+              "operator": "=",
+              "value": "mcdawsdirectubuntu"
+            },
+            {
+              "condition": "OR",
+              "key": "instance_type",
+              "operator": "=",
+              "value": "ProLiant_m710x_Server_Cartridge"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "mean(stddev) by opengl_dev",
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 14
+      },
+      "hiddenSeries": false,
+      "id": 337,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_opengl_dev $tag_instance_type",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["VGA"],
+              "type": "tag"
+            },
+            {
+              "params": ["opengl_dev"],
+              "type": "tag"
+            },
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "perftest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"Load\") FROM \"perftest\" WHERE (\"opengl_dev\" \u003c\u003e '') AND $timeFilter GROUP BY time($__interval), \"VGA\", \"opengl_dev\", \"instance_type\" fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["Load"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "opengl_dev",
+              "operator": "\u003c\u003e",
+              "value": "\"\""
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "max(Load) by opengl_dev",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "hiddenSeries": false,
+      "id": 338,
+      "interval": "1m",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_instance_type $tag_instance_id",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["VGA"],
+              "type": "tag"
+            },
+            {
+              "params": ["opengl_dev"],
+              "type": "tag"
+            },
+            {
+              "params": ["instance_type"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "perftest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"Load\") FROM \"perftest\" WHERE $timeFilter AND (\"instance_type\" =~ /^$instanceType$/ AND \"instance_id\" =~ /^$instanceId$/) GROUP BY time($__interval * 40), \"instance_type\", \"instance_id\" fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["Load"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "opengl_dev",
+              "operator": "\u003c\u003e",
+              "value": "\"\""
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "max(Load) by instance_id",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 26,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": ["All"],
+          "value": ["$__all"]
+        },
+        "datasource": "relops_workers",
+        "definition": "SHOW TAG VALUES FROM perftest WITH KEY = \"instance_id\"",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "instanceId",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM perftest WITH KEY = \"instance_id\"",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": ["All"],
+          "value": ["$__all"]
+        },
+        "datasource": "relops_workers",
+        "definition": "SHOW TAG VALUES FROM perftest WITH KEY = \"test\"",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "test",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM perftest WITH KEY = \"test\"",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 5,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": ["All"],
+          "value": ["$__all"]
+        },
+        "datasource": "relops_workers",
+        "definition": "SHOW TAG VALUES FROM perftest WITH KEY = \"instance_type\"",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "instanceType",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM perftest WITH KEY = \"instance_type\"",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 5,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "2021-02-02T21:41:43.153Z",
+    "to": "2021-02-19T14:50:29.231Z"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "cloud perf testing",
+  "uid": "lTDW80EGz",
+  "version": 17
+}

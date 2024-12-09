@@ -1,0 +1,1422 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations \u0026 Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 73,
+  "links": [],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "dataops",
+      "fill": 1,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 24,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {},
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*completed.*/",
+          "color": "#56A64B",
+          "transform": "negative-Y"
+        },
+        {
+          "alias": "/.*failed.*/",
+          "color": "#E02F44",
+          "transform": "negative-Y"
+        },
+        {
+          "alias": "/.*exception.*/",
+          "color": "#A352CC",
+          "transform": "negative-Y"
+        },
+        {
+          "alias": "/.*concurrent.*/",
+          "bars": false,
+          "color": "#3274D9",
+          "lines": true
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "taskcluster_workertype_tasks",
+          "orderByTime": "ASC",
+          "policy": "autogen",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["concurrent"],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": ["defined"],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": ["pending"],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": ["completed"],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": ["failed"],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": ["exception"],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "environment",
+              "operator": "=",
+              "value": "dev"
+            },
+            {
+              "condition": "AND",
+              "key": "workertype",
+              "operator": "=",
+              "value": "gecko-t-bitbar-gw-perf-g5"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "g5 perf",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers dev",
+      "fill": 1,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 16,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {},
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*running$/",
+          "color": "#5794F2",
+          "dashLength": 2,
+          "dashes": true,
+          "stack": "A"
+        },
+        {
+          "alias": "/.*pending$/",
+          "bars": true,
+          "color": "#FADE2A",
+          "fill": 5,
+          "linewidth": 0,
+          "stack": "B",
+          "zindex": 2
+        },
+        {
+          "alias": "/.*requested$/",
+          "color": "#FF9830",
+          "fill": 3,
+          "linewidth": 0,
+          "stack": "C",
+          "zindex": 1
+        },
+        {
+          "alias": "/.*active$/",
+          "color": "#73BF69",
+          "zindex": 2
+        },
+        {
+          "alias": "/.*queue.*$/",
+          "color": "#FA6400",
+          "fill": 2,
+          "linewidth": 0,
+          "nullPointMode": "connected",
+          "yaxis": 2
+        },
+        {
+          "alias": "/.*max$/",
+          "color": "rgb(0, 24, 255)",
+          "dashLength": 1,
+          "dashes": true,
+          "fill": 0,
+          "hideTooltip": true,
+          "legend": false,
+          "spaceLength": 4,
+          "zindex": -3
+        },
+        {
+          "alias": "/.*active2$/",
+          "color": "rgba(115, 191, 105, 0.41)",
+          "hideTooltip": true,
+          "stack": true,
+          "zindex": -2
+        },
+        {
+          "alias": "/.*mean$/",
+          "color": "#FF780A",
+          "fill": 2,
+          "nullPointMode": "connected",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerType $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["previous"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_web_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["runningWorkers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["active"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "proj-autophone"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=",
+              "value": "gecko-t-bitbar-gw-perf-g5"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $col mean",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "proj-autophone"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=",
+              "value": "gecko-t-bitbar-gw-perf-g5"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "gw-perf-g5 Active vs Queue",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "workers",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "queued tasks",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "dataops",
+      "fill": 1,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 6
+      },
+      "id": 22,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {},
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "taskcluster_workertype_tasks.completed",
+          "color": "#56A64B",
+          "transform": "negative-Y"
+        },
+        {
+          "alias": "taskcluster_workertype_tasks.failed",
+          "color": "#E02F44",
+          "transform": "negative-Y"
+        },
+        {
+          "alias": "taskcluster_workertype_tasks.exception",
+          "color": "#A352CC",
+          "transform": "negative-Y"
+        },
+        {
+          "alias": "taskcluster_workertype_tasks.concurrent",
+          "bars": false,
+          "color": "#3274D9",
+          "lines": true
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "taskcluster_workertype_tasks",
+          "orderByTime": "ASC",
+          "policy": "autogen",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["concurrent"],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": ["defined"],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": ["pending"],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": ["completed"],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": ["failed"],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": ["exception"],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "environment",
+              "operator": "=",
+              "value": "dev"
+            },
+            {
+              "condition": "AND",
+              "key": "workertype",
+              "operator": "=",
+              "value": "gecko-t-bitbar-gw-perf-p2"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "p2 perf",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers dev",
+      "fill": 1,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 6
+      },
+      "id": 14,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {},
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*running$/",
+          "color": "#5794F2",
+          "dashLength": 2,
+          "dashes": true,
+          "stack": "A"
+        },
+        {
+          "alias": "/.*pending$/",
+          "bars": true,
+          "color": "#FADE2A",
+          "fill": 5,
+          "linewidth": 0,
+          "stack": "B",
+          "zindex": 2
+        },
+        {
+          "alias": "/.*requested$/",
+          "color": "#FF9830",
+          "fill": 3,
+          "linewidth": 0,
+          "stack": "C",
+          "zindex": 1
+        },
+        {
+          "alias": "/.*active$/",
+          "color": "#73BF69",
+          "zindex": 2
+        },
+        {
+          "alias": "/.*queue.*$/",
+          "color": "#FA6400",
+          "fill": 2,
+          "linewidth": 0,
+          "nullPointMode": "connected",
+          "yaxis": 2
+        },
+        {
+          "alias": "/.*max$/",
+          "color": "rgb(0, 24, 255)",
+          "dashLength": 1,
+          "dashes": true,
+          "fill": 0,
+          "hideTooltip": true,
+          "legend": false,
+          "spaceLength": 4,
+          "zindex": -3
+        },
+        {
+          "alias": "/.*active2$/",
+          "color": "rgba(115, 191, 105, 0.41)",
+          "hideTooltip": true,
+          "stack": true,
+          "zindex": -2
+        },
+        {
+          "alias": "/.*mean$/",
+          "color": "#FF780A",
+          "fill": 2,
+          "nullPointMode": "connected",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerType $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["previous"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_web_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["runningWorkers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["active"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "proj-autophone"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=",
+              "value": "gecko-t-bitbar-gw-perf-p2"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $col mean",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "proj-autophone"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=",
+              "value": "gecko-t-bitbar-gw-perf-p2"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "gw-perf-p2 Active vs Queue",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "workers",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "queued tasks",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "-- Mixed --",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 23,
+        "x": 0,
+        "y": 12
+      },
+      "id": 20,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideZero": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "maxPerRow": 2,
+      "nullPointMode": "connected",
+      "options": {},
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "v",
+      "scopedVars": {
+        "queue": {
+          "selected": false,
+          "text": "gecko-t-bitbar-gw-unit-p2",
+          "value": "gecko-t-bitbar-gw-unit-p2"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "configured",
+          "datasource": "relops",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "bitbar_workers",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"configured\") FROM \"bitbar_workers\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["configured"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "active",
+          "datasource": "relops_workers dev",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"runningWorkers\") AS \"active\" FROM \"tc_web_exec\" WHERE (\"provisionerId\" = 'proj-autophone') AND $timeFilter GROUP BY time($__interval * 10), \"provisionerId\" fill(previous)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "Cluster Active vs Configured",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "workers",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "queued tasks",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers dev",
+      "fill": 1,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 20
+      },
+      "id": 18,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {},
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*running$/",
+          "color": "#5794F2",
+          "dashLength": 2,
+          "dashes": true,
+          "stack": "A"
+        },
+        {
+          "alias": "/.*pending$/",
+          "bars": true,
+          "color": "#FADE2A",
+          "fill": 5,
+          "linewidth": 0,
+          "stack": "B",
+          "zindex": 2
+        },
+        {
+          "alias": "/.*requested$/",
+          "color": "#FF9830",
+          "fill": 3,
+          "linewidth": 0,
+          "stack": "C",
+          "zindex": 1
+        },
+        {
+          "alias": "/.*active$/",
+          "color": "#73BF69",
+          "zindex": 2
+        },
+        {
+          "alias": "/.*queue.*$/",
+          "color": "#FA6400",
+          "fill": 2,
+          "linewidth": 0,
+          "nullPointMode": "connected",
+          "yaxis": 2
+        },
+        {
+          "alias": "/.*max$/",
+          "color": "rgb(0, 24, 255)",
+          "dashLength": 1,
+          "dashes": true,
+          "fill": 0,
+          "hideTooltip": true,
+          "legend": false,
+          "spaceLength": 4,
+          "zindex": -3
+        },
+        {
+          "alias": "/.*active2$/",
+          "color": "rgba(115, 191, 105, 0.41)",
+          "hideTooltip": true,
+          "stack": true,
+          "zindex": -2
+        },
+        {
+          "alias": "/.*mean$/",
+          "color": "#FF780A",
+          "fill": 2,
+          "nullPointMode": "connected",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerType $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["previous"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_web_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["runningWorkers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["active"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "proj-autophone"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=",
+              "value": "gecko-t-bitbar-gw-unit-p2"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $col mean",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "proj-autophone"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=",
+              "value": "gecko-t-bitbar-gw-unit-p2"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "gw-unit-p2 Active vs Queue",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "workers",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "queued tasks",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 18,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-3h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": ["5m", "15m", "1h", "6h", "12h", "24h", "2d", "7d", "30d"]
+  },
+  "timezone": "browser",
+  "title": "aerickson sandbox 2",
+  "uid": "9iqeiVNZz",
+  "version": 17
+}

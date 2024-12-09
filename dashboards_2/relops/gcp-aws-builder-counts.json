@@ -1,0 +1,4127 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations \u0026 Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 2,
+  "id": 291,
+  "iteration": 1586205048735,
+  "links": [],
+  "panels": [
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorPrefix": false,
+      "colorValue": true,
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
+      "datasource": "fxci-production-logging",
+      "description": "",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 0,
+        "y": 0
+      },
+      "id": 41,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": true,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "aliasBy": "fxci-level1",
+          "alignOptions": [
+            {
+              "expanded": true,
+              "label": "Alignment options",
+              "options": [
+                {
+                  "label": "interpolate",
+                  "metricKinds": ["GAUGE"],
+                  "text": "interpolate",
+                  "value": "ALIGN_INTERPOLATE",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                },
+                {
+                  "label": "next older",
+                  "metricKinds": ["GAUGE"],
+                  "text": "next older",
+                  "value": "ALIGN_NEXT_OLDER",
+                  "valueTypes": [
+                    "INT64",
+                    "DOUBLE",
+                    "MONEY",
+                    "DISTRIBUTION",
+                    "STRING",
+                    "VALUE_TYPE_UNSPECIFIED",
+                    "BOOL"
+                  ]
+                },
+                {
+                  "label": "min",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "min",
+                  "value": "ALIGN_MIN",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                },
+                {
+                  "label": "max",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "max",
+                  "value": "ALIGN_MAX",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                },
+                {
+                  "label": "mean",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "mean",
+                  "value": "ALIGN_MEAN",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                },
+                {
+                  "label": "count",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "count",
+                  "value": "ALIGN_COUNT",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY", "BOOL"]
+                },
+                {
+                  "label": "sum",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "sum",
+                  "value": "ALIGN_SUM",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY", "DISTRIBUTION"]
+                },
+                {
+                  "label": "stddev",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "stddev",
+                  "value": "ALIGN_STDDEV",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                },
+                {
+                  "label": "percent change",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "percent change",
+                  "value": "ALIGN_PERCENT_CHANGE",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                }
+              ]
+            }
+          ],
+          "alignmentPeriod": "stackdriver-auto",
+          "crossSeriesReducer": "REDUCE_COUNT",
+          "defaultProject": "loading project...",
+          "filters": [
+            "resource.label.project_id",
+            "=",
+            "fxci-production-level1-workers"
+          ],
+          "groupBys": ["resource.label.project_id"],
+          "lastQuery": "aggregation.alignmentPeriod=+3600s\u0026aggregation.crossSeriesReducer=REDUCE_COUNT\u0026aggregation.groupByFields=resource.label.project_id\u0026aggregation.perSeriesAligner=ALIGN_INTERPOLATE\u0026filter=metric.type=\"compute.googleapis.com/instance/cpu/utilization\"+resource.label.project_id=\"fxci-production-level1-workers\"\u0026interval.endTime=2020-04-04T23:59:59Z\u0026interval.startTime=2020-03-29T00:00:00Z\u0026view=FULL",
+          "lastQueryError": "",
+          "metricKind": "GAUGE",
+          "metricType": "compute.googleapis.com/instance/cpu/utilization",
+          "perSeriesAligner": "ALIGN_INTERPOLATE",
+          "refId": "A",
+          "service": "",
+          "unit": "10^2.%",
+          "usedAlignmentPeriod": 3600,
+          "valueType": "DOUBLE"
+        }
+      ],
+      "thresholds": "50,100",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "fxci-level1",
+      "transparent": true,
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorPrefix": false,
+      "colorValue": true,
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
+      "datasource": "fxci-production-logging",
+      "description": "",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 3,
+        "y": 0
+      },
+      "id": 42,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": true,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "aliasBy": "fxci-level3",
+          "alignOptions": [
+            {
+              "expanded": true,
+              "label": "Alignment options",
+              "options": [
+                {
+                  "label": "interpolate",
+                  "metricKinds": ["GAUGE"],
+                  "text": "interpolate",
+                  "value": "ALIGN_INTERPOLATE",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                },
+                {
+                  "label": "next older",
+                  "metricKinds": ["GAUGE"],
+                  "text": "next older",
+                  "value": "ALIGN_NEXT_OLDER",
+                  "valueTypes": [
+                    "INT64",
+                    "DOUBLE",
+                    "MONEY",
+                    "DISTRIBUTION",
+                    "STRING",
+                    "VALUE_TYPE_UNSPECIFIED",
+                    "BOOL"
+                  ]
+                },
+                {
+                  "label": "min",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "min",
+                  "value": "ALIGN_MIN",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                },
+                {
+                  "label": "max",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "max",
+                  "value": "ALIGN_MAX",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                },
+                {
+                  "label": "mean",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "mean",
+                  "value": "ALIGN_MEAN",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                },
+                {
+                  "label": "count",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "count",
+                  "value": "ALIGN_COUNT",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY", "BOOL"]
+                },
+                {
+                  "label": "sum",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "sum",
+                  "value": "ALIGN_SUM",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY", "DISTRIBUTION"]
+                },
+                {
+                  "label": "stddev",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "stddev",
+                  "value": "ALIGN_STDDEV",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                },
+                {
+                  "label": "percent change",
+                  "metricKinds": ["GAUGE", "DELTA"],
+                  "text": "percent change",
+                  "value": "ALIGN_PERCENT_CHANGE",
+                  "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                }
+              ]
+            }
+          ],
+          "alignmentPeriod": "stackdriver-auto",
+          "crossSeriesReducer": "REDUCE_COUNT",
+          "defaultProject": "loading project...",
+          "filters": [
+            "resource.label.project_id",
+            "=",
+            "fxci-production-level3-workers"
+          ],
+          "groupBys": ["resource.label.project_id"],
+          "lastQuery": "aggregation.alignmentPeriod=+3600s\u0026aggregation.crossSeriesReducer=REDUCE_COUNT\u0026aggregation.groupByFields=resource.label.project_id\u0026aggregation.perSeriesAligner=ALIGN_INTERPOLATE\u0026filter=metric.type=\"compute.googleapis.com/instance/cpu/utilization\"+resource.label.project_id=\"fxci-production-level1-workers\"\u0026interval.endTime=2020-04-04T23:59:59Z\u0026interval.startTime=2020-03-29T00:00:00Z\u0026view=FULL",
+          "lastQueryError": "",
+          "metricKind": "GAUGE",
+          "metricType": "compute.googleapis.com/instance/cpu/utilization",
+          "perSeriesAligner": "ALIGN_INTERPOLATE",
+          "refId": "A",
+          "service": "",
+          "unit": "10^2.%",
+          "usedAlignmentPeriod": 3600,
+          "valueType": "DOUBLE"
+        }
+      ],
+      "thresholds": "50,100",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "fxci-level3",
+      "transparent": true,
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "description": "Errors across all task types (not limited to builders).",
+      "fill": 5,
+      "fillGradient": 10,
+      "gridPos": {
+        "h": 3,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 37,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": true,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 0,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 1,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "datacenter",
+          "color": "#8F3BB8"
+        },
+        {
+          "alias": "aws",
+          "color": "#FA6400"
+        },
+        {
+          "alias": "gcp",
+          "color": "#37872D"
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "aws",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "papertrail",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["count"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "event",
+              "operator": "=",
+              "value": "task error"
+            },
+            {
+              "condition": "AND",
+              "key": "host",
+              "operator": "=~",
+              "value": "/^i-/"
+            }
+          ]
+        },
+        {
+          "alias": "datacenter",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "papertrail",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["count"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "event",
+              "operator": "=",
+              "value": "task error"
+            },
+            {
+              "condition": "AND",
+              "key": "host",
+              "operator": "=~",
+              "value": "/mdc/"
+            }
+          ]
+        },
+        {
+          "alias": "gcp",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "papertrail",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["count"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "event",
+              "operator": "=",
+              "value": "task error"
+            },
+            {
+              "condition": "AND",
+              "key": "host",
+              "operator": "=~",
+              "value": "/-gcp-/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "task errors",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": false,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "description": "Timeouts across all task types. Not limited to builders. Timeout lags by avg 5400s (90m).",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 3,
+        "w": 12,
+        "x": 0,
+        "y": 3
+      },
+      "hiddenSeries": false,
+      "id": 9,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 1,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/^non-gcp/",
+          "color": "#F2495C"
+        },
+        {
+          "alias": "/^gcp/",
+          "color": "#FF9830"
+        },
+        {
+          "alias": "task timeout",
+          "color": "rgba(196, 22, 42, 0.49)",
+          "zindex": 3
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "",
+          "groupBy": [
+            {
+              "params": ["$__interval * 2"],
+              "type": "time"
+            },
+            {
+              "params": ["host"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "papertrail",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["count"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "event",
+              "operator": "=",
+              "value": "hgtimeout"
+            },
+            {
+              "condition": "AND",
+              "key": "host",
+              "operator": "=~",
+              "value": "/^fxci/"
+            }
+          ]
+        },
+        {
+          "alias": "non-gcp task timeout count",
+          "groupBy": [
+            {
+              "params": ["$__interval * 2"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "papertrail",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["count"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "event",
+              "operator": "=",
+              "value": "hgtimeout"
+            },
+            {
+              "condition": "AND",
+              "key": "host",
+              "operator": "=~",
+              "value": "/^nongcp/"
+            }
+          ]
+        },
+        {
+          "alias": "task timeout $tag_host",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["host"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "papertrail",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["count"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "event",
+              "operator": "=~",
+              "value": "/^Task timeout/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "task timeouts",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": false,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "description": "All task types (not limited to builders).",
+      "fill": 5,
+      "fillGradient": 10,
+      "gridPos": {
+        "h": 3,
+        "w": 12,
+        "x": 12,
+        "y": 3
+      },
+      "hiddenSeries": false,
+      "id": 46,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": true,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 0,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 1,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/^datacenter/",
+          "color": "#8F3BB8"
+        },
+        {
+          "alias": "/^aws/",
+          "color": "#FA6400"
+        },
+        {
+          "alias": "/^gcp/",
+          "color": "#37872D"
+        },
+        {
+          "alias": "/end$/",
+          "bars": false,
+          "pointradius": 1,
+          "points": true,
+          "zindex": -3
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "aws $tag_event",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["event"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "papertrail",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["count"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "event",
+              "operator": "=~",
+              "value": "/^task (start|end|success)/"
+            },
+            {
+              "condition": "AND",
+              "key": "host",
+              "operator": "=~",
+              "value": "/^i-/"
+            }
+          ]
+        },
+        {
+          "alias": "datacenter $tag_event",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["event"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "papertrail",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["count"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "event",
+              "operator": "=~",
+              "value": "/^task (start|end|success)/"
+            },
+            {
+              "condition": "AND",
+              "key": "host",
+              "operator": "=~",
+              "value": "/mdc/"
+            }
+          ]
+        },
+        {
+          "alias": "gcp $tag_event",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["event"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "papertrail",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["count"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "event",
+              "operator": "=~",
+              "value": "/^task (start|end|success)/"
+            },
+            {
+              "condition": "AND",
+              "key": "host",
+              "operator": "=~",
+              "value": "/-gcp-/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "task start/end",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": false,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
+      "id": 50,
+      "panels": [
+        {
+          "columns": [],
+          "datasource": "relops_workers",
+          "description": "Peak instance count. With date of peak. Grouped aws as \"non-gcp total\": top(sum(max(count) by workerType not \"-gcp\"))",
+          "fontSize": "100%",
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 0,
+            "y": 7
+          },
+          "id": 18,
+          "options": {},
+          "pageSize": null,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "styles": [
+            {
+              "alias": "Time",
+              "dateFormat": "MMMM D",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "alias": "",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 0,
+              "mappingType": 1,
+              "pattern": "top",
+              "thresholds": [],
+              "type": "number",
+              "unit": "none"
+            },
+            {
+              "alias": "",
+              "colorMode": "value",
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 2,
+              "pattern": "workerType",
+              "rangeMaps": [
+                {
+                  "from": "0",
+                  "text": "non-gcp total",
+                  "to": "9999999"
+                }
+              ],
+              "thresholds": [""],
+              "type": "string",
+              "unit": "short",
+              "valueMaps": [
+                {
+                  "text": "non-gcp",
+                  "value": "1022"
+                }
+              ]
+            }
+          ],
+          "targets": [
+            {
+              "alias": "$tag_workerType",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT top(max, workerType,15) FROM (SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /^b-linux-gcp/) AND $timeFilter  GROUP BY time(1w),  \"workerType\" fill(null))",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "$tag_workerType",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT top(max, workerType,15) FROM (SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /^b-linux/ AND \"workerType\" !~ /^b-linux-gcp/) AND $timeFilter  GROUP BY time(1w), \"workerType\"  fill(null))",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "non-gcp",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT top(sum,3), sum AS \"workerType\" FROM (SELECT sum(\"max\") FROM (SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /^b-linu(x|x-aws)/ AND \"workerType\" !~ /b-linux-gcp/) AND $timeFilter GROUP BY \"workerType\", time($interval*2)  fill(linear)) GROUP BY time($interval*2) fill(linear))",
+              "rawQuery": true,
+              "refId": "C",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": "90d",
+          "timeShift": null,
+          "title": "",
+          "transform": "table",
+          "transparent": true,
+          "type": "table"
+        }
+      ],
+      "title": "90 Days Top",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 48,
+      "panels": [],
+      "title": "AWS",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops-cloudwatch",
+      "decimals": 0,
+      "description": "",
+      "fill": 3,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "hiddenSeries": false,
+      "id": 45,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/Errors$/",
+          "bars": true,
+          "lines": false
+        },
+        {
+          "alias": "RunInstances ClientErrors",
+          "color": "#C4162A",
+          "stack": true
+        },
+        {
+          "alias": "RunInstances ServerErrors",
+          "color": "#FA6400",
+          "stack": true
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "{{Action}}",
+          "dimensions": {
+            "Action": "RunInstances"
+          },
+          "expression": "",
+          "id": "",
+          "matchExact": false,
+          "metricName": "SuccessfulCalls",
+          "namespace": "AWS/EC2/API",
+          "period": "10m",
+          "refId": "A",
+          "region": "us-east-1",
+          "statistics": ["Sum"]
+        },
+        {
+          "alias": "{{Action}} {{label}}",
+          "dimensions": {
+            "Action": "RunInstances"
+          },
+          "expression": "",
+          "id": "",
+          "matchExact": false,
+          "metricName": "ClientErrors",
+          "namespace": "AWS/EC2/API",
+          "period": "10m",
+          "refId": "B",
+          "region": "us-east-1",
+          "statistics": ["Sum"]
+        },
+        {
+          "alias": "{{Action}} {{label}}",
+          "dimensions": {
+            "Action": "RunInstances"
+          },
+          "expression": "",
+          "id": "",
+          "matchExact": false,
+          "metricName": "ServerErrors",
+          "namespace": "AWS/EC2/API",
+          "period": "10m",
+          "refId": "C",
+          "region": "us-east-1",
+          "statistics": ["Sum"]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "AWS EC2",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops-cloudwatch",
+      "decimals": 0,
+      "description": "",
+      "fill": 3,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 11,
+        "x": 12,
+        "y": 8
+      },
+      "hiddenSeries": false,
+      "id": 51,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/Errors$/",
+          "bars": true,
+          "lines": false
+        },
+        {
+          "alias": "RunInstances ClientErrors",
+          "color": "#C4162A",
+          "stack": true
+        },
+        {
+          "alias": "RunInstances ServerErrors",
+          "color": "#FA6400",
+          "stack": true
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "{{Action}}",
+          "dimensions": {
+            "Action": "TerminateInstances"
+          },
+          "expression": "",
+          "id": "",
+          "matchExact": false,
+          "metricName": "SuccessfulCalls",
+          "namespace": "AWS/EC2/API",
+          "period": "10m",
+          "refId": "A",
+          "region": "us-east-1",
+          "statistics": ["Sum"]
+        },
+        {
+          "alias": "{{Action}} {{label}}",
+          "dimensions": {
+            "Action": "TerminateInstances"
+          },
+          "expression": "",
+          "id": "",
+          "matchExact": false,
+          "metricName": "ClientErrors",
+          "namespace": "AWS/EC2/API",
+          "period": "10m",
+          "refId": "B",
+          "region": "us-east-1",
+          "statistics": ["Sum"]
+        },
+        {
+          "alias": "{{Action}} {{label}}",
+          "dimensions": {
+            "Action": "TerminateInstances"
+          },
+          "expression": "",
+          "id": "",
+          "matchExact": false,
+          "metricName": "ServerErrors",
+          "namespace": "AWS/EC2/API",
+          "period": "10m",
+          "refId": "C",
+          "region": "us-east-1",
+          "statistics": ["Sum"]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "AWS EC2",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "id": 26,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "fxci-production-logging",
+          "description": "https://console.cloud.google.com/monitoring/metrics-explorer?organizationId=442341870013\u0026project=fxci-production-logging\u0026supportedpurview=project\u0026pageState=%7B%22xyChart%22:%7B%22dataSets%22:%5B%7B%22timeSeriesFilter%22:%7B%22filter%22:%22metric.type%3D%5C%22compute.googleapis.com%2Finstance%2Fcpu%2Freserved_cores%5C%22%20resource.type%3D%5C%22gce_instance%5C%22%22,%22minAlignmentPeriod%22:%2260s%22,%22unitOverride%22:%221%22,%22aggregations%22:%5B%7B%22perSeriesAligner%22:%22ALIGN_MEAN%22,%22crossSeriesReducer%22:%22REDUCE_SUM%22,%22groupByFields%22:%5B%22resource.label.%5C%22project_id%5C%22%22%5D%7D,%7B%22crossSeriesReducer%22:%22REDUCE_NONE%22%7D%5D%7D,%22targetAxis%22:%22Y1%22,%22plotType%22:%22LINE%22%7D%5D,%22options%22:%7B%22mode%22:%22COLOR%22%7D,%22constantLines%22:%5B%5D,%22timeshiftDuration%22:%220s%22,%22y1Axis%22:%7B%22label%22:%22y1Axis%22,%22scale%22:%22LINEAR%22%7D%7D,%22isAutoRefresh%22:true,%22timeSelection%22:%7B%22timeRange%22:%221w%22%7D%7D",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 4,
+            "w": 20,
+            "x": 0,
+            "y": 11
+          },
+          "hiddenSeries": false,
+          "id": 32,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "count uptime"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": true,
+          "targets": [
+            {
+              "aliasBy": "{{resource.label.project_id}}",
+              "alignOptions": [
+                {
+                  "expanded": true,
+                  "label": "Alignment options",
+                  "options": [
+                    {
+                      "label": "interpolate",
+                      "metricKinds": ["GAUGE"],
+                      "text": "interpolate",
+                      "value": "ALIGN_INTERPOLATE",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "next older",
+                      "metricKinds": ["GAUGE"],
+                      "text": "next older",
+                      "value": "ALIGN_NEXT_OLDER",
+                      "valueTypes": [
+                        "INT64",
+                        "DOUBLE",
+                        "MONEY",
+                        "DISTRIBUTION",
+                        "STRING",
+                        "VALUE_TYPE_UNSPECIFIED",
+                        "BOOL"
+                      ]
+                    },
+                    {
+                      "label": "min",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "min",
+                      "value": "ALIGN_MIN",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "max",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "max",
+                      "value": "ALIGN_MAX",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "mean",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "mean",
+                      "value": "ALIGN_MEAN",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "count",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "count",
+                      "value": "ALIGN_COUNT",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY", "BOOL"]
+                    },
+                    {
+                      "label": "sum",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "sum",
+                      "value": "ALIGN_SUM",
+                      "valueTypes": [
+                        "INT64",
+                        "DOUBLE",
+                        "MONEY",
+                        "DISTRIBUTION"
+                      ]
+                    },
+                    {
+                      "label": "stddev",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "stddev",
+                      "value": "ALIGN_STDDEV",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "percent change",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "percent change",
+                      "value": "ALIGN_PERCENT_CHANGE",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    }
+                  ]
+                }
+              ],
+              "alignmentPeriod": "stackdriver-auto",
+              "crossSeriesReducer": "REDUCE_COUNT",
+              "defaultProject": "loading project...",
+              "filters": [],
+              "groupBys": ["resource.label.project_id"],
+              "lastQuery": "aggregation.alignmentPeriod=+3600s\u0026aggregation.crossSeriesReducer=REDUCE_STDDEV\u0026aggregation.groupByFields=resource.label.project_id\u0026aggregation.perSeriesAligner=ALIGN_INTERPOLATE\u0026filter=metric.type=\"compute.googleapis.com/instance/cpu/utilization\"\u0026interval.endTime=2020-04-01T17:29:54Z\u0026interval.startTime=2020-03-25T17:29:54Z\u0026view=FULL",
+              "lastQueryError": "",
+              "metricKind": "GAUGE",
+              "metricType": "compute.googleapis.com/instance/cpu/utilization",
+              "perSeriesAligner": "ALIGN_INTERPOLATE",
+              "refId": "A",
+              "service": "",
+              "unit": "10^2.%",
+              "usedAlignmentPeriod": 3600,
+              "valueType": "DOUBLE"
+            }
+          ],
+          "thresholds": [
+            {
+              "colorMode": "custom",
+              "fill": false,
+              "fillColor": "rgba(50, 116, 217, 0.2)",
+              "line": true,
+              "lineColor": "rgba(31, 96, 196, 0.6)",
+              "op": "gt",
+              "value": 3600,
+              "yaxis": "left"
+            },
+            {
+              "colorMode": "custom",
+              "fill": false,
+              "fillColor": "rgba(50, 116, 217, 0.2)",
+              "line": true,
+              "lineColor": "rgba(31, 96, 196, 0.6)",
+              "op": "gt",
+              "value": 7200,
+              "yaxis": "left"
+            }
+          ],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "GCP",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": false,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "fxci-production-logging",
+          "description": "https://console.cloud.google.com/monitoring/metrics-explorer?organizationId=442341870013\u0026project=fxci-production-logging\u0026supportedpurview=project\u0026pageState=%7B%22xyChart%22:%7B%22dataSets%22:%5B%7B%22timeSeriesFilter%22:%7B%22filter%22:%22metric.type%3D%5C%22compute.googleapis.com%2Finstance%2Fcpu%2Freserved_cores%5C%22%20resource.type%3D%5C%22gce_instance%5C%22%22,%22minAlignmentPeriod%22:%2260s%22,%22unitOverride%22:%221%22,%22aggregations%22:%5B%7B%22perSeriesAligner%22:%22ALIGN_MEAN%22,%22crossSeriesReducer%22:%22REDUCE_SUM%22,%22groupByFields%22:%5B%22resource.label.%5C%22project_id%5C%22%22%5D%7D,%7B%22crossSeriesReducer%22:%22REDUCE_NONE%22%7D%5D%7D,%22targetAxis%22:%22Y1%22,%22plotType%22:%22LINE%22%7D%5D,%22options%22:%7B%22mode%22:%22COLOR%22%7D,%22constantLines%22:%5B%5D,%22timeshiftDuration%22:%220s%22,%22y1Axis%22:%7B%22label%22:%22y1Axis%22,%22scale%22:%22LINEAR%22%7D%7D,%22isAutoRefresh%22:true,%22timeSelection%22:%7B%22timeRange%22:%221w%22%7D%7D",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 3,
+            "w": 12,
+            "x": 0,
+            "y": 15
+          },
+          "hiddenSeries": false,
+          "id": 31,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": true,
+            "show": false,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "count uptime"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": true,
+          "targets": [
+            {
+              "aliasBy": "vCPUs {{resource.label.project_id}}",
+              "alignOptions": [
+                {
+                  "expanded": true,
+                  "label": "Alignment options",
+                  "options": [
+                    {
+                      "label": "interpolate",
+                      "metricKinds": ["GAUGE"],
+                      "text": "interpolate",
+                      "value": "ALIGN_INTERPOLATE",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "next older",
+                      "metricKinds": ["GAUGE"],
+                      "text": "next older",
+                      "value": "ALIGN_NEXT_OLDER",
+                      "valueTypes": [
+                        "INT64",
+                        "DOUBLE",
+                        "MONEY",
+                        "DISTRIBUTION",
+                        "STRING",
+                        "VALUE_TYPE_UNSPECIFIED",
+                        "BOOL"
+                      ]
+                    },
+                    {
+                      "label": "min",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "min",
+                      "value": "ALIGN_MIN",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "max",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "max",
+                      "value": "ALIGN_MAX",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "mean",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "mean",
+                      "value": "ALIGN_MEAN",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "count",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "count",
+                      "value": "ALIGN_COUNT",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY", "BOOL"]
+                    },
+                    {
+                      "label": "sum",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "sum",
+                      "value": "ALIGN_SUM",
+                      "valueTypes": [
+                        "INT64",
+                        "DOUBLE",
+                        "MONEY",
+                        "DISTRIBUTION"
+                      ]
+                    },
+                    {
+                      "label": "stddev",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "stddev",
+                      "value": "ALIGN_STDDEV",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "percent change",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "percent change",
+                      "value": "ALIGN_PERCENT_CHANGE",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    }
+                  ]
+                }
+              ],
+              "alignmentPeriod": "stackdriver-auto",
+              "crossSeriesReducer": "REDUCE_SUM",
+              "defaultProject": "loading project...",
+              "filters": [],
+              "groupBys": ["resource.label.project_id"],
+              "lastQuery": "aggregation.alignmentPeriod=+3600s\u0026aggregation.crossSeriesReducer=REDUCE_SUM\u0026aggregation.groupByFields=resource.label.project_id\u0026aggregation.perSeriesAligner=ALIGN_INTERPOLATE\u0026filter=metric.type=\"compute.googleapis.com/instance/cpu/reserved_cores\"\u0026interval.endTime=2020-04-01T17:36:46Z\u0026interval.startTime=2020-03-25T17:36:46Z\u0026view=FULL",
+              "lastQueryError": "",
+              "metricKind": "GAUGE",
+              "metricType": "compute.googleapis.com/instance/cpu/reserved_cores",
+              "perSeriesAligner": "ALIGN_INTERPOLATE",
+              "refId": "A",
+              "service": "",
+              "unit": "1",
+              "usedAlignmentPeriod": 3600,
+              "valueType": "DOUBLE"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": false,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "fxci-production-logging",
+          "description": "https://console.cloud.google.com/monitoring/metrics-explorer?organizationId=442341870013\u0026project=fxci-production-logging\u0026supportedpurview=project\u0026pageState=%7B%22xyChart%22:%7B%22dataSets%22:%5B%7B%22timeSeriesFilter%22:%7B%22filter%22:%22metric.type%3D%5C%22compute.googleapis.com%2Finstance%2Fcpu%2Freserved_cores%5C%22%20resource.type%3D%5C%22gce_instance%5C%22%22,%22minAlignmentPeriod%22:%2260s%22,%22unitOverride%22:%221%22,%22aggregations%22:%5B%7B%22perSeriesAligner%22:%22ALIGN_MEAN%22,%22crossSeriesReducer%22:%22REDUCE_SUM%22,%22groupByFields%22:%5B%22resource.label.%5C%22project_id%5C%22%22%5D%7D,%7B%22crossSeriesReducer%22:%22REDUCE_NONE%22%7D%5D%7D,%22targetAxis%22:%22Y1%22,%22plotType%22:%22LINE%22%7D%5D,%22options%22:%7B%22mode%22:%22COLOR%22%7D,%22constantLines%22:%5B%5D,%22timeshiftDuration%22:%220s%22,%22y1Axis%22:%7B%22label%22:%22y1Axis%22,%22scale%22:%22LINEAR%22%7D%7D,%22isAutoRefresh%22:true,%22timeSelection%22:%7B%22timeRange%22:%221w%22%7D%7D",
+          "fill": 4,
+          "fillGradient": 10,
+          "gridPos": {
+            "h": 3,
+            "w": 12,
+            "x": 12,
+            "y": 15
+          },
+          "hiddenSeries": false,
+          "id": 34,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": true,
+            "show": false,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 0,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "/level1/",
+              "color": "#73BF69"
+            },
+            {
+              "alias": "/level3/",
+              "color": "#FF9830"
+            },
+            {
+              "alias": "/level2/",
+              "color": "#B877D9"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": true,
+          "targets": [
+            {
+              "aliasBy": "max util {{resource.label.project_id}}",
+              "alignOptions": [
+                {
+                  "expanded": true,
+                  "label": "Alignment options",
+                  "options": [
+                    {
+                      "label": "interpolate",
+                      "metricKinds": ["GAUGE"],
+                      "text": "interpolate",
+                      "value": "ALIGN_INTERPOLATE",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "next older",
+                      "metricKinds": ["GAUGE"],
+                      "text": "next older",
+                      "value": "ALIGN_NEXT_OLDER",
+                      "valueTypes": [
+                        "INT64",
+                        "DOUBLE",
+                        "MONEY",
+                        "DISTRIBUTION",
+                        "STRING",
+                        "VALUE_TYPE_UNSPECIFIED",
+                        "BOOL"
+                      ]
+                    },
+                    {
+                      "label": "min",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "min",
+                      "value": "ALIGN_MIN",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "max",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "max",
+                      "value": "ALIGN_MAX",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "mean",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "mean",
+                      "value": "ALIGN_MEAN",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "count",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "count",
+                      "value": "ALIGN_COUNT",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY", "BOOL"]
+                    },
+                    {
+                      "label": "sum",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "sum",
+                      "value": "ALIGN_SUM",
+                      "valueTypes": [
+                        "INT64",
+                        "DOUBLE",
+                        "MONEY",
+                        "DISTRIBUTION"
+                      ]
+                    },
+                    {
+                      "label": "stddev",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "stddev",
+                      "value": "ALIGN_STDDEV",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "percent change",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "percent change",
+                      "value": "ALIGN_PERCENT_CHANGE",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    }
+                  ]
+                }
+              ],
+              "alignmentPeriod": "stackdriver-auto",
+              "crossSeriesReducer": "REDUCE_PERCENTILE_99",
+              "defaultProject": "loading project...",
+              "filters": [],
+              "groupBys": ["resource.label.project_id"],
+              "lastQuery": "aggregation.alignmentPeriod=+3600s\u0026aggregation.crossSeriesReducer=REDUCE_PERCENTILE_95\u0026aggregation.groupByFields=resource.label.project_id\u0026aggregation.perSeriesAligner=ALIGN_INTERPOLATE\u0026filter=metric.type=\"compute.googleapis.com/instance/cpu/utilization\"\u0026interval.endTime=2020-04-01T17:44:06Z\u0026interval.startTime=2020-03-25T17:44:06Z\u0026view=FULL",
+              "lastQueryError": "",
+              "metricKind": "GAUGE",
+              "metricType": "compute.googleapis.com/instance/cpu/utilization",
+              "perSeriesAligner": "ALIGN_INTERPOLATE",
+              "refId": "A",
+              "service": "",
+              "unit": "10^2.%",
+              "usedAlignmentPeriod": 3600,
+              "valueType": "DOUBLE"
+            },
+            {
+              "aliasBy": "min util {{resource.label.project_id}}",
+              "alignOptions": [
+                {
+                  "expanded": true,
+                  "label": "Alignment options",
+                  "options": [
+                    {
+                      "label": "interpolate",
+                      "metricKinds": ["GAUGE"],
+                      "text": "interpolate",
+                      "value": "ALIGN_INTERPOLATE",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "next older",
+                      "metricKinds": ["GAUGE"],
+                      "text": "next older",
+                      "value": "ALIGN_NEXT_OLDER",
+                      "valueTypes": [
+                        "INT64",
+                        "DOUBLE",
+                        "MONEY",
+                        "DISTRIBUTION",
+                        "STRING",
+                        "VALUE_TYPE_UNSPECIFIED",
+                        "BOOL"
+                      ]
+                    },
+                    {
+                      "label": "min",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "min",
+                      "value": "ALIGN_MIN",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "max",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "max",
+                      "value": "ALIGN_MAX",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "mean",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "mean",
+                      "value": "ALIGN_MEAN",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "count",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "count",
+                      "value": "ALIGN_COUNT",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY", "BOOL"]
+                    },
+                    {
+                      "label": "sum",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "sum",
+                      "value": "ALIGN_SUM",
+                      "valueTypes": [
+                        "INT64",
+                        "DOUBLE",
+                        "MONEY",
+                        "DISTRIBUTION"
+                      ]
+                    },
+                    {
+                      "label": "stddev",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "stddev",
+                      "value": "ALIGN_STDDEV",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "percent change",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "percent change",
+                      "value": "ALIGN_PERCENT_CHANGE",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    }
+                  ]
+                }
+              ],
+              "alignmentPeriod": "stackdriver-auto",
+              "crossSeriesReducer": "REDUCE_MIN",
+              "defaultProject": "loading project...",
+              "filters": [],
+              "groupBys": ["resource.label.project_id"],
+              "lastQuery": "aggregation.alignmentPeriod=+3600s\u0026aggregation.crossSeriesReducer=REDUCE_PERCENTILE_05\u0026aggregation.groupByFields=resource.label.project_id\u0026aggregation.perSeriesAligner=ALIGN_INTERPOLATE\u0026filter=metric.type=\"compute.googleapis.com/instance/cpu/utilization\"\u0026interval.endTime=2020-04-01T17:44:02Z\u0026interval.startTime=2020-03-25T17:44:02Z\u0026view=FULL",
+              "lastQueryError": "",
+              "metricKind": "GAUGE",
+              "metricType": "compute.googleapis.com/instance/cpu/utilization",
+              "perSeriesAligner": "ALIGN_INTERPOLATE",
+              "refId": "B",
+              "service": "",
+              "unit": "10^2.%",
+              "usedAlignmentPeriod": 3600,
+              "valueType": "DOUBLE"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": false,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "fxci-production-logging",
+          "description": "https://console.cloud.google.com/monitoring/metrics-explorer?organizationId=442341870013\u0026project=fxci-production-logging\u0026supportedpurview=project\u0026pageState=%7B%22xyChart%22:%7B%22dataSets%22:%5B%7B%22timeSeriesFilter%22:%7B%22filter%22:%22metric.type%3D%5C%22compute.googleapis.com%2Finstance%2Fcpu%2Freserved_cores%5C%22%20resource.type%3D%5C%22gce_instance%5C%22%22,%22minAlignmentPeriod%22:%2260s%22,%22unitOverride%22:%221%22,%22aggregations%22:%5B%7B%22perSeriesAligner%22:%22ALIGN_MEAN%22,%22crossSeriesReducer%22:%22REDUCE_SUM%22,%22groupByFields%22:%5B%22resource.label.%5C%22project_id%5C%22%22%5D%7D,%7B%22crossSeriesReducer%22:%22REDUCE_NONE%22%7D%5D%7D,%22targetAxis%22:%22Y1%22,%22plotType%22:%22LINE%22%7D%5D,%22options%22:%7B%22mode%22:%22COLOR%22%7D,%22constantLines%22:%5B%5D,%22timeshiftDuration%22:%220s%22,%22y1Axis%22:%7B%22label%22:%22y1Axis%22,%22scale%22:%22LINEAR%22%7D%7D,%22isAutoRefresh%22:true,%22timeSelection%22:%7B%22timeRange%22:%221w%22%7D%7D",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 3,
+            "w": 12,
+            "x": 0,
+            "y": 18
+          },
+          "hiddenSeries": false,
+          "id": 33,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": true,
+            "show": false,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "count uptime"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": true,
+          "targets": [
+            {
+              "aliasBy": "cpu usage {{resource.label.project_id}}",
+              "alignOptions": [
+                {
+                  "expanded": true,
+                  "label": "Alignment options",
+                  "options": [
+                    {
+                      "label": "delta",
+                      "metricKinds": ["CUMULATIVE", "DELTA"],
+                      "text": "delta",
+                      "value": "ALIGN_DELTA",
+                      "valueTypes": [
+                        "INT64",
+                        "DOUBLE",
+                        "MONEY",
+                        "DISTRIBUTION"
+                      ]
+                    },
+                    {
+                      "label": "rate",
+                      "metricKinds": ["CUMULATIVE", "DELTA"],
+                      "text": "rate",
+                      "value": "ALIGN_RATE",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "min",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "min",
+                      "value": "ALIGN_MIN",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "max",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "max",
+                      "value": "ALIGN_MAX",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "mean",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "mean",
+                      "value": "ALIGN_MEAN",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "count",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "count",
+                      "value": "ALIGN_COUNT",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY", "BOOL"]
+                    },
+                    {
+                      "label": "sum",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "sum",
+                      "value": "ALIGN_SUM",
+                      "valueTypes": [
+                        "INT64",
+                        "DOUBLE",
+                        "MONEY",
+                        "DISTRIBUTION"
+                      ]
+                    },
+                    {
+                      "label": "stddev",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "stddev",
+                      "value": "ALIGN_STDDEV",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "percent change",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "percent change",
+                      "value": "ALIGN_PERCENT_CHANGE",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    }
+                  ]
+                }
+              ],
+              "alignmentPeriod": "stackdriver-auto",
+              "crossSeriesReducer": "REDUCE_SUM",
+              "defaultProject": "loading project...",
+              "filters": [],
+              "groupBys": ["resource.label.project_id"],
+              "lastQuery": "aggregation.alignmentPeriod=+3600s\u0026aggregation.crossSeriesReducer=REDUCE_SUM\u0026aggregation.groupByFields=resource.label.project_id\u0026aggregation.perSeriesAligner=ALIGN_MAX\u0026filter=metric.type=\"compute.googleapis.com/instance/cpu/usage_time\"\u0026interval.endTime=2020-04-01T17:35:16Z\u0026interval.startTime=2020-03-25T17:35:16Z\u0026view=FULL",
+              "lastQueryError": "",
+              "metricKind": "DELTA",
+              "metricType": "compute.googleapis.com/instance/cpu/usage_time",
+              "perSeriesAligner": "ALIGN_DELTA",
+              "refId": "A",
+              "service": "",
+              "unit": "s",
+              "usedAlignmentPeriod": 3600,
+              "valueType": "DOUBLE"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": false,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "fxci-production-logging",
+          "description": "https://console.cloud.google.com/monitoring/metrics-explorer?organizationId=442341870013\u0026project=fxci-production-logging\u0026supportedpurview=project\u0026pageState=%7B%22xyChart%22:%7B%22dataSets%22:%5B%7B%22timeSeriesFilter%22:%7B%22filter%22:%22metric.type%3D%5C%22compute.googleapis.com%2Finstance%2Fcpu%2Freserved_cores%5C%22%20resource.type%3D%5C%22gce_instance%5C%22%22,%22minAlignmentPeriod%22:%2260s%22,%22unitOverride%22:%221%22,%22aggregations%22:%5B%7B%22perSeriesAligner%22:%22ALIGN_MEAN%22,%22crossSeriesReducer%22:%22REDUCE_SUM%22,%22groupByFields%22:%5B%22resource.label.%5C%22project_id%5C%22%22%5D%7D,%7B%22crossSeriesReducer%22:%22REDUCE_NONE%22%7D%5D%7D,%22targetAxis%22:%22Y1%22,%22plotType%22:%22LINE%22%7D%5D,%22options%22:%7B%22mode%22:%22COLOR%22%7D,%22constantLines%22:%5B%5D,%22timeshiftDuration%22:%220s%22,%22y1Axis%22:%7B%22label%22:%22y1Axis%22,%22scale%22:%22LINEAR%22%7D%7D,%22isAutoRefresh%22:true,%22timeSelection%22:%7B%22timeRange%22:%221w%22%7D%7D",
+          "fill": 4,
+          "fillGradient": 10,
+          "gridPos": {
+            "h": 3,
+            "w": 12,
+            "x": 12,
+            "y": 18
+          },
+          "hiddenSeries": false,
+          "id": 35,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": true,
+            "show": false,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "/read/",
+              "color": "#73BF69",
+              "lines": true,
+              "zindex": 3
+            },
+            {
+              "alias": "/write/",
+              "color": "#FF9830"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": true,
+          "targets": [
+            {
+              "aliasBy": "disk read {{resource.label.project_id}}",
+              "alignOptions": [
+                {
+                  "expanded": true,
+                  "label": "Alignment options",
+                  "options": [
+                    {
+                      "label": "delta",
+                      "metricKinds": ["CUMULATIVE", "DELTA"],
+                      "text": "delta",
+                      "value": "ALIGN_DELTA",
+                      "valueTypes": [
+                        "INT64",
+                        "DOUBLE",
+                        "MONEY",
+                        "DISTRIBUTION"
+                      ]
+                    },
+                    {
+                      "label": "rate",
+                      "metricKinds": ["CUMULATIVE", "DELTA"],
+                      "text": "rate",
+                      "value": "ALIGN_RATE",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "min",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "min",
+                      "value": "ALIGN_MIN",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "max",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "max",
+                      "value": "ALIGN_MAX",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "mean",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "mean",
+                      "value": "ALIGN_MEAN",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "count",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "count",
+                      "value": "ALIGN_COUNT",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY", "BOOL"]
+                    },
+                    {
+                      "label": "sum",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "sum",
+                      "value": "ALIGN_SUM",
+                      "valueTypes": [
+                        "INT64",
+                        "DOUBLE",
+                        "MONEY",
+                        "DISTRIBUTION"
+                      ]
+                    },
+                    {
+                      "label": "stddev",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "stddev",
+                      "value": "ALIGN_STDDEV",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "percent change",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "percent change",
+                      "value": "ALIGN_PERCENT_CHANGE",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    }
+                  ]
+                }
+              ],
+              "alignmentPeriod": "stackdriver-auto",
+              "crossSeriesReducer": "REDUCE_MEAN",
+              "defaultProject": "loading project...",
+              "filters": [],
+              "groupBys": ["resource.label.project_id"],
+              "lastQuery": "aggregation.alignmentPeriod=+3600s\u0026aggregation.crossSeriesReducer=REDUCE_MEAN\u0026aggregation.groupByFields=resource.label.project_id\u0026aggregation.perSeriesAligner=ALIGN_DELTA\u0026filter=metric.type=\"compute.googleapis.com/instance/disk/read_bytes_count\"\u0026interval.endTime=2020-04-01T17:52:04Z\u0026interval.startTime=2020-03-25T17:52:04Z\u0026view=FULL",
+              "lastQueryError": "",
+              "metricKind": "DELTA",
+              "metricType": "compute.googleapis.com/instance/disk/read_bytes_count",
+              "perSeriesAligner": "ALIGN_DELTA",
+              "refId": "A",
+              "service": "",
+              "unit": "By",
+              "usedAlignmentPeriod": 3600,
+              "valueType": "INT64"
+            },
+            {
+              "aliasBy": "disk write {{resource.label.project_id}}",
+              "alignOptions": [
+                {
+                  "expanded": true,
+                  "label": "Alignment options",
+                  "options": [
+                    {
+                      "label": "delta",
+                      "metricKinds": ["CUMULATIVE", "DELTA"],
+                      "text": "delta",
+                      "value": "ALIGN_DELTA",
+                      "valueTypes": [
+                        "INT64",
+                        "DOUBLE",
+                        "MONEY",
+                        "DISTRIBUTION"
+                      ]
+                    },
+                    {
+                      "label": "rate",
+                      "metricKinds": ["CUMULATIVE", "DELTA"],
+                      "text": "rate",
+                      "value": "ALIGN_RATE",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "min",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "min",
+                      "value": "ALIGN_MIN",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "max",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "max",
+                      "value": "ALIGN_MAX",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "mean",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "mean",
+                      "value": "ALIGN_MEAN",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "count",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "count",
+                      "value": "ALIGN_COUNT",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY", "BOOL"]
+                    },
+                    {
+                      "label": "sum",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "sum",
+                      "value": "ALIGN_SUM",
+                      "valueTypes": [
+                        "INT64",
+                        "DOUBLE",
+                        "MONEY",
+                        "DISTRIBUTION"
+                      ]
+                    },
+                    {
+                      "label": "stddev",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "stddev",
+                      "value": "ALIGN_STDDEV",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    },
+                    {
+                      "label": "percent change",
+                      "metricKinds": ["GAUGE", "DELTA"],
+                      "text": "percent change",
+                      "value": "ALIGN_PERCENT_CHANGE",
+                      "valueTypes": ["INT64", "DOUBLE", "MONEY"]
+                    }
+                  ]
+                }
+              ],
+              "alignmentPeriod": "stackdriver-auto",
+              "crossSeriesReducer": "REDUCE_MEAN",
+              "defaultProject": "loading project...",
+              "filters": [],
+              "groupBys": ["resource.label.project_id"],
+              "lastQuery": "aggregation.alignmentPeriod=+3600s\u0026aggregation.crossSeriesReducer=REDUCE_MEAN\u0026aggregation.groupByFields=resource.label.project_id\u0026aggregation.perSeriesAligner=ALIGN_DELTA\u0026filter=metric.type=\"compute.googleapis.com/instance/disk/write_bytes_count\"\u0026interval.endTime=2020-04-01T17:52:06Z\u0026interval.startTime=2020-03-25T17:52:06Z\u0026view=FULL",
+              "lastQueryError": "",
+              "metricKind": "DELTA",
+              "metricType": "compute.googleapis.com/instance/disk/write_bytes_count",
+              "perSeriesAligner": "ALIGN_DELTA",
+              "refId": "B",
+              "service": "",
+              "unit": "By",
+              "usedAlignmentPeriod": 3600,
+              "valueType": "INT64"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": false,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "cacheTimeout": null,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "relops_workers",
+          "description": "",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 21
+          },
+          "hiddenSeries": false,
+          "id": 43,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "/-gcp$/",
+              "color": "#37872D",
+              "dashLength": 1,
+              "dashes": true,
+              "fill": 1,
+              "pointradius": 1,
+              "spaceLength": 1,
+              "steppedLine": true
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_provisionerId/$tag_workerType",
+              "dimensions": {},
+              "expression": "",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["provisionerId"],
+                  "type": "tag"
+                },
+                {
+                  "params": ["workerType"],
+                  "type": "tag"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "id": "",
+              "matchExact": true,
+              "measurement": "tc_queue2_exec",
+              "metricName": "",
+              "namespace": "",
+              "orderByTime": "ASC",
+              "policy": "six_month",
+              "refId": "A",
+              "region": "default",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["running"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "statistics": ["Average"],
+              "tags": [
+                {
+                  "key": "provisionerId",
+                  "operator": "=~",
+                  "value": "/^gecko-[0-9]/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "workerType",
+                  "operator": "=~",
+                  "value": "/^b-linux/"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "queue api - running workers",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "relops_workers",
+          "description": "",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 5,
+            "w": 24,
+            "x": 0,
+            "y": 27
+          },
+          "hiddenSeries": false,
+          "id": 20,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "non-gcp",
+              "color": "#C4162A"
+            },
+            {
+              "alias": "b-linux-gcp",
+              "color": "#56A64B"
+            },
+            {
+              "alias": "/^!/",
+              "dashLength": 1,
+              "dashes": true,
+              "lines": true,
+              "spaceLength": 3
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_workerType",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /^b-linux-gcp/) AND $timeFilter GROUP BY time($interval*2),  \"workerType\" fill(linear)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "non-gcp",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT sum(\"max\") FROM (SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /^b-linu(x|x-aws)/ AND \"workerType\" !~ /b-linux-gcp/) AND $timeFilter GROUP BY \"workerType\", time($interval*2)  fill(linear)) GROUP BY time($interval*2) fill(linear)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "!~ /^b-linux-gcp/",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /^b-linu(x|x-aws)/ AND \"workerType\" !~ /b-linux-gcp/) AND $timeFilter GROUP BY \"workerType\", time($interval*2)  fill(linear)",
+              "rawQuery": true,
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "sort": 1,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "relops_workers",
+          "description": "",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 3,
+            "w": 24,
+            "x": 0,
+            "y": 32
+          },
+          "hiddenSeries": false,
+          "id": 30,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "non-gcp",
+              "color": "#C4162A"
+            },
+            {
+              "alias": "b-linux-gcp",
+              "color": "#56A64B"
+            },
+            {
+              "alias": "/^!/",
+              "dashLength": 1,
+              "dashes": true,
+              "lines": true,
+              "spaceLength": 3
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_workerType",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /^b-linux-gcp/) AND $timeFilter GROUP BY time($interval*2),  \"workerType\" fill(linear)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "non-gcp",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT sum(\"max\") FROM (SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /^b-linu(x|x-aws)/ AND \"workerType\" !~ /b-linux-gcp/) AND $timeFilter GROUP BY \"workerType\", time($interval*2)  fill(linear)) GROUP BY time($interval*2) fill(linear)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "!~ /^b-linux-gcp/",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /^b-linu(x|x-aws)/ AND \"workerType\" !~ /b-linux-gcp/) AND $timeFilter GROUP BY \"workerType\", time($interval*2)  fill(linear)",
+              "rawQuery": true,
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": "1w",
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "sort": 1,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "relops_workers",
+          "description": "",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 3,
+            "w": 24,
+            "x": 0,
+            "y": 35
+          },
+          "hiddenSeries": false,
+          "id": 29,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "non-gcp",
+              "color": "#C4162A"
+            },
+            {
+              "alias": "b-linux-gcp",
+              "color": "#56A64B"
+            },
+            {
+              "alias": "/^!/",
+              "dashLength": 1,
+              "dashes": true,
+              "lines": true,
+              "spaceLength": 3
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_workerType",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /^b-linux-gcp/) AND $timeFilter GROUP BY time($interval*2),  \"workerType\" fill(linear)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "non-gcp",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT sum(\"max\") FROM (SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /^b-linu(x|x-aws)/ AND \"workerType\" !~ /b-linux-gcp/) AND $timeFilter GROUP BY \"workerType\", time($interval*2)  fill(linear)) GROUP BY time($interval*2) fill(linear)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "!~ /^b-linux-gcp/",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /^b-linu(x|x-aws)/ AND \"workerType\" !~ /b-linux-gcp/) AND $timeFilter GROUP BY \"workerType\", time($interval*2)  fill(linear)",
+              "rawQuery": true,
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": "6w",
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "sort": 1,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "GCP Stats",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 24,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "relops_workers",
+          "description": "",
+          "fill": 4,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 5,
+            "w": 24,
+            "x": 0,
+            "y": 12
+          },
+          "hiddenSeries": false,
+          "id": 16,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "rightSide": true,
+            "show": true,
+            "sort": "max",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "/.*/"
+            },
+            {
+              "alias": "/gcp$/",
+              "color": "#56A64B"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_workerType",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /b-linux-gcp/) AND $timeFilter GROUP BY time($interval*4),  \"workerType\" fill(null)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "$tag_workerType",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /b-linux/ AND \"workerType\" !~ /b-linux-gcp/) AND $timeFilter GROUP BY time($interval*4), \"workerType\"  fill(null)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [
+            {
+              "colorMode": "background6",
+              "fill": true,
+              "fillColor": "rgba(234, 112, 112, 0.12)",
+              "from": "07:00",
+              "fromDayOfWeek": 6,
+              "line": false,
+              "lineColor": "rgba(237, 46, 24, 0.60)",
+              "op": "time",
+              "to": "07:00",
+              "toDayOfWeek": 1
+            }
+          ],
+          "timeShift": null,
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "sort": 1,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "relops_workers",
+          "description": "",
+          "fill": 4,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 5,
+            "w": 24,
+            "x": 0,
+            "y": 17
+          },
+          "hiddenSeries": false,
+          "id": 17,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "/.*/"
+            },
+            {
+              "alias": "/gcp$/",
+              "color": "#56A64B"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_workerType",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /b-linux-gcp/) AND $timeFilter GROUP BY time($interval*4),  \"workerType\" fill(null)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "$tag_workerType",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /b-linux/ AND \"workerType\" !~ /b-linux-gcp/) AND $timeFilter GROUP BY time($interval*4), \"workerType\"  fill(null)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [
+            {
+              "colorMode": "background6",
+              "fill": true,
+              "fillColor": "rgba(234, 112, 112, 0.12)",
+              "from": "07:00",
+              "fromDayOfWeek": 6,
+              "line": false,
+              "lineColor": "rgba(237, 46, 24, 0.60)",
+              "op": "time",
+              "to": "07:00",
+              "toDayOfWeek": 1
+            }
+          ],
+          "timeShift": "1w",
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "sort": 1,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "relops_workers",
+          "description": "",
+          "fill": 4,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 5,
+            "w": 24,
+            "x": 0,
+            "y": 22
+          },
+          "hiddenSeries": false,
+          "id": 19,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "/.*/"
+            },
+            {
+              "alias": "/gcp$/",
+              "color": "#56A64B"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_workerType",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /b-linux-gcp/) AND $timeFilter GROUP BY time($interval*4),  \"workerType\" fill(null)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "$tag_workerType",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"runningWorkers\") FROM \"six_month\".\"tc_web_exec\" WHERE (\"workerType\" =~ /b-linux/ AND \"workerType\" !~ /b-linux-gcp/) AND $timeFilter GROUP BY time($interval*4), \"workerType\"  fill(null)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [
+            {
+              "colorMode": "background6",
+              "fill": true,
+              "fillColor": "rgba(234, 112, 112, 0.12)",
+              "from": "07:00",
+              "fromDayOfWeek": 6,
+              "line": false,
+              "lineColor": "rgba(237, 46, 24, 0.60)",
+              "op": "time",
+              "to": "07:00",
+              "toDayOfWeek": 1
+            }
+          ],
+          "timeShift": "6w",
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "sort": 1,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Each workerType",
+      "type": "row"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 21,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "GCP/AWS Builder Counts",
+  "uid": "MZihUsuWz",
+  "version": 38
+}

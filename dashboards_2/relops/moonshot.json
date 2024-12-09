@@ -1,0 +1,2228 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "$$hashKey": "object:17",
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations \u0026 Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 70,
+  "iteration": 1613112895576,
+  "links": [],
+  "panels": [
+    {
+      "cacheTimeout": null,
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "decimals": 0,
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "N/A",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 1,
+          "min": 0,
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.2
+              },
+              {
+                "color": "green",
+                "value": 0.9
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 15,
+        "x": 0,
+        "y": 0
+      },
+      "hideTimeOverride": true,
+      "id": 5,
+      "links": [],
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["max"],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": false
+      },
+      "pluginVersion": "7.1.5",
+      "targets": [
+        {
+          "alias": "$tag_workerType",
+          "groupBy": [
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "query": "SELECT last(\"workers\") / max(\"workers\") FROM \"six_month\".\"tc_queue2_exec\" WHERE (\"provisionerId\" = 'releng-hardware' AND \"workerType\" =~ /^$workerType$/) AND $timeFilter GROUP BY \"workerType\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["workers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "releng-hardware"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/gecko-t-(linux-talos|win.*-hw)/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": "180d",
+      "timeShift": null,
+      "title": "Workers Found (current/(180day max))",
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [50],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": ["A", "1h", "now"]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "keep_state",
+        "for": "15m",
+        "frequency": "1h",
+        "handler": 1,
+        "name": "no-ping/hung alert",
+        "noDataState": "keep_state",
+        "notifications": [
+          {
+            "uid": "2XelkOsZk"
+          }
+        ]
+      },
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 9,
+        "x": 15,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 9,
+      "interval": "30m",
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:1187",
+          "alias": "/.*hung.*/",
+          "color": "#F2495C",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:1188",
+          "alias": "/.*no ping/",
+          "bars": false,
+          "color": "rgba(255, 0, 0, 0.29)",
+          "fill": 1,
+          "lines": true,
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:1242",
+          "alias": "/.*missing/",
+          "bars": false,
+          "pointradius": 1,
+          "points": true,
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "",
+          "groupBy": [
+            {
+              "params": ["30m"],
+              "type": "time"
+            },
+            {
+              "params": ["type"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "systemcheck",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["noping"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              },
+              {
+                "params": ["no ping"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["hung"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              },
+              {
+                "params": ["hung"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["missing"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              },
+              {
+                "params": ["missing"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [
+        {
+          "$$hashKey": "object:306",
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 50,
+          "yaxis": "left"
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "no-ping/hung",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1217",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": false
+        },
+        {
+          "$$hashKey": "object:1218",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0.1",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 15,
+        "x": 0,
+        "y": 4
+      },
+      "hiddenSeries": false,
+      "id": 13,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 4,
+      "links": [],
+      "nullPointMode": "null",
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*workers$/"
+        },
+        {
+          "alias": "/.*active$/",
+          "color": "#73BF69",
+          "linewidth": 1
+        },
+        {
+          "alias": "/.*/",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerType $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["previous"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "autogen",
+          "query": "SELECT (mean(\"workers\") - mean(\"quarantined\")) AS \"workers\" FROM \"tc_queue2_exec\" WHERE \"provisionerId\" = 'releng-hardware' AND \"workerType\" =~ /^$workerType$/ AND $timeFilter GROUP BY time($__interval * 10), \"workerType\" fill(previous)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["active"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["workers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["running"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            },
+            {
+              "condition": "AND",
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "releng-hardware"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "Workers Found",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "workers",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": false
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "workers",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "relops_workers",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 0,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 5
+              },
+              {
+                "color": "red",
+                "value": 10
+              },
+              {
+                "color": "rgb(95, 242, 255)",
+                "value": 45
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 15,
+        "y": 4
+      },
+      "id": 10,
+      "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": ["last"],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.5",
+      "targets": [
+        {
+          "alias": "linux",
+          "groupBy": [],
+          "measurement": "systemcheck",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "query": "SELECT sum(\"missing\") AS \"missing\" FROM \"six_month\".\"systemcheck\" WHERE (\"host\" =~ /^t-linux/) AND $timeFilter GROUP BY time(30m)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["missing"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              },
+              {
+                "params": ["missing"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=~",
+              "value": "/^t-linux/"
+            }
+          ]
+        },
+        {
+          "alias": "windows",
+          "groupBy": [],
+          "measurement": "systemcheck",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "query": "SELECT sum(\"missing\") AS \"missing\" FROM \"six_month\".\"systemcheck\" WHERE (\"host\" !~ /^t-linux/) AND $timeFilter GROUP BY time(30m)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["missing"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              },
+              {
+                "params": ["missing"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "!~",
+              "value": "/^t-linux/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "WorkerType Not found",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "columns": [],
+      "datasource": "relops_workers",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "90%",
+      "gridPos": {
+        "h": 6,
+        "w": 9,
+        "x": 15,
+        "y": 7
+      },
+      "id": 19,
+      "interval": "",
+      "links": [],
+      "pageSize": null,
+      "pluginVersion": "6.2.5",
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "$$hashKey": "object:418",
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "$$hashKey": "object:419",
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 0,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "view machine stats",
+          "linkUrl": "https://earthangel-b40313e5.influxcloud.net/d/Iqw--kMWz/hardware-worker?orgId=1\u0026refresh=5m\u0026var-Host=${__cell}",
+          "pattern": "/workerId|host/",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "$$hashKey": "object:420",
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "alias": "",
+          "groupBy": [
+            {
+              "params": ["chassis"],
+              "type": "tag"
+            },
+            {
+              "params": ["cart"],
+              "type": "tag"
+            },
+            {
+              "params": ["workerId"],
+              "type": "tag"
+            }
+          ],
+          "measurement": "systemcheck",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "query": "SELECT sum(\"missing\") AS \"missing\" FROM \"six_month\".\"systemcheck\" WHERE $timeFilter GROUP BY \"chassis\", \"cart\", \"workerId\"",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": ["missing"],
+                "type": "field"
+              },
+              {
+                "params": ["missing"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "event",
+              "operator": "=",
+              "value": "missing"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "WorkerType Not found",
+      "transform": "table",
+      "transparent": true,
+      "type": "table-old"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 15,
+        "x": 0,
+        "y": 9
+      },
+      "hiddenSeries": false,
+      "id": 12,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*workers$/"
+        },
+        {
+          "alias": "/.*active$/",
+          "color": "#73BF69",
+          "linewidth": 1
+        },
+        {
+          "alias": "/.*/",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "alias": "$tag_workerType $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["previous"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "autogen",
+          "query": "SELECT (max(\"workers\") - max(\"quarantined\")) AS \"workers\" FROM \"tc_queue2_exec\" WHERE \"provisionerId\" = 'releng-hardware' AND \"workerType\" =~ /^$workerType$/ AND $timeFilter GROUP BY time(1h), \"workerType\" fill(previous)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["active"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["workers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["running"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            },
+            {
+              "condition": "AND",
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "releng-hardware"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": "60d",
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "History",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "workers",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": false
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "workers",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    },
+    {
+      "cacheTimeout": null,
+      "columns": [],
+      "datasource": "relops_workers",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "90%",
+      "gridPos": {
+        "h": 7,
+        "w": 9,
+        "x": 15,
+        "y": 13
+      },
+      "id": 18,
+      "links": [],
+      "pageSize": null,
+      "pluginVersion": "6.2.5",
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 0,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "view machine stats",
+          "linkUrl": "https://earthangel-b40313e5.influxcloud.net/d/Iqw--kMWz/hardware-worker?orgId=1\u0026refresh=5m\u0026var-Host=${__cell}",
+          "pattern": "/workerId|host/",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "alias": "",
+          "groupBy": [
+            {
+              "params": ["chassis"],
+              "type": "tag"
+            },
+            {
+              "params": ["cart"],
+              "type": "tag"
+            },
+            {
+              "params": ["workerId"],
+              "type": "tag"
+            }
+          ],
+          "measurement": "systemcheck",
+          "orderByTime": "DESC",
+          "policy": "six_month",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": ["noping"],
+                "type": "field"
+              },
+              {
+                "params": ["no ping"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["hung"],
+                "type": "field"
+              },
+              {
+                "params": ["hung"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "no-ping/hung",
+      "transform": "table",
+      "transparent": true,
+      "type": "table-old"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 15,
+        "x": 0,
+        "y": 14
+      },
+      "hiddenSeries": false,
+      "id": 7,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:804",
+          "alias": "/.*workers$/",
+          "color": "#5794F2",
+          "dashLength": 2,
+          "dashes": true
+        },
+        {
+          "$$hashKey": "object:805",
+          "alias": "/.*/",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:806",
+          "alias": "/.*requested$/",
+          "color": "#FF9830",
+          "fill": 3,
+          "linewidth": 0,
+          "zindex": 3
+        },
+        {
+          "$$hashKey": "object:807",
+          "alias": "/.*active$/",
+          "color": "#73BF69"
+        },
+        {
+          "$$hashKey": "object:808",
+          "alias": "/.*queue$/",
+          "color": "#FA6400",
+          "fill": 4,
+          "fillGradient": 3,
+          "linewidth": 0,
+          "nullPointMode": "connected",
+          "yaxis": 1,
+          "zindex": 2
+        },
+        {
+          "$$hashKey": "object:809",
+          "alias": "/.*max$/",
+          "color": "rgba(0, 3, 255, 0.15)",
+          "dashLength": 1,
+          "fill": 0,
+          "hideTooltip": true,
+          "legend": false,
+          "spaceLength": 4,
+          "zindex": -3
+        },
+        {
+          "$$hashKey": "object:810",
+          "alias": "/.*active2$/",
+          "color": "rgba(115, 191, 105, 0.41)",
+          "hideTooltip": true,
+          "linewidth": 0,
+          "zindex": -2
+        },
+        {
+          "$$hashKey": "object:811",
+          "alias": "/.*queue2$/",
+          "color": "#FF9830",
+          "fill": 2,
+          "hideTooltip": true,
+          "linewidth": 0
+        },
+        {
+          "$$hashKey": "object:813",
+          "alias": "/.*quarantined$/",
+          "color": "#FADE2A"
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerType $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["previous"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "autogen",
+          "query": "SELECT mean(\"pendingTasks\") AS \"queue\", mean(\"running\") AS \"active\", (mean(\"workers\") - mean(\"quarantined\")) AS \"workers\", mean(\"quarantined\") AS \"quarantined\" FROM \"tc_queue2_exec\" WHERE (\"workerType\" =~ /^$workerType$/ AND \"provisionerId\" = 'releng-hardware') AND $timeFilter GROUP BY time($__interval * 10), \"workerType\" fill(none)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["active"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["workers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["running"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            },
+            {
+              "condition": "AND",
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "releng-hardware"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "$$hashKey": "object:959",
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "Workers vs Active",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:932",
+          "decimals": null,
+          "format": "short",
+          "label": "workers",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:933",
+          "decimals": null,
+          "format": "short",
+          "label": "workers",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 5,
+      "gridPos": {
+        "h": 6,
+        "w": 15,
+        "x": 0,
+        "y": 19
+      },
+      "hiddenSeries": false,
+      "id": 4,
+      "interval": "30m",
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 0,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:169",
+          "alias": "/.*max$/",
+          "fill": 0,
+          "hideTooltip": true,
+          "linewidth": 0,
+          "yaxis": 2,
+          "zindex": 3
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["host"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "procstat",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT count(\"count\") FROM (SELECT count(\"cpu_usage\") FROM \"procstat\" WHERE (\"workerType\" =~ /^$workerType$/) AND $timeFilter GROUP BY time($__interval), \"workerType\", \"host\", \"dataCenter\" fill(null)) GROUP BY time($__interval), \"workerType\", \"dataCenter\"",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["cpu_usage"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        },
+        {
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["dataCenter"],
+              "type": "tag"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "procstat_lookup",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT count(\"mean\") FROM (SELECT mean(\"running\") FROM \"procstat_lookup\" WHERE (\"workerType\" =~ /^$workerType$/) AND $timeFilter GROUP BY time($__interval), \"dataCenter\", \"workerType\", \"host\" fill(null)) GROUP BY time($__interval), \"dataCenter\", \"workerType\" fill(null)",
+          "rawQuery": true,
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        },
+        {
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["dataCenter"],
+              "type": "tag"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["host"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpu",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT count(\"count\") FROM (SELECT count(\"usage_user\") FROM \"cpu\" WHERE (\"workerType\" =~ /^$workerType$/) AND $timeFilter GROUP BY time($__interval), \"dataCenter\", \"workerType\", \"host\" fill(null)) GROUP BY time($__interval), \"dataCenter\", \"workerType\" fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["usage_user"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        },
+        {
+          "alias": "hung chassis $tag_chassis",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["id"],
+              "type": "tag"
+            },
+            {
+              "params": ["chassis"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "systemcheck",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT count(\"mean\") FROM (SELECT mean(\"hung\") FROM \"systemcheck\" WHERE $timeFilter GROUP BY time($__interval), \"chassis\", \"id\" fill(null)) GROUP BY time($__interval), \"chassis\" fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["hung"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "worker count (from cpu_usage counts)",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:184",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:185",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "cacheTimeout": null,
+      "columns": [],
+      "datasource": "relops_workers",
+      "description": "Sum of events for hostnames over the last 4 weeks.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 11,
+        "w": 9,
+        "x": 15,
+        "y": 20
+      },
+      "id": 11,
+      "links": [],
+      "pageSize": null,
+      "pluginVersion": "6.2.5",
+      "showHeader": true,
+      "sort": {
+        "col": 5,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 0,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "ILO/management",
+          "linkUrl": "https://moon-chassis-${__cell_3}.inband.releng.${__cell_4}.mozilla.com/#/cartridge/show/overview/r/rest/v1/Chassis/${__cell_3}/Cartridges/C${__cell_2}",
+          "pattern": "host",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "alias": "",
+          "groupBy": [
+            {
+              "params": ["4w"],
+              "type": "time"
+            },
+            {
+              "params": ["chassis"],
+              "type": "tag"
+            },
+            {
+              "params": ["cart"],
+              "type": "tag"
+            },
+            {
+              "params": ["host"],
+              "type": "tag"
+            },
+            {
+              "params": ["group"],
+              "type": "tag"
+            },
+            {
+              "params": ["0"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "systemcheck",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": ["noping"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              },
+              {
+                "params": ["no ping"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["hung"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              },
+              {
+                "params": ["hung"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "repeat no-ping/hung",
+      "transform": "table",
+      "transparent": true,
+      "type": "table-old"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "description": "Sum of hung for each chassis.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 12,
+        "w": 15,
+        "x": 0,
+        "y": 25
+      },
+      "hiddenSeries": false,
+      "id": 15,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "total",
+        "sortDesc": true,
+        "total": true,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null as zero",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_chassis",
+          "groupBy": [
+            {
+              "params": ["$interval"],
+              "type": "time"
+            },
+            {
+              "params": ["chassis"],
+              "type": "tag"
+            }
+          ],
+          "measurement": "systemcheck",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["hung"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              },
+              {
+                "params": ["hung"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": "30d",
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "chassis total no-ping/hung",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": "45",
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "cacheTimeout": null,
+      "cards": {
+        "cardPadding": null,
+        "cardRound": null
+      },
+      "color": {
+        "cardColor": "#C4162A",
+        "colorScale": "sqrt",
+        "colorScheme": "interpolateCubehelixDefault",
+        "exponent": 4,
+        "mode": "spectrum"
+      },
+      "dataFormat": "timeseries",
+      "datasource": "relops_workers",
+      "description": "Buckets by id number.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 37
+      },
+      "heatmap": {},
+      "hideZeroBuckets": false,
+      "highlightCards": true,
+      "id": 16,
+      "legend": {
+        "show": true
+      },
+      "links": [],
+      "pluginVersion": "6.4.3",
+      "reverseYBuckets": false,
+      "targets": [
+        {
+          "alias": "$tag_workerId",
+          "groupBy": [
+            {
+              "params": ["$interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerId"],
+              "type": "tag"
+            }
+          ],
+          "measurement": "systemcheck",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["id"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "host id heatmap",
+      "tooltip": {
+        "show": true,
+        "showHistogram": false
+      },
+      "transparent": true,
+      "type": "heatmap",
+      "xAxis": {
+        "show": true
+      },
+      "xBucketNumber": null,
+      "xBucketSize": "",
+      "yAxis": {
+        "decimals": null,
+        "format": "short",
+        "logBase": 1,
+        "max": null,
+        "min": "1",
+        "show": true,
+        "splitFactor": null
+      },
+      "yBucketBound": "auto",
+      "yBucketNumber": null,
+      "yBucketSize": 8
+    },
+    {
+      "cacheTimeout": null,
+      "cards": {
+        "cardPadding": null,
+        "cardRound": null
+      },
+      "color": {
+        "cardColor": "#C4162A",
+        "colorScale": "sqrt",
+        "colorScheme": "interpolateCubehelixDefault",
+        "exponent": 4,
+        "mode": "opacity"
+      },
+      "dataFormat": "timeseries",
+      "datasource": "relops_workers",
+      "description": "Buckets by id number.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 37
+      },
+      "heatmap": {},
+      "hideZeroBuckets": false,
+      "highlightCards": true,
+      "id": 17,
+      "legend": {
+        "show": true
+      },
+      "links": [],
+      "pluginVersion": "6.4.3",
+      "reverseYBuckets": false,
+      "targets": [
+        {
+          "alias": "$tag_workerId",
+          "groupBy": [
+            {
+              "params": ["$interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerId"],
+              "type": "tag"
+            }
+          ],
+          "measurement": "systemcheck",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["id"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "host id heatmap",
+      "tooltip": {
+        "show": true,
+        "showHistogram": false
+      },
+      "transparent": true,
+      "type": "heatmap",
+      "xAxis": {
+        "show": true
+      },
+      "xBucketNumber": null,
+      "xBucketSize": "",
+      "yAxis": {
+        "decimals": null,
+        "format": "short",
+        "logBase": 1,
+        "max": null,
+        "min": "1",
+        "show": true,
+        "splitFactor": null
+      },
+      "yBucketBound": "auto",
+      "yBucketNumber": null,
+      "yBucketSize": 1
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 26,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "datasource": "relops_workers",
+        "filters": [],
+        "hide": 0,
+        "label": null,
+        "name": "adhoc",
+        "skipUrlSync": false,
+        "type": "adhoc"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "tags": [],
+          "text": [
+            "gecko-t-linux-talos",
+            "gecko-t-linux-talos-dev",
+            "gecko-t-win10-64-1803-hw",
+            "gecko-t-win10-64-hw",
+            "gecko-t-linux-talos-1804"
+          ],
+          "value": [
+            "gecko-t-linux-talos",
+            "gecko-t-linux-talos-dev",
+            "gecko-t-win10-64-1803-hw",
+            "gecko-t-win10-64-hw",
+            "gecko-t-linux-talos-1804"
+          ]
+        },
+        "datasource": "relops_workers",
+        "definition": "SHOW TAG VALUES FROM /tc_queue/ WITH KEY = \"workerType\" WHERE provisionerId = 'releng-hardware'",
+        "hide": 0,
+        "includeAll": true,
+        "label": "",
+        "multi": true,
+        "name": "workerType",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM /tc_queue/ WITH KEY = \"workerType\" WHERE provisionerId = 'releng-hardware'",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 5,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": ["5m", "15m", "1h", "6h", "12h", "24h", "2d", "7d", "30d"]
+  },
+  "timezone": "",
+  "title": "Moonshot",
+  "uid": "ZRX9snNZz",
+  "version": 39
+}

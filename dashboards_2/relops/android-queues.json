@@ -1,0 +1,1456 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "$$hashKey": "object:7",
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations \u0026 Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 74,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "alert": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [1400],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": ["C", "5m", "now"]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "1m",
+        "handler": 1,
+        "message": "The Android Hardware Taskcluster queues are very high!",
+        "name": "Android Hw/Bitbar - Queue Size Alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "FZdRvBmZk"
+          }
+        ]
+      },
+      "aliasColors": {
+        "android_hw_total": "purple",
+        "android_hw_total jobs": "light-red",
+        "proj-autophone/gecko-t-bitbar-gw-batt-g5": "semi-dark-green",
+        "proj-autophone/gecko-t-bitbar-gw-batt-p2": "green",
+        "proj-autophone/gecko-t-bitbar-gw-perf-a51 jobs": "light-yellow",
+        "proj-autophone/gecko-t-bitbar-gw-perf-g5": "dark-yellow",
+        "proj-autophone/gecko-t-bitbar-gw-perf-g5 jobs": "red",
+        "proj-autophone/gecko-t-bitbar-gw-perf-p2": "semi-dark-yellow",
+        "proj-autophone/gecko-t-bitbar-gw-perf-p2 jobs": "dark-purple",
+        "proj-autophone/gecko-t-bitbar-gw-test-1": "purple",
+        "proj-autophone/gecko-t-bitbar-gw-test-2": "light-purple",
+        "proj-autophone/gecko-t-bitbar-gw-test-3": "semi-dark-purple",
+        "proj-autophone/gecko-t-bitbar-gw-test-g5": "dark-purple",
+        "proj-autophone/gecko-t-bitbar-gw-unit-g5": "dark-green",
+        "proj-autophone/gecko-t-bitbar-gw-unit-p2": "blue",
+        "proj-autophone/gecko-t-bitbar-gw-unit-p2 jobs": "light-blue"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000005"
+      },
+      "decimals": 1,
+      "description": "proj-autophone/gecko-t-ap-*",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 14,
+        "w": 20,
+        "x": 0,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 6,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": false,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Android HW - Cluster Status",
+          "url": "/d/xqkIk8HZz/android-hw-cluster-status"
+        }
+      ],
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "9.4.10",
+      "pointradius": 0.5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:78",
+          "alias": "android_hw_total jobs",
+          "fill": 0
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "proj-autophone/$tag_queue jobs",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000005"
+          },
+          "groupBy": [
+            {
+              "params": ["queue"],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "current",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT * FROM \"bitbar_queue_size\" WHERE (\"queue\" !~ /test/) AND $timeFilter GROUP BY \"queue\";\n",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "queue",
+              "operator": "=",
+              "value": "gecko-t-ap-batt-g5"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000005"
+          },
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"value\") FROM \"measurement\" WHERE (\"queue\" !~ /test/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "queue",
+              "operator": "!~",
+              "value": "/test/"
+            }
+          ]
+        },
+        {
+          "alias": "android_hw_total jobs",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000005"
+          },
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"value\") FROM \"bitbar_queue_size\" WHERE (\"queue\" !~ /test/) AND $timeFilter GROUP BY time(1m) fill(null)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 1400,
+          "visible": true
+        }
+      ],
+      "timeRegions": [],
+      "title": "Android Hardware (Bitbar)",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:85",
+          "decimals": 0,
+          "format": "none",
+          "label": "jobs",
+          "logBase": 1,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:86",
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000005"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "max": 3000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#299c46",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 1400
+              },
+              {
+                "color": "#d44a3a",
+                "value": 2000
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 0
+      },
+      "hideTimeOverride": true,
+      "id": 8,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["mean"],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.4.10",
+      "targets": [
+        {
+          "alias": "total",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000005"
+          },
+          "groupBy": [
+            {
+              "params": ["1m"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "bitbar_queue_size",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"value\") FROM \"bitbar_queue_size\" WHERE queue !~ /test/ AND $timeFilter GROUP BY time(1m) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": "1m",
+      "title": "Android Hw Bitbar Jobs",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000005"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 88
+              },
+              {
+                "color": "yellow",
+                "value": 92
+              },
+              {
+                "color": "green",
+                "value": 96
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 6
+      },
+      "id": 16,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Android HW - Cluster Status",
+          "url": "/d/xqkIk8HZz/android-hw-cluster-status"
+        }
+      ],
+      "options": {
+        "displayMode": "basic",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": ["last"],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {}
+      },
+      "pluginVersion": "9.4.10",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000005"
+          },
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT ((sum(\"configured\")- sum(\"problem\")) / sum(\"configured\")) * 100  FROM \"bitbar_workers\" WHERE $timeFilter GROUP BY time($__interval) fill(none)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Android Hw Health",
+      "type": "bargauge"
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [600],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": ["D", "15m", "now"]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "keep_state",
+        "for": "4h",
+        "frequency": "15m",
+        "handler": 1,
+        "message": "The AWS Metal queue (used for Android emulated tests) (gecko-t/t-linux-metal) is large!",
+        "name": "Android Em - Queue Size Alert",
+        "noDataState": "keep_state",
+        "notifications": [
+          {
+            "uid": "FZdRvBmZk"
+          }
+        ]
+      },
+      "aliasColors": {
+        "aws-provisioner-v1/gecko-t-linux-xlarge (4.3)": "orange",
+        "gecko-t/t-linux-metal workers": "blue",
+        "terraform-packet/gecko-t-linux (7.0)": "blue",
+        "workers": "light-blue"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000012"
+      },
+      "description": "aws queue shows non-android work",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 20,
+        "x": 0,
+        "y": 14
+      },
+      "hiddenSeries": false,
+      "id": 10,
+      "interval": "",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": false,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Android Em - Cluster Status",
+          "url": "/d/_N4y0LpWk/android-em-cluster-status"
+        }
+      ],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "9.4.10",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:1891",
+          "alias": "gecko-t/t-linux-metal workers",
+          "fill": 0,
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:2118",
+          "alias": "gecko-t/t-linux-metal running",
+          "fill": 0,
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "gecko-t/t-linux-kvm-gcp jobs",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000012"
+          },
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["none"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "gecko-t"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=",
+              "value": "t-linux-kvm-noscratch-gcp"
+            }
+          ]
+        },
+        {
+          "alias": "gecko-t/t-linux-kvm-gcp 24hr workers",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000012"
+          },
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["none"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["workers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "gecko-t"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=",
+              "value": "t-linux-kvm-gcp"
+            }
+          ]
+        },
+        {
+          "alias": "gecko-t/t-linux-kvm-gcp running workers",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000012"
+          },
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["none"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "gecko-t"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=",
+              "value": "t-linux-kvm-noscratch-gcp"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000012"
+          },
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"pendingTasks\") AS \"queued\", max(\"running\") as \"running\" FROM /^tc_queue2/ WHERE \"provisionerId\" = 'gecko-t'  AND \"workerType\" = \"t-linux-kvm-gcp\" AND $timeFilter\n",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 600,
+          "visible": true
+        }
+      ],
+      "timeRegions": [],
+      "title": "Android Emulated",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1904",
+          "format": "none",
+          "label": "jobs",
+          "logBase": 1,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1905",
+          "format": "short",
+          "label": "workers",
+          "logBase": 1,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000012"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "max": 2000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#299c46",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 600
+              },
+              {
+                "color": "#d44a3a",
+                "value": 1000
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 20,
+        "y": 14
+      },
+      "id": 14,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.4.10",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000012"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "query": "SELECT sum(\"pendingTasks\") FROM \"six_month\".\"tc_queue_exec\" WHERE (\"provisionerId\" = 'gecko-t' AND \"workerType\" = 't-linux-kvm-noscratch-gcp') AND $timeFilter GROUP BY time(1m) fill(null)\n\n",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "gecko-t"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=",
+              "value": "t-linux-kvm-gcp"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000012"
+          },
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"pendingTasks\" FROM \"six_months\".\"tc_queue_exec\" WHERE (\"provisionerId\" = 'terraform-packet' AND \"workerType\" = 'gecko-t-linux') AND $timeFilter GROUP BY \"workerType\", \"provisionerId\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Android-Em Queue Jobs",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 7,
+        "x": 0,
+        "y": 21
+      },
+      "id": 4,
+      "links": [],
+      "options": {
+        "alertInstanceLabelFilter": "",
+        "alertName": "android",
+        "dashboardAlerts": false,
+        "dashboardTitle": "",
+        "folder": {
+          "id": 5,
+          "title": "relops"
+        },
+        "folderId": 5,
+        "groupBy": [],
+        "groupMode": "default",
+        "maxItems": "20",
+        "showOptions": "current",
+        "sortOrder": 1,
+        "stateFilter": {
+          "alerting": false,
+          "error": true,
+          "execution_error": false,
+          "firing": true,
+          "noData": true,
+          "no_data": false,
+          "normal": true,
+          "ok": false,
+          "paused": false,
+          "pending": true
+        },
+        "tags": [],
+        "viewMode": "list"
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Alerts",
+      "type": "alertlist"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 6,
+        "x": 7,
+        "y": 21
+      },
+      "id": 20,
+      "options": {
+        "alertInstanceLabelFilter": "",
+        "alertName": "lag",
+        "dashboardAlerts": false,
+        "dashboardTitle": "",
+        "folder": {
+          "id": 5,
+          "title": "relops"
+        },
+        "folderId": 5,
+        "groupBy": [],
+        "groupMode": "default",
+        "maxItems": 10,
+        "showOptions": "current",
+        "sortOrder": 1,
+        "stateFilter": {
+          "alerting": false,
+          "error": true,
+          "execution_error": false,
+          "firing": true,
+          "noData": true,
+          "no_data": false,
+          "normal": true,
+          "ok": false,
+          "paused": false,
+          "pending": true
+        },
+        "tags": [],
+        "viewMode": "list"
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Lag Alerts",
+      "type": "alertlist"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000005"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "dateTimeAsUS"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 11,
+        "x": 13,
+        "y": 21
+      },
+      "id": 18,
+      "links": [
+        {
+          "title": "Android HW - Cluster Status",
+          "url": "/d/xqkIk8HZz/android-hw-cluster-status"
+        }
+      ],
+      "options": {
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": ["sum"],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.4.10",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000005"
+          },
+          "groupBy": [
+            {
+              "params": ["queue"],
+              "type": "tag"
+            }
+          ],
+          "measurement": "bitbar_workers",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"configured\", \"problem\" FROM \"bitbar_workers\" WHERE $timeFilter GROUP BY \"queue\" ORDER BY time DESC LIMIT 1",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": ["configured"],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000005"
+          },
+          "groupBy": [
+            {
+              "params": ["queue"],
+              "type": "tag"
+            }
+          ],
+          "hide": true,
+          "measurement": "bitbar_workers",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select sum(\"configured\") as configured, sum(\"problem\") as problem from (SELECT \"configured\", \"problem\" FROM \"bitbar_workers\" WHERE $timeFilter GROUP BY \"queue\" ORDER BY time DESC LIMIT 1) ORDER BY time DESC",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": ["configured"],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Android Hw Workers",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {
+            "reducers": []
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "columns": [],
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000012"
+      },
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 5,
+        "w": 11,
+        "x": 13,
+        "y": 32
+      },
+      "id": 22,
+      "links": [
+        {
+          "title": "Android HW - Cluster Status",
+          "url": "/d/xqkIk8HZz/android-hw-cluster-status"
+        }
+      ],
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 2,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "",
+          "align": "auto",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Time",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000012"
+          },
+          "groupBy": [],
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"provisionerId\"::tag, \"workerType\"::tag ,  \"workers\", \"quarantinedWorkers\" FROM \"tc_web_exec\" WHERE (\"provisionerId\" = 'gecko-t') AND $timeFilter  ORDER BY time DESC LIMIT 1",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              },
+              {
+                "params": ["recently running workers"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["quarantined"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              },
+              {
+                "params": ["quarantined"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "gecko-t"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=",
+              "value": "t-linux-kvm-noscratch-gcp"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000012"
+          },
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"configured\", \"problem\" FROM \"bitbar_workers\" WHERE $timeFilter GROUP BY \"queue\" ORDER BY time DESC LIMIT 1",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Android Em Workers",
+      "transform": "table",
+      "type": "table-old"
+    }
+  ],
+  "refresh": "5m",
+  "revision": 1,
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["android", "android_main_alerts"],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": ["5m", "15m", "1h", "6h", "12h", "24h", "2d", "7d", "30d"]
+  },
+  "timezone": "browser",
+  "title": "Android Queues",
+  "uid": "wIJoZ4HWk",
+  "version": 154,
+  "weekStart": ""
+}

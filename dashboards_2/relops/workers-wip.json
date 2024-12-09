@@ -1,0 +1,3445 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "limit": 100,
+        "name": "Annotations \u0026 Alerts",
+        "showIn": 0,
+        "type": "dashboard"
+      },
+      {
+        "datasource": "relops_workers",
+        "enable": true,
+        "hide": false,
+        "iconColor": "#B877D9",
+        "limit": 100,
+        "name": "tree closed",
+        "query": "SELECT status_value,reason,who,status,tree FROM \"six_month\".\"treestatus\" WHERE \"tree\" =~ /mozilla-[cri]|^try$/ AND \"status\" = 'closed' AND $timeFilter",
+        "showIn": 0,
+        "tags": [],
+        "tagsColumn": "who,status,tree",
+        "textColumn": "reason",
+        "type": "tags"
+      },
+      {
+        "datasource": "relops_workers",
+        "enable": true,
+        "hide": false,
+        "iconColor": "#73BF69",
+        "limit": 100,
+        "name": "tree open",
+        "query": "SELECT status_value,reason,who,status,tree FROM \"six_month\".\"treestatus\" WHERE \"tree\" =~ /mozilla-[cri]|^try$/ AND \"status\" = 'open' AND $timeFilter",
+        "showIn": 0,
+        "tags": [],
+        "tagsColumn": "who,status,tree",
+        "textColumn": "reason",
+        "type": "tags"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 1,
+  "id": 312,
+  "iteration": 1587499520596,
+  "links": [],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fill": 4,
+      "fillGradient": 10,
+      "gridPos": {
+        "h": 4,
+        "w": 14,
+        "x": 0,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 9,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 0,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*failed$/",
+          "color": "#FADE2A"
+        },
+        {
+          "alias": "/.*exception$/",
+          "color": "#F2495C"
+        },
+        {
+          "alias": "/.*/",
+          "linewidth": 0,
+          "yaxis": 2
+        },
+        {
+          "alias": "/.*completed$/",
+          "color": "rgba(34, 84, 27, 0.55)",
+          "fill": 1,
+          "zindex": -3
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerType $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["none"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"failed\") AS \"failed\", mean(\"exception\") AS \"exception\", mean(\"completed\") AS \"completed\" FROM \"one_week\"./tc_queue/,\"six_month\"./tc_queue/ WHERE (\"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/) AND $timeFilter GROUP BY time($__interval * 10), \"workerType\", \"provisionerId\" fill(none)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["failed"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["failed"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["exception"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["exception"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["completed"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["completed"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(72, 72, 72, 0.12)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "Last Task Status",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "completed",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": false
+        },
+        {
+          "format": "short",
+          "label": "tasks",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "cacheTimeout": null,
+      "columns": [],
+      "datasource": "relops_workers",
+      "description": "See \u003chttps://hg.mozilla.org/ci/ci-configuration/file/tip/worker-pools.yml\u003e for setting scaling pool configuration.",
+      "fontSize": "80%",
+      "gridPos": {
+        "h": 11,
+        "w": 10,
+        "x": 14,
+        "y": 0
+      },
+      "id": 5,
+      "links": [],
+      "options": {},
+      "pageSize": null,
+      "repeatDirection": "v",
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 3,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "hidden"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "provisionerId",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "☠",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "list quarantined",
+          "linkUrl": "https://queue.taskcluster.net/v1/provisioners/${__cell_1}/worker-types/${__cell_2}/workers?limit=1000\u0026quarantined=true",
+          "mappingType": 1,
+          "pattern": "quarantined",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "%☠",
+          "colorMode": "value",
+          "colors": [
+            "#73BF69",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": null,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "list quarantined(${__cell_11})",
+          "linkUrl": "https://queue.taskcluster.net/v1/provisioners/${__cell_1}/worker-types/${__cell_2}/workers?limit=1000\u0026quarantined=true",
+          "mappingType": 1,
+          "pattern": "percent quarantined",
+          "thresholds": ["0.10", "0.50"],
+          "type": "number",
+          "unit": "percentunit"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "host",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "laziness",
+          "colorMode": "value",
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 2,
+          "pattern": "lazy",
+          "rangeMaps": [
+            {
+              "from": "0",
+              "text": "low",
+              "to": "50"
+            },
+            {
+              "from": "50",
+              "text": "medium",
+              "to": "200"
+            },
+            {
+              "from": "200",
+              "text": "high",
+              "to": "400"
+            },
+            {
+              "from": "400",
+              "text": "excessive",
+              "to": "99999"
+            }
+          ],
+          "thresholds": ["50", "200"],
+          "type": "string",
+          "unit": "watt"
+        },
+        {
+          "alias": "",
+          "colorMode": "value",
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": null,
+          "mappingType": 1,
+          "pattern": "queue",
+          "thresholds": ["1000", "3000"],
+          "type": "number",
+          "unit": "none"
+        },
+        {
+          "alias": "%fail",
+          "colorMode": "cell",
+          "colors": [
+            "rgba(50, 172, 45, 0.22)",
+            "rgba(255, 164, 0, 0.49)",
+            "rgba(245, 54, 54, 0.5)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "percent failed",
+          "thresholds": ["0.2", "0.6"],
+          "type": "number",
+          "unit": "percentunit"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": false,
+          "linkTooltip": "${__cell_1}",
+          "linkUrl": "/d/slXwf4emz/rowValue${__cell}?var-workerType=${__cell}",
+          "mappingType": 1,
+          "pattern": "workerType",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": "value",
+          "colors": [
+            "rgba(167, 167, 167, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "${__cell} (config ${__cell_2})",
+          "linkUrl": "https://tools.taskcluster.net/aws-provisioner/${__cell_2}/",
+          "mappingType": 1,
+          "pattern": "/^(pending|req)$/",
+          "thresholds": ["10", "20"],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": "value",
+          "colors": [
+            "rgba(134, 134, 134, 0.9)",
+            "rgba(100, 100, 100, 0.89)",
+            "rgba(164, 102, 102, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "${__cell} (config ${__cell_2})",
+          "linkUrl": "https://tools.taskcluster.net/aws-provisioner/${__cell_2}/",
+          "mappingType": 1,
+          "pattern": "max",
+          "thresholds": ["50", "4000"],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "/^(exception|failed|success)$/",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": "value",
+          "colors": [
+            "rgba(106, 106, 106, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": null,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "tc tools show ${__cell_1}",
+          "linkUrl": "https://firefox-ci-tc.services.mozilla.com/provisioners/${__cell_1}/worker-types/${__cell_2}",
+          "mappingType": 1,
+          "pattern": "/.*/",
+          "thresholds": ["1"],
+          "type": "number",
+          "unit": "none"
+        }
+      ],
+      "targets": [
+        {
+          "alias": "",
+          "groupBy": [
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT (0 + LAST(\"pendingTasks\")) AS \"queue\", LAST(\"running\") AS \"active\",  (LAST(\"pendingTasks\") / LAST(\"active\")) AS \"lazy\", LAST(\"quarantined\") AS \"quarantined\", LAST(\"quarantined\") / LAST(\"workers\") AS \"percent quarantined\", mean(\"exception\") AS \"exception\", mean(\"failed\") AS \"failed\", mean(\"completed\") AS \"success\", 1.0 - mean(\"completed\") / (mean(\"exception\") + mean(\"failed\") + mean(\"completed\")) as \"percent failed\" FROM \"one_week\".\"tc_queue2_exec\",\"six_month\".\"tc_queue2_exec\" WHERE (\"provisionerId\" = 'aws-provisioner-v1' OR \"provisionerId\" =~ /^gecko/  OR \"provisionerId\" =~ /^scriptworker-prov/) AND \"workerType\" =~ /^$workerType$/ AND \"provisionerId\" =~ /^$provisioner$/ AND $timeFilter GROUP BY provisionerId, workerType",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": ["workers"],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": ["quarantinedWorkers"],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            },
+            {
+              "condition": "AND",
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            }
+          ]
+        },
+        {
+          "groupBy": [
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            }
+          ],
+          "hide": true,
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT (0 + LAST(\"pendingTasks\")) AS \"queue\", LAST(\"running\") AS \"active\",  (LAST(\"pendingTasks\") / LAST(\"active\")) AS \"lazy\", LAST(\"quarantined\") AS \"quarantined\", LAST(\"quarantined\") / LAST(\"workers\") AS \"percent quarantined\", mean(\"exception\") AS \"exception\", mean(\"failed\") AS \"failed\", mean(\"completed\") AS \"success\", 1.0 - mean(\"completed\") / (mean(\"exception\") + mean(\"failed\") + mean(\"completed\")) as \"percent failed\" FROM \"one_week\".\"tc_queue_exec\",\"six_month\".\"tc_queue_exec\" WHERE ( \"provisionerId\" = 'scriptworker-k8s' OR \"provisionerId\" = 'gce') AND \"workerType\" =~ /^$workerType$/ AND \"provisionerId\" =~ /^$provisioner$/ AND $timeFilter GROUP BY provisionerId, workerType",
+          "rawQuery": true,
+          "refId": "E",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "gecko-t"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Cloud",
+      "transform": "table",
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "description": "= Queued tasks / workers running tasks\nfiltered to:\nreleng-hardware\naws-provisioner-v1 with /^(mobile|app-services|gecko)-/\nterraform-packet",
+      "fill": 1,
+      "fillGradient": 10,
+      "gridPos": {
+        "h": 5,
+        "w": 14,
+        "x": 0,
+        "y": 4
+      },
+      "hiddenSeries": false,
+      "id": 14,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*queue$/",
+          "color": "#FA6400",
+          "linewidth": 0,
+          "nullPointMode": "connected",
+          "yaxis": 1,
+          "zindex": 2
+        },
+        {
+          "alias": "/.*/",
+          "color": "#FA6400",
+          "fill": 1,
+          "hideTooltip": true,
+          "legend": false,
+          "linewidth": 0,
+          "yaxis": 1,
+          "zindex": -3
+        },
+        {
+          "alias": "/.*runner load.*/",
+          "color": "#C4162A",
+          "fill": 5,
+          "hideTooltip": false,
+          "legend": true,
+          "linewidth": 0,
+          "yaxis": 2,
+          "zindex": 3
+        },
+        {
+          "alias": "/.*alert$/",
+          "bars": false,
+          "fill": 0,
+          "hideTooltip": true,
+          "legend": false,
+          "lines": false
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "alias": "$tag_workerType $tag_provisionerId $col",
+          "groupBy": [
+            {
+              "params": ["15m"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"pendingTasks\") / (mean(\"running\")) as \"runner load\" FROM /^tc_queue/ WHERE $timeFilter AND \"provisionerId\" = 'proj-autophone' AND \"workerType\" != '' AND (\"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/) GROUP BY time($__interval * 10), \"workerType\", \"provisionerId\" fill(1)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/.*win7.*gpu/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $tag_provisionerId $col",
+          "groupBy": [
+            {
+              "params": ["15m"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"pendingTasks\") / (mean(\"running\")) as \"runner load\" FROM /^tc_queue2/ WHERE $timeFilter AND \"workerType\" != '' AND \"provisionerId\" != 'aws-provisioner-v1' AND \"provisionerId\" != 'gce' AND (\"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/) AND \"workerType\" !~ /-(beta|staging|macstadium)$/ GROUP BY time(15m), \"workerType\", \"provisionerId\" fill(1)",
+          "rawQuery": true,
+          "refId": "F",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/.*win7.*gpu/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $tag_provisionerId $col",
+          "groupBy": [
+            {
+              "params": ["15m"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"pendingTasks\") / (mean(\"running\")) as \"runner load\" FROM /^tc_queue2/ WHERE $timeFilter AND \"workerType\" != '' AND (\"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/) AND \"provisionerId\" = 'aws-provisioner-v1' AND \"workerType\" =~ /^(mobile|app-services|gecko)-.*/ GROUP BY time(20m), \"workerType\", \"provisionerId\" fill(1)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/.*win7.*gpu/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $tag_provisionerId $col alert",
+          "groupBy": [
+            {
+              "params": ["15m"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"pendingTasks\") / (mean(\"running\")) as \"runner load\" FROM /^tc_queue2/ WHERE $timeFilter AND \"provisionerId\" != 'aws-provisioner-v1' AND \"provisionerId\" != 'gce' AND \"workerType\" != '' AND \"workerType\" !~ /-(beta|staging|macstadium)$/ GROUP BY time(20m), \"workerType\", \"provisionerId\" fill(1)",
+          "rawQuery": true,
+          "refId": "H",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/.*win7.*gpu/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $tag_provisionerId $col alert",
+          "groupBy": [
+            {
+              "params": ["15m"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"pendingTasks\") / (mean(\"running\")) as \"runner load\" FROM /^tc_queue_exec/ WHERE $timeFilter AND \"provisionerId\" = 'terraform-packet' AND \"workerType\" != '' GROUP BY time(20m), \"workerType\", \"provisionerId\" fill(1)",
+          "rawQuery": true,
+          "refId": "I",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/.*win7.*gpu/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $tag_provisionerId $col alert",
+          "groupBy": [
+            {
+              "params": ["15m"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"pendingTasks\") / (mean(\"running\")) as \"runner load\" FROM \"tc_queue2_exec\" WHERE $timeFilter AND \"provisionerId\" = 'aws-provisioner-v1' AND \"workerType\" =~ /^gecko-.*/ GROUP BY time(20m), \"workerType\", \"provisionerId\" fill(1)",
+          "rawQuery": true,
+          "refId": "J",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/.*win7.*gpu/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $tag_provisionerId $col",
+          "groupBy": [
+            {
+              "params": ["15m"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"pendingTasks\") / (mean(\"running\")) as \"runner load\" FROM six_month.\"tc_queue_exec\" WHERE $timeFilter AND \"provisionerId\" = 'proj-autophone' AND \"workerType\" != '' AND (\"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/) GROUP BY time(20m), \"workerType\", \"provisionerId\" fill(1)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/.*win7.*gpu/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "TC Worker Backlog/Workers",
+      "tooltip": {
+        "shared": false,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "queue",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": false
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "task overload",
+          "logBase": 1,
+          "max": null,
+          "min": "1",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": 0
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 14,
+        "x": 0,
+        "y": 9
+      },
+      "hiddenSeries": false,
+      "id": 3,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*workers$/",
+          "color": "#5794F2",
+          "dashLength": 2,
+          "dashes": true
+        },
+        {
+          "alias": "/.*pending$/",
+          "bars": true,
+          "color": "#FADE2A",
+          "fill": 5,
+          "linewidth": 0,
+          "zindex": 3
+        },
+        {
+          "alias": "/.*requested$/",
+          "color": "#FF9830",
+          "fill": 3,
+          "linewidth": 0,
+          "zindex": 3
+        },
+        {
+          "alias": "/.*active$/",
+          "color": "#73BF69"
+        },
+        {
+          "alias": "/.*queue$/",
+          "color": "#FA6400",
+          "fill": 4,
+          "linewidth": 0,
+          "nullPointMode": "connected",
+          "yaxis": 2,
+          "zindex": 2
+        },
+        {
+          "alias": "/.*max$/",
+          "color": "rgba(0, 3, 255, 0.15)",
+          "dashLength": 1,
+          "fill": 0,
+          "hideTooltip": true,
+          "legend": false,
+          "spaceLength": 4,
+          "zindex": -3
+        },
+        {
+          "alias": "/.*active2$/",
+          "color": "rgba(115, 191, 105, 0.41)",
+          "hideTooltip": true,
+          "linewidth": 0,
+          "zindex": -2
+        },
+        {
+          "alias": "/.*queue2$/",
+          "color": "#FF9830",
+          "fill": 2,
+          "hideTooltip": true,
+          "linewidth": 0
+        },
+        {
+          "alias": "/.*/",
+          "yaxis": 2
+        },
+        {
+          "alias": "/.*quarantined$/",
+          "color": "#FADE2A"
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerType $tag_provisionerId $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["none"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "aws-provisionerhttp",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"runningCapacity\") AS \"workers\", max(\"requestedCapacity\") AS \"requested\", max(\"pendingCapacity\") AS \"pending\", max(\"maxCapacity\") AS \"max\" FROM \"aws-provisionerhttp\" WHERE (\"workerType\" =~ /^$workerType$/ AND \"provisionerId\" =~ /^$provisioner$/) AND $timeFilter GROUP BY time($__interval * 10), \"workerType\" fill(previous)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["runningCapacity"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              },
+              {
+                "params": ["workers"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["requestedCapacity"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              },
+              {
+                "params": ["requested"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["pendingCapacity"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              },
+              {
+                "params": ["pending"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["maxCapacity"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              },
+              {
+                "params": ["max"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            },
+            {
+              "condition": "AND",
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $tag_provisionerId $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["previous"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "autogen",
+          "query": "SELECT mean(\"running\") AS \"active\", (mean(\"workers\") - mean(\"quarantined\")) AS \"workers\", mean(\"quarantined\") AS \"quarantined\" FROM /^tc_queue/ WHERE (\"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/ AND \"provisionerId\" != 'aws-provisioner-v1' AND \"provisionerId\" !~ /^gecko/) AND $timeFilter GROUP BY time($__interval * 10), \"provisionerId\", \"workerType\" fill(none)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["active"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["workers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["running"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            },
+            {
+              "condition": "AND",
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "releng-hardware"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $tag_provisionerId $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["none"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_web_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"runningWorkers\") AS \"active\" FROM /^tc_web/ WHERE (\"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/ AND \"provisionerId\" != 'releng-hardware') AND $timeFilter GROUP BY time($__interval * 10), \"workerType\", \"provisionerId\" fill(none)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["runningWorkers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["active"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            },
+            {
+              "condition": "AND",
+              "key": "provisionerId",
+              "operator": "!=",
+              "value": "releng-hardware"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType target",
+          "groupBy": [
+            {
+              "params": ["1h"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            }
+          ],
+          "hide": true,
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "autogen",
+          "query": "SELECT max(\"runningWorkers\") AS \"max_active\" FROM \"tc_queue2_exec\" WHERE (\"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/) AND $timeFilter GROUP BY time($__interval), \"workerType\" fill(none)",
+          "rawQuery": false,
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["workers"],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "Workers vs Active",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "workers",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": false
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "workers",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    },
+    {
+      "cacheTimeout": null,
+      "columns": [],
+      "datasource": "relops_workers",
+      "description": "",
+      "fontSize": "80%",
+      "gridPos": {
+        "h": 10,
+        "w": 10,
+        "x": 14,
+        "y": 11
+      },
+      "id": 15,
+      "links": [],
+      "options": {},
+      "pageSize": null,
+      "repeatDirection": "v",
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 3,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "hidden"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "provisionerId",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "☠",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "list quarantined",
+          "linkUrl": "https://queue.taskcluster.net/v1/provisioners/${__cell_1}/worker-types/${__cell_2}/workers?limit=1000\u0026quarantined=true",
+          "mappingType": 1,
+          "pattern": "quarantined",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "%☠",
+          "colorMode": "value",
+          "colors": [
+            "#73BF69",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": null,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "list quarantined(${__cell_11})",
+          "linkUrl": "https://firefox-ci-tc.services.mozilla.com/api/queue/v1/provisioners/${__cell_1}/worker-types/${__cell_2}/workers?limit=1000\u0026quarantined=true",
+          "mappingType": 1,
+          "pattern": "percent quarantined",
+          "thresholds": ["0.10", "0.50"],
+          "type": "number",
+          "unit": "percentunit"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "host",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "laziness",
+          "colorMode": "value",
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 2,
+          "pattern": "lazy",
+          "rangeMaps": [
+            {
+              "from": "0",
+              "text": "low",
+              "to": "50"
+            },
+            {
+              "from": "50",
+              "text": "medium",
+              "to": "200"
+            },
+            {
+              "from": "200",
+              "text": "high",
+              "to": "400"
+            },
+            {
+              "from": "400",
+              "text": "excessive",
+              "to": "99999"
+            }
+          ],
+          "thresholds": ["50", "200"],
+          "type": "string",
+          "unit": "watt"
+        },
+        {
+          "alias": "",
+          "colorMode": "value",
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": null,
+          "mappingType": 1,
+          "pattern": "queue",
+          "thresholds": ["500", "2000"],
+          "type": "number",
+          "unit": "none"
+        },
+        {
+          "alias": "%fail",
+          "colorMode": "cell",
+          "colors": [
+            "rgba(50, 172, 45, 0.22)",
+            "rgba(255, 164, 0, 0.49)",
+            "rgba(245, 54, 54, 0.5)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "percent failed",
+          "thresholds": ["0.2", "0.6"],
+          "type": "number",
+          "unit": "percentunit"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": false,
+          "linkTooltip": "${__cell_1}",
+          "linkUrl": "/d/slXwf4emz/rowValue${__cell}?var-workerType=${__cell}",
+          "mappingType": 1,
+          "pattern": "workerType",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": "value",
+          "colors": [
+            "rgba(167, 167, 167, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "${__cell} (config ${__cell_2})",
+          "linkUrl": "https://tools.taskcluster.net/aws-provisioner/${__cell_2}/",
+          "mappingType": 1,
+          "pattern": "/^(pending|req)$/",
+          "thresholds": ["10", "20"],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": "value",
+          "colors": [
+            "rgba(134, 134, 134, 0.9)",
+            "rgba(100, 100, 100, 0.89)",
+            "rgba(164, 102, 102, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "${__cell} (config ${__cell_2})",
+          "linkUrl": "https://tools.taskcluster.net/aws-provisioner/${__cell_2}/",
+          "mappingType": 1,
+          "pattern": "max",
+          "thresholds": ["50", "4000"],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "/^(exception|failed|success)$/",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": "value",
+          "colors": [
+            "rgba(106, 106, 106, 0.9)",
+            "rgba(255, 255, 255, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": null,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "tc tools show ${__cell_1}",
+          "linkUrl": "https://firefox-ci-tc.services.mozilla.com/provisioners/${__cell_1}/worker-types/${__cell_2}",
+          "mappingType": 1,
+          "pattern": "/.*/",
+          "thresholds": ["1"],
+          "type": "number",
+          "unit": "none"
+        }
+      ],
+      "targets": [
+        {
+          "alias": "",
+          "groupBy": [
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT (0 + LAST(\"pendingTasks\")) AS \"queue\", LAST(\"running\") AS \"active\", LAST(\"idle\") AS \"idle\", LAST(\"workers\") AS \"workers\",  (LAST(\"pendingTasks\") / LAST(\"workers\")) * (MEAN(\"idle\") / LAST(\"workers\")) AS \"lazy\", LAST(\"quarantined\") AS \"quarantined\", LAST(\"quarantined\") / LAST(\"workers\") AS \"percent quarantined\", mean(\"exception\") AS \"exception\", mean(\"failed\") AS \"failed\", mean(\"completed\") AS \"success\", 1.0 - mean(\"completed\") / (mean(\"exception\") + mean(\"failed\") + mean(\"completed\")) as \"percent failed\" FROM \"one_week\".\"tc_queue2_exec\",\"six_month\".\"tc_queue2_exec\" WHERE \"provisionerId\" != 'aws-provisioner-v1' AND \"provisionerId\" != 'gce' AND \"provisionerId\" !~ /^gecko/ AND \"provisionerId\" !~ /^scriptworker/ AND \"provisionerId\" !~ /^bitbar/ AND \"provisionerId\" != 'proj-autophone' AND \"provisionerId\" != 'terraform-packet' AND \"workerType\" =~ /^$workerType$/ AND \"provisionerId\" =~ /^$provisioner$/ AND $timeFilter GROUP BY provisionerId, workerType",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": ["workers"],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": ["quarantinedWorkers"],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            },
+            {
+              "condition": "AND",
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            }
+          ]
+        },
+        {
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT (0 + LAST(\"pendingTasks\")) AS \"queue\", LAST(\"running\") AS \"active\", LAST(\"idle\") AS \"idle\", LAST(\"workers\") AS \"workers\",  (LAST(\"pendingTasks\") / LAST(\"workers\")) * (MEAN(\"idle\") / LAST(\"workers\")) AS \"lazy\", LAST(\"quarantined\") AS \"quarantined\", LAST(\"quarantined\") / LAST(\"workers\") AS \"percent quarantined\", mean(\"exception\") AS \"exception\", mean(\"failed\") AS \"failed\", mean(\"completed\") AS \"success\", 1.0 - mean(\"completed\") / (mean(\"exception\") + mean(\"failed\") + mean(\"completed\")) as \"percent failed\" FROM /tc_queue_/ WHERE (\"provisionerId\" = 'bitbar') AND \"workerType\" =~ /^$workerType$/ AND \"provisionerId\" =~ /^$provisioner$/ AND $timeFilter GROUP BY provisionerId, workerType",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            }
+          ],
+          "measurement": "tc_web_exec",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "query": "SELECT last(\"runningWorkers\") AS \"active\", last(\"workers\") AS \"workers\", last(\"pendingTasks\") AS \"queue\", last(\"idleWorkers\") AS \"idle\" FROM \"six_month\".\"tc_web_exec\" WHERE (\"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/ AND (\"provisionerId\" = 'bitbar' OR \"provisionerId\" = 'proj-autophone' OR \"provisionerId\" = 'terraform-packet')) AND $timeFilter GROUP BY \"provisionerId\", \"workerType\"",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": ["runningWorkers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              },
+              {
+                "params": ["active"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["workers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              },
+              {
+                "params": ["workers"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["idleWorkers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              },
+              {
+                "params": ["idle"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            },
+            {
+              "condition": "AND",
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "bitbar"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Hardware",
+      "transform": "table",
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "description": "\u003chttps://wiki.mozilla.org/CIDuty/How_To/High_Pending_Counts\u003e",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 14,
+        "x": 0,
+        "y": 14
+      },
+      "hiddenSeries": false,
+      "id": 6,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "sort": "current",
+        "sortDesc": true,
+        "total": true,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*running$/",
+          "color": "#5794F2",
+          "dashLength": 2,
+          "dashes": true,
+          "stack": "A"
+        },
+        {
+          "alias": "/.*pending$/",
+          "bars": true,
+          "color": "#FADE2A",
+          "fill": 5,
+          "linewidth": 0,
+          "stack": "B",
+          "zindex": 2
+        },
+        {
+          "alias": "/.*requested$/",
+          "color": "#FF9830",
+          "fill": 3,
+          "linewidth": 0,
+          "stack": "C",
+          "zindex": 1
+        },
+        {
+          "alias": "/.*active$/",
+          "color": "#73BF69",
+          "stack": "D"
+        },
+        {
+          "alias": "/.*queue/",
+          "color": "rgb(194, 96, 31)",
+          "fill": 4,
+          "linewidth": 0,
+          "nullPointMode": "connected",
+          "yaxis": 2,
+          "zindex": 3
+        },
+        {
+          "alias": "/.*max$/",
+          "color": "rgb(0, 24, 255)",
+          "dashLength": 1,
+          "dashes": true,
+          "fill": 0,
+          "hideTooltip": true,
+          "legend": false,
+          "spaceLength": 4,
+          "zindex": -3
+        },
+        {
+          "alias": "/.*active2$/",
+          "color": "rgba(115, 191, 105, 0.41)",
+          "hideTooltip": true,
+          "stack": true,
+          "zindex": -2
+        },
+        {
+          "alias": "/.*alert$/",
+          "bars": false,
+          "fill": 0,
+          "hideTooltip": true,
+          "lines": false,
+          "points": false,
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerType $tag_provisionerId $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["previous"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "aws-provisionerhttp",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["runningCapacity"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              },
+              {
+                "params": ["running"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["requestedCapacity"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              },
+              {
+                "params": ["requested"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["pendingCapacity"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              },
+              {
+                "params": ["pending"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["maxCapacity"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              },
+              {
+                "params": ["max"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $tag_provisionerId $col",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "tc_queue2_exec",
+          "orderByTime": "ASC",
+          "policy": "autogen",
+          "query": "SELECT mean(\"running\") AS \"active2\", mean(\"pendingTasks\") AS \"queue\" FROM \"autogen\".\"tc_queue2_exec\" WHERE (\"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/) AND $timeFilter GROUP BY time($__interval), \"workerType\" fill(null)",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["running"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["active2"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $tag_provisionerId $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["none"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "tc_web_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $tag_provisionerId $col",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["none"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"pendingTasks\") AS \"queue\" FROM /^tc_queue/ WHERE (\"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/) AND $timeFilter GROUP BY time($__interval), \"workerType\", \"provisionerId\" fill(none)",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $tag_provisionerId $col alert",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["none"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"pendingTasks\") AS \"queue\" FROM /^tc_queue_exec/ WHERE $timeFilter GROUP BY time($__interval), \"workerType\", \"provisionerId\" fill(none)",
+          "rawQuery": true,
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": null,
+      "title": "Queue",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "none",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": false
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "queued tasks",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": 0
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 14,
+        "x": 0,
+        "y": 18
+      },
+      "hiddenSeries": false,
+      "id": 10,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "sort": "current",
+        "sortDesc": true,
+        "total": true,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*running$/",
+          "color": "#5794F2",
+          "dashLength": 2,
+          "dashes": true,
+          "stack": "A"
+        },
+        {
+          "alias": "/.*pending$/",
+          "bars": true,
+          "color": "#FADE2A",
+          "fill": 5,
+          "linewidth": 0,
+          "stack": "B",
+          "zindex": 2
+        },
+        {
+          "alias": "/.*requested$/",
+          "color": "#FF9830",
+          "fill": 3,
+          "linewidth": 0,
+          "stack": "C",
+          "zindex": 1
+        },
+        {
+          "alias": "/.*active$/",
+          "color": "#73BF69",
+          "zindex": 2
+        },
+        {
+          "alias": "/.*queue$/",
+          "color": "#FA6400",
+          "fill": 2,
+          "linewidth": 0,
+          "nullPointMode": "connected",
+          "yaxis": 2
+        },
+        {
+          "alias": "/.*max$/",
+          "color": "rgb(0, 24, 255)",
+          "dashLength": 1,
+          "dashes": true,
+          "fill": 0,
+          "hideTooltip": true,
+          "legend": false,
+          "spaceLength": 4,
+          "zindex": -3
+        },
+        {
+          "alias": "/.*active2$/",
+          "color": "rgba(115, 191, 105, 0.41)",
+          "hideTooltip": true,
+          "stack": true,
+          "zindex": -2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerType $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["previous"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_web_exec",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "query": "SELECT mean(\"runningWorkers\") AS \"active\", mean(\"pendingTasks\") AS \"queue\" FROM /^tc_web/ WHERE (\"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/) AND $timeFilter GROUP BY time($__interval * 10), \"workerType\", \"provisionerId\" fill(previous)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["runningWorkers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["active"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $col",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "query": "SELECT mean(\"pendingTasks\") AS \"queue\" FROM /^tc_queue/ WHERE (\"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/) AND $timeFilter GROUP BY time($__interval), \"workerType\", \"provisionerId\" fill(linear)",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": "7d",
+      "title": "Active vs Queue",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "workers",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "queued tasks",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "description": "",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 3,
+        "w": 10,
+        "x": 14,
+        "y": 21
+      },
+      "hiddenSeries": false,
+      "id": 13,
+      "interval": "10m",
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Ronin Puppet",
+          "url": "/d/3H2CASDWz/ronin-puppet?$__url_time_range"
+        }
+      ],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pluginVersion": "6.2.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*failure.*/",
+          "color": "#F2495C",
+          "yaxis": 2
+        },
+        {
+          "alias": "/.*success/",
+          "bars": false,
+          "color": "#73BF69",
+          "fill": 1,
+          "lines": true,
+          "steppedLine": true,
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerType failure",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "puppet_ronin_apply_failure",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "$tag_workerType success",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "puppet_ronin_apply_success",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Ronin Puppet",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": false
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0.1",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 14,
+        "x": 0,
+        "y": 22
+      },
+      "hiddenSeries": false,
+      "id": 11,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "sort": "current",
+        "sortDesc": true,
+        "total": true,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*running$/",
+          "color": "#5794F2",
+          "dashLength": 2,
+          "dashes": true,
+          "stack": "A"
+        },
+        {
+          "alias": "/.*pending$/",
+          "bars": true,
+          "color": "#FADE2A",
+          "fill": 5,
+          "linewidth": 0,
+          "stack": "B",
+          "zindex": 2
+        },
+        {
+          "alias": "/.*requested$/",
+          "color": "#FF9830",
+          "fill": 3,
+          "linewidth": 0,
+          "stack": "C",
+          "zindex": 1
+        },
+        {
+          "alias": "/.*active$/",
+          "color": "#73BF69",
+          "zindex": 2
+        },
+        {
+          "alias": "/.*queue$/",
+          "color": "#FA6400",
+          "fill": 2,
+          "linewidth": 0,
+          "nullPointMode": "connected",
+          "yaxis": 2
+        },
+        {
+          "alias": "/.*max$/",
+          "color": "rgb(0, 24, 255)",
+          "dashLength": 1,
+          "dashes": true,
+          "fill": 0,
+          "hideTooltip": true,
+          "legend": false,
+          "spaceLength": 4,
+          "zindex": -3
+        },
+        {
+          "alias": "/.*active2$/",
+          "color": "rgba(115, 191, 105, 0.41)",
+          "hideTooltip": true,
+          "stack": true,
+          "zindex": -2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_workerType $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["previous"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_web_exec",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "query": "SELECT mean(\"runningWorkers\") AS \"active\", mean(\"pendingTasks\") AS \"queue\" FROM /^tc_web/ WHERE (\"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/) AND $timeFilter GROUP BY time($__interval * 10), \"workerType\", \"provisionerId\" fill(previous)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["runningWorkers"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["active"],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_workerType $col",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["workerType"],
+              "type": "tag"
+            },
+            {
+              "params": ["provisionerId"],
+              "type": "tag"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "six_month",
+          "query": "SELECT mean(\"pendingTasks\") AS \"queue\" FROM /^tc_queue/ WHERE (\"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/) AND $timeFilter GROUP BY time($__interval), \"workerType\", \"provisionerId\" fill(linear)",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": ["queue"],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=~",
+              "value": "/^$provisioner$/"
+            },
+            {
+              "condition": "AND",
+              "key": "workerType",
+              "operator": "=~",
+              "value": "/^$workerType$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [
+        {
+          "colorMode": "custom",
+          "fill": true,
+          "fillColor": "rgba(156, 191, 248, 0.07)",
+          "from": "15:00",
+          "line": false,
+          "lineColor": "rgba(237, 46, 24, 0.60)",
+          "op": "time",
+          "to": "24:00"
+        }
+      ],
+      "timeShift": "6w",
+      "title": "Active vs Queue",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "workers",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": "queued tasks",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": null
+      }
+    }
+  ],
+  "refresh": "1m",
+  "schemaVersion": 21,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "text": "proj-autophone + terraform-packet",
+          "value": ["proj-autophone", "terraform-packet"]
+        },
+        "datasource": "relops_workers",
+        "definition": "SHOW TAG VALUES FROM six_month./tc_queue/ WITH KEY = \"provisionerId\" ",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "provisioner",
+        "options": [
+          {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "bitbar",
+            "value": "bitbar"
+          },
+          {
+            "selected": false,
+            "text": "gecko-1",
+            "value": "gecko-1"
+          },
+          {
+            "selected": false,
+            "text": "gecko-2",
+            "value": "gecko-2"
+          },
+          {
+            "selected": false,
+            "text": "gecko-3",
+            "value": "gecko-3"
+          },
+          {
+            "selected": false,
+            "text": "gecko-t",
+            "value": "gecko-t"
+          },
+          {
+            "selected": false,
+            "text": "mobile-1",
+            "value": "mobile-1"
+          },
+          {
+            "selected": false,
+            "text": "mobile-3",
+            "value": "mobile-3"
+          },
+          {
+            "selected": true,
+            "text": "proj-autophone",
+            "value": "proj-autophone"
+          },
+          {
+            "selected": false,
+            "text": "releng-hardware",
+            "value": "releng-hardware"
+          },
+          {
+            "selected": false,
+            "text": "scriptworker-k8s",
+            "value": "scriptworker-k8s"
+          },
+          {
+            "selected": false,
+            "text": "scriptworker-prov-v1",
+            "value": "scriptworker-prov-v1"
+          },
+          {
+            "selected": true,
+            "text": "terraform-packet",
+            "value": "terraform-packet"
+          }
+        ],
+        "query": "SHOW TAG VALUES FROM six_month./tc_queue/ WITH KEY = \"provisionerId\" ",
+        "refresh": 0,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 5,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": ".*",
+        "current": {
+          "text": "All",
+          "value": ["$__all"]
+        },
+        "datasource": "relops_workers",
+        "definition": "SHOW TAG VALUES FROM six_month./tc_queue/ WITH KEY = \"workerType\" WHERE provisionerId =~ /$provisioner/ ",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "workerType",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM six_month./tc_queue/ WITH KEY = \"workerType\" WHERE provisionerId =~ /$provisioner/ ",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 5,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "SHOW TAG VALUES FROM tc_queue_exec WITH KEY = \"provisionerId\"",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "datasource": "relops_workers",
+        "filters": [],
+        "hide": 0,
+        "label": null,
+        "name": "Adhoc",
+        "skipUrlSync": false,
+        "type": "adhoc"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": ["5m", "15m", "1h", "6h", "12h", "24h", "2d", "7d", "30d"]
+  },
+  "timezone": "",
+  "title": "Workers [WIP]",
+  "uid": "Rmu8C13Wk",
+  "version": 2
+}

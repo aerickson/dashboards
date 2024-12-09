@@ -1,0 +1,1904 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations \u0026 Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 2,
+  "id": 329,
+  "iteration": 1589461208446,
+  "links": [],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "relops_workers",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 23,
+      "interval": "10m",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "running",
+          "color": "#73BF69",
+          "stack": true
+        },
+        {
+          "alias": "queued",
+          "color": "#FF9830",
+          "stack": true
+        },
+        {
+          "alias": "/^\\./",
+          "yaxis": 2
+        },
+        {
+          "alias": "/^\\_/",
+          "dashes": true
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"running\") as \"running\", sum(\"queued\") as \"queued\" FROM (SELECT max(\"pendingTasks\") as \"queued\", max(\"running\") as \"running\" FROM \"tc_queue2_exec\" WHERE \"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/ AND $timeFilter GROUP BY \"provisionerId\", \"workerType\", time($interval) fill(null)) GROUP BY time($interval)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "releng-hardware"
+            }
+          ]
+        },
+        {
+          "alias": ". $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"running\") + sum(\"queued\") as \"total\", sum(\"running\") as \"running\", sum(\"queued\") as \"queued\" FROM (SELECT max(\"pendingTasks\") as \"queued\", max(\"running\") as \"running\" FROM \"tc_queue2_exec\" WHERE \"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/ AND $timeFilter GROUP BY \"provisionerId\", \"workerType\", time($interval) fill(null)) GROUP BY time($interval)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "releng-hardware"
+            }
+          ]
+        },
+        {
+          "alias": ". $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT CUMULATIVE_SUM(mean(\"running\")) as \"running\" FROM \"tc_queue2_exec\" WHERE \"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/ AND $timeFilter GROUP BY \"provisionerId\", \"workerType\", time($interval) fill(previous)",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "releng-hardware"
+            }
+          ]
+        },
+        {
+          "alias": ". $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT derivative(max(\"pendingTasks\")), max(\"pendingTasks\") + max(\"running\") as \"total\", max(\"pendingTasks\") as \"queued\", max(\"running\") as \"running\" FROM \"tc_queue2_exec\" WHERE \"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/ AND $timeFilter GROUP BY \"provisionerId\", \"workerType\", time($interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "releng-hardware"
+            }
+          ]
+        },
+        {
+          "alias": "_ $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"pendingTasks\") - max(\"running\") as \"next\" FROM \"tc_queue2_exec\" WHERE \"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/ AND $timeFilter GROUP BY \"provisionerId\", \"workerType\", time($interval) fill(null)",
+          "rawQuery": true,
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "releng-hardware"
+            }
+          ]
+        },
+        {
+          "alias": ". $col",
+          "groupBy": [
+            {
+              "params": ["$__interval * 10"],
+              "type": "time"
+            },
+            {
+              "params": ["null"],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "tc_queue_exec",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT integral(\"running\", 20m), max(\"pendingTasks\") + max(\"running\") as \"total\", max(\"pendingTasks\") as \"queued\", max(\"running\") as \"running\" FROM \"tc_queue2_exec\" WHERE \"provisionerId\" =~ /^$provisioner$/ AND \"workerType\" =~ /^$workerType$/ AND $timeFilter GROUP BY \"provisionerId\", \"workerType\", time($interval) fill(null)",
+          "rawQuery": true,
+          "refId": "F",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["pendingTasks"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "provisionerId",
+              "operator": "=",
+              "value": "releng-hardware"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Tasks",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": 0
+      }
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 22,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "relops_workers",
+          "fill": 0,
+          "fillGradient": 4,
+          "gridPos": {
+            "h": 7,
+            "w": 19,
+            "x": 0,
+            "y": 19
+          },
+          "hiddenSeries": false,
+          "id": 20,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "total",
+              "dashes": true
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "20m $col",
+              "groupBy": [
+                {
+                  "params": ["1m"],
+                  "type": "time"
+                },
+                {
+                  "params": ["none"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "papertrail",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT count(\"count\") FROM (SELECT count(\"count\") FROM \"papertrail\" WHERE \"event\" = 'task' AND $timeFilter GROUP BY \"host\", time(20m) fill(none)) GROUP BY time(20m) fill(previous)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["count"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "event",
+                  "operator": "=~",
+                  "value": "/^no task/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "=~",
+                  "value": "/mdc[0-9].mozilla.com$/"
+                }
+              ]
+            },
+            {
+              "alias": "30m $col",
+              "groupBy": [
+                {
+                  "params": ["1m"],
+                  "type": "time"
+                },
+                {
+                  "params": ["none"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "papertrail",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT count(\"count\") FROM (SELECT count(\"count\") FROM \"papertrail\" WHERE \"event\" = 'task' AND $timeFilter GROUP BY \"host\", time(30m) fill(none)) GROUP BY time(30m) fill(linear)",
+              "rawQuery": true,
+              "refId": "E",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["count"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "event",
+                  "operator": "=~",
+                  "value": "/^no task/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "=~",
+                  "value": "/mdc[0-9].mozilla.com$/"
+                }
+              ]
+            },
+            {
+              "alias": "total",
+              "groupBy": [
+                {
+                  "params": ["1m"],
+                  "type": "time"
+                },
+                {
+                  "params": ["none"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "papertrail",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT count(\"count\") FROM (SELECT count(\"count\") FROM \"papertrail\" WHERE \"event\" = 'task' AND $timeFilter GROUP BY \"host\", time(12h) fill(none)) GROUP BY time(12h)",
+              "rawQuery": true,
+              "refId": "D",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["count"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "event",
+                  "operator": "=~",
+                  "value": "/^no task/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "=~",
+                  "value": "/mdc[0-9].mozilla.com$/"
+                }
+              ]
+            },
+            {
+              "alias": "daily $col $tag_event",
+              "groupBy": [
+                {
+                  "params": ["1m"],
+                  "type": "time"
+                },
+                {
+                  "params": ["none"],
+                  "type": "fill"
+                }
+              ],
+              "hide": true,
+              "measurement": "papertrail",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"mean\"), max(\"max\") FROM (SELECT max(\"count\"), mean(\"count\") FROM (SELECT count(\"count\") FROM \"papertrail\" WHERE (\"event\" = 'no task' OR \"event\" = 'task') AND $timeFilter GROUP BY \"event\", time(1m) fill(none)) GROUP BY \"event\", time(10m)) GROUP BY \"event\", time(3h)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["count"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "event",
+                  "operator": "=~",
+                  "value": "/^no task/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "=~",
+                  "value": "/mdc[0-9].mozilla.com$/"
+                }
+              ]
+            },
+            {
+              "alias": "10m $col $tag_event",
+              "groupBy": [
+                {
+                  "params": ["1m"],
+                  "type": "time"
+                },
+                {
+                  "params": ["none"],
+                  "type": "fill"
+                }
+              ],
+              "hide": true,
+              "measurement": "papertrail",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT ((max(\"count\") + mean(\"count\"))/2) as \"level\" FROM (SELECT count(\"count\") FROM \"papertrail\" WHERE (\"event\" = 'no task' OR \"event\" = 'task') AND $timeFilter GROUP BY \"event\", time(1m) fill(none)) GROUP BY \"event\", time(10m)",
+              "rawQuery": true,
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["count"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "event",
+                  "operator": "=~",
+                  "value": "/^no task/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "=~",
+                  "value": "/mdc[0-9].mozilla.com$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Usage (logged)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Time research",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 15,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "relops_workers",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 5,
+            "w": 12,
+            "x": 0,
+            "y": 27
+          },
+          "hiddenSeries": false,
+          "id": 9,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pluginVersion": "6.6.2",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "no task",
+              "color": "#73BF69"
+            },
+            {
+              "alias": "task",
+              "color": "#FADE2A"
+            },
+            {
+              "alias": "tc count",
+              "color": "#B877D9",
+              "nullPointMode": "connected",
+              "stack": false,
+              "steppedLine": false
+            },
+            {
+              "alias": "queue",
+              "color": "#F2495C",
+              "stack": false,
+              "steppedLine": false
+            }
+          ],
+          "spaceLength": 10,
+          "stack": true,
+          "steppedLine": true,
+          "targets": [
+            {
+              "alias": "$tag_event",
+              "groupBy": [
+                {
+                  "params": ["1m"],
+                  "type": "time"
+                },
+                {
+                  "params": ["none"],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "papertrail",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT count(\"count\") FROM \"papertrail\" WHERE \"event\" = 'no task' OR \"event\" = 'task' AND $timeFilter GROUP BY \"event\", time(10m)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["count"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "event",
+                  "operator": "=~",
+                  "value": "/^no task/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "=~",
+                  "value": "/mdc[0-9].mozilla.com$/"
+                }
+              ]
+            },
+            {
+              "alias": "$col",
+              "groupBy": [
+                {
+                  "params": ["5m"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "/^tc_queue/",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"running\") as \"tc count\", mean(\"pendingTasks\") as \"queue\" FROM /^tc_queue/ WHERE (\"provisionerId\" = 'releng-hardware') AND $timeFilter GROUP BY time(5m) fill(previous)",
+              "rawQuery": true,
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["running"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ],
+                [
+                  {
+                    "params": ["pendingTasks"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "provisionerId",
+                  "operator": "=",
+                  "value": "releng-hardware"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "task logged",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "relops_workers",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 5,
+            "w": 12,
+            "x": 12,
+            "y": 27
+          },
+          "hiddenSeries": false,
+          "id": 10,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_workerType",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["workerType"],
+                  "type": "tag"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "procstat",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["cpu_usage"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "process_name",
+                  "operator": "=",
+                  "value": "generic-worker"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "worker process",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "relops_workers",
+          "fill": 5,
+          "fillGradient": 4,
+          "gridPos": {
+            "h": 4,
+            "w": 12,
+            "x": 0,
+            "y": 32
+          },
+          "hiddenSeries": false,
+          "id": 12,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "10m max no task",
+              "fillBelowTo": "10m mean no task",
+              "lines": false
+            },
+            {
+              "alias": "10m mean no task",
+              "lines": false
+            },
+            {
+              "alias": "10m max task",
+              "fillBelowTo": "10m mean task",
+              "lines": false
+            },
+            {
+              "alias": "10m mean no task",
+              "lines": false
+            },
+            {
+              "alias": "10m mean task",
+              "lines": false
+            },
+            {
+              "alias": "level",
+              "color": "#B877D9"
+            },
+            {
+              "alias": "daily max no task",
+              "fillBelowTo": "daily mean no task",
+              "lines": false
+            },
+            {
+              "alias": "daily mean no task",
+              "lines": false
+            },
+            {
+              "alias": "daily max task",
+              "fillBelowTo": "daily mean task",
+              "lines": false
+            },
+            {
+              "alias": "daily mean task",
+              "lines": false
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "10m $col $tag_event",
+              "groupBy": [
+                {
+                  "params": ["1m"],
+                  "type": "time"
+                },
+                {
+                  "params": ["none"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "papertrail",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"count\"), mean(\"count\"), ((max(\"count\") + mean(\"count\"))/2)as \"level\" FROM (SELECT count(\"count\") FROM \"papertrail\" WHERE (\"event\" = 'no task' OR \"event\" = 'task') AND $timeFilter GROUP BY \"event\", time(1m) fill(none)) GROUP BY \"event\", time(10m)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["count"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "event",
+                  "operator": "=~",
+                  "value": "/^no task/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "=~",
+                  "value": "/mdc[0-9].mozilla.com$/"
+                }
+              ]
+            },
+            {
+              "alias": "daily $col $tag_event",
+              "groupBy": [
+                {
+                  "params": ["1m"],
+                  "type": "time"
+                },
+                {
+                  "params": ["none"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "papertrail",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"mean\"), max(\"max\") FROM (SELECT max(\"count\"), mean(\"count\") FROM (SELECT count(\"count\") FROM \"papertrail\" WHERE (\"event\" = 'no task' OR \"event\" = 'task') AND $timeFilter GROUP BY \"event\", time(1m) fill(none)) GROUP BY \"event\", time(10m)) GROUP BY \"event\", time(3h)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["count"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "event",
+                  "operator": "=~",
+                  "value": "/^no task/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "=~",
+                  "value": "/mdc[0-9].mozilla.com$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Usage (logged)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "relops_workers",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 4,
+            "w": 12,
+            "x": 12,
+            "y": 32
+          },
+          "hiddenSeries": false,
+          "id": 11,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "datacenter",
+              "color": "#73BF69"
+            },
+            {
+              "alias": "cloud",
+              "color": "#FADE2A"
+            },
+            {
+              "alias": "datacenter all",
+              "color": "#73BF69",
+              "dashLength": 1,
+              "dashes": true,
+              "spaceLength": 2
+            },
+            {
+              "alias": "cloud all",
+              "color": "#FADE2A",
+              "dashLength": 1,
+              "dashes": true,
+              "spaceLength": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": true,
+          "targets": [
+            {
+              "alias": "datacenter",
+              "groupBy": [
+                {
+                  "params": ["1m"],
+                  "type": "time"
+                },
+                {
+                  "params": ["none"],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "papertrail",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["count"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "event",
+                  "operator": "=~",
+                  "value": "/worker activity/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "=~",
+                  "value": "/mdc[0-9].mozilla.com$/"
+                }
+              ]
+            },
+            {
+              "alias": "cloud",
+              "groupBy": [
+                {
+                  "params": ["1m"],
+                  "type": "time"
+                },
+                {
+                  "params": ["none"],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "papertrail",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["count"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "event",
+                  "operator": "=~",
+                  "value": "/worker activity/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "!~",
+                  "value": "/mdc[0-9].mozilla.com$/"
+                }
+              ]
+            },
+            {
+              "alias": "datacenter all",
+              "groupBy": [
+                {
+                  "params": ["1m"],
+                  "type": "time"
+                },
+                {
+                  "params": ["none"],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "papertrail",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["count"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "event",
+                  "operator": "=",
+                  "value": "space"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "=~",
+                  "value": "/mdc[0-9].mozilla.com$/"
+                }
+              ]
+            },
+            {
+              "alias": "cloud all",
+              "groupBy": [
+                {
+                  "params": ["1m"],
+                  "type": "time"
+                },
+                {
+                  "params": ["none"],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "papertrail",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "D",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["count"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "event",
+                  "operator": "=",
+                  "value": "space"
+                },
+                {
+                  "condition": "AND",
+                  "key": "host",
+                  "operator": "!~",
+                  "value": "/mdc[0-9].mozilla.com$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "worker logging",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "cacheTimeout": null,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "relops_workers",
+          "decimals": 0,
+          "fill": 3,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 36
+          },
+          "hiddenSeries": false,
+          "id": 5,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "sort": "max",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": {
+            "dataLinks": []
+          },
+          "paceLength": 10,
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "cloud workers"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "hardware workers",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT sum(\"value\") FROM (SELECT mean(\"workers\") as \"value\" FROM \"tc_queue_exec\" WHERE (\"provisionerId\" = 'releng-hardware') AND \"workerType\" !~ /gamma$/ AND $timeFilter GROUP BY time(1d), \"provisionerId\", \"workerType\" fill(null)) GROUP BY time(1d) fill(previous)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "$tag_provisionerId $tag_workerType daily total",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "hide": true,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT sum(\"value\") FROM (SELECT mean(\"workers\") as \"value\" FROM \"tc_queue_exec\" WHERE (\"provisionerId\" != 'releng-hardware') AND \"workerType\" !~ /gamma$/ AND $timeFilter GROUP BY time(1d), \"provisionerId\", \"workerType\" fill(null)) GROUP BY time(1d), \"provisionerId\", \"workerType\" fill(previous)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "cloud workers hours",
+              "groupBy": [
+                {
+                  "params": ["$__interval"],
+                  "type": "time"
+                },
+                {
+                  "params": ["null"],
+                  "type": "fill"
+                }
+              ],
+              "hide": true,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT sum(\"value\") FROM (SELECT max(\"workers\") as \"value\" FROM \"tc_queue_exec\" WHERE (\"provisionerId\" = 'aws-provisioner-v1') AND \"workerType\" !~ /gamma$/ AND $timeFilter GROUP BY time(1h), \"provisionerId\", \"workerType\" fill(null)) GROUP BY time(1h) fill(previous)",
+              "rawQuery": true,
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": ["value"],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "DC Instances",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "decimals": null,
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Detail",
+      "type": "row"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 22,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "text": "releng-hardware",
+          "value": ["releng-hardware"]
+        },
+        "datasource": "relops_workers",
+        "definition": "SHOW TAG VALUES FROM /tc_queue/ WITH KEY = \"provisionerId\" ",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "provisioner",
+        "options": [
+          {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "bitbar",
+            "value": "bitbar"
+          },
+          {
+            "selected": false,
+            "text": "gecko-1",
+            "value": "gecko-1"
+          },
+          {
+            "selected": false,
+            "text": "gecko-2",
+            "value": "gecko-2"
+          },
+          {
+            "selected": false,
+            "text": "gecko-3",
+            "value": "gecko-3"
+          },
+          {
+            "selected": false,
+            "text": "gecko-t",
+            "value": "gecko-t"
+          },
+          {
+            "selected": false,
+            "text": "mobile-1",
+            "value": "mobile-1"
+          },
+          {
+            "selected": false,
+            "text": "mobile-3",
+            "value": "mobile-3"
+          },
+          {
+            "selected": false,
+            "text": "proj-autophone",
+            "value": "proj-autophone"
+          },
+          {
+            "selected": true,
+            "text": "releng-hardware",
+            "value": "releng-hardware"
+          },
+          {
+            "selected": false,
+            "text": "scriptworker-k8s",
+            "value": "scriptworker-k8s"
+          },
+          {
+            "selected": false,
+            "text": "scriptworker-prov-v1",
+            "value": "scriptworker-prov-v1"
+          },
+          {
+            "selected": false,
+            "text": "terraform-packet",
+            "value": "terraform-packet"
+          }
+        ],
+        "query": "SHOW TAG VALUES FROM /tc_queue/ WITH KEY = \"provisionerId\" ",
+        "refresh": 0,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 5,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "text": "gecko-t-linux-talos + gecko-t-osx-1014 + gecko-t-win10-64-hw + gecko-t-win10-64-ref-hw",
+          "value": [
+            "gecko-t-linux-talos",
+            "gecko-t-osx-1014",
+            "gecko-t-win10-64-hw",
+            "gecko-t-win10-64-ref-hw"
+          ]
+        },
+        "datasource": "relops_workers",
+        "definition": "SHOW TAG VALUES FROM /tc_queue/ WITH KEY = \"workerType\" WHERE provisionerId =~ /$provisioner/ ",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "workerType",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM /tc_queue/ WITH KEY = \"workerType\" WHERE provisionerId =~ /$provisioner/ ",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 5,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "190",
+          "value": "190"
+        },
+        "hide": 0,
+        "label": "target count",
+        "name": "targetCount",
+        "options": [
+          {
+            "selected": true,
+            "text": "190",
+            "value": "190"
+          }
+        ],
+        "query": "190",
+        "skipUrlSync": false,
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": ["5m", "15m", "1h", "6h", "12h", "24h", "2d", "7d", "30d"]
+  },
+  "timezone": "",
+  "title": "[WIP] DC Usage Copy",
+  "uid": "xUax5cgGz",
+  "version": 2
+}
