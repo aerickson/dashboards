@@ -22,8 +22,8 @@ https://github.com/esnet/gdg
 ### backing up
 
 ```bash
-# backup
-./run_gdg.sh backup
+# backup dashboards
+./run_gdg.sh backup dashboards -t relsre-backup
 
 ```
 

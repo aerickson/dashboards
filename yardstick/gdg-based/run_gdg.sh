@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-set -e 
+set -e
 # debug
-set -x
+# set -x
 
 CONFIG_FILE="config/importer.yml"
 
