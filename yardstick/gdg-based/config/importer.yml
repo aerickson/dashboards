@@ -1,0 +1,124 @@
+context_name: qa
+
+storage_engine:
+  any_label:
+    kind: cloud
+    cloud_type: s3
+    bucket_name: ""
+  ## The configuration below is mainly intended for OSS alternatives like ceph and minio.  If you use a known cloud provider
+  ## like aws, gcs, azure please setup the auth using the provided tooling from the cloud provider.
+  # For example, having a valid AWS bucket configured in ~/.aws/credentials will be sufficient without needing to provide the auth in the config.
+  ### valid boolean values can be represented as true, "true", or "1"
+  custom_cloud:
+    custom: true   ## Required, if set to true most of the 'custom' configuration will be disregarded.
+    kind: cloud
+    cloud_type: s3
+    prefix: dummy
+    bucket_name: "mybucket"
+    access_id: ""  ## this value can also be read from: AWS_ACCESS_KEY. config file is given precedence
+    secret_key: ""  ## same as above, can be read from: AWS_SECRET_KEY with config file is given precedence.
+    init_bucket: "true" ## Only supported for custom workflows. Will attempt to create a bucket if one does not exist.
+    endpoint: "http://localhost:9000"
+    ssl_enabled: "false"
+
+contexts:
+  testing:
+    storage: "any_label"
+    output_path: test/data
+    enterprise_support: true
+    user:
+      random_password: true
+      min_length: 8
+      max_length: 20
+    connections:
+      filters:
+        - field: "name"
+          regex: "DEV-*|-Dev-*"
+        - field: "type"
+          regex: "elasticsearch"
+          inclusive: true
+      credential_rules:
+        - rules:
+            - field: "name"
+              regex: "misc"
+            - field: "url"
+              value: ".*esproxy2*"
+          secure_data: "default.json"
+        - rules:
+            - field: "url"
+              regex: ".*esproxy2*"
+          secure_data: "default.json"
+        - rules:
+            # Default
+            - field: "name"
+              regex: ".*"
+          secure_data: "default.json"
+    url: http://grafana:3000
+    user_name: admin
+    password: admin
+    dashboard_settings:
+      ignore_filters: false # When set to true all Watched filtered folders will be ignored and ALL folders will be acted on
+      ## Enables nested folders supported.
+      nested_folders: true
+      ## When set to true, will silently skip any invalid folders,
+      ## otherwise fatal error occurs for any invalid folder detected.  If you run this as a job/cron it's not a recommended setting.
+      ignore_bad_folders: false
+    watched:
+      - General
+      - Other
+
+  production:
+    output_path: prod
+    connections:
+      credential_rules:
+        - rules:
+            - field: "name"
+              regex: "(?i)complex name"
+          secure_data: "default.json"
+        # Default
+        - rules:
+            - field: "name"
+              regex: ".*"
+          secure_data: "default.json"
+    url: https://grafana.com
+    user_name: admin
+    password: admin
+    dashboard_settings:
+      ignore_filters: false # When set to true all Watched filtered folders will be ignored and ALL folders will be acted on
+    watched:
+      - General
+  qa:
+    output_path: qa
+    token: <CHANGEME>
+    connections:
+      credential_rules:
+        - rules:
+            - field: "name"
+              regex: "(?i)complex name"
+          secure_data: "default.json"
+        - rules:
+            # Default
+            - field: "name"
+              regex: ".*"
+          secure_data: "default.json"
+    url: https://staging.grafana.com
+    dashboard_settings:
+      ignore_filters: false # When set to true all Watched filtered folders will be ignored and ALL folders will be acted on
+    watched:
+      - Folder1
+      - Folder2
+    watched_folders_override:
+      - organization_name: "Some Other Org"
+        folders:
+          - General
+          - SpecialFolder
+
+global:
+  debug: true
+  api_debug: false
+  clear_output: true
+  ignore_ssl_errors: false ##when set to true will ignore invalid SSL errors
+  retry_count: 3 ## Will retry any failed API request up to 3 times.
+  retry_delay: 5s  ## will wait for specified duration before trying again.
+## Keep in mind longer the dealy and higher the count the slower GDG will be in performing certain tasks.
+## A failing endpoint that has 10s * 6 = 60 seconds minimum for each failing endpoint.  Use this carefully
